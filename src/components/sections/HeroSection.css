@@ -1,0 +1,55 @@
+.hero-scope {
+    position: relative;
+    height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; overflow: hidden;
+}
+
+/* 动态光斑背景 */
+.hero-scope .hero-glow {
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, #8b5cf6 0%, transparent 60%);
+    filter: blur(100px); opacity: 0.2; animation: hero-pulse 5s infinite ease-in-out;
+    top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;
+}
+@keyframes hero-pulse { 0%,100%{opacity:0.2; transform:translate(-50%,-50%) scale(1);} 50%{opacity:0.3; transform:translate(-50%,-50%) scale(1.2);} }
+
+.hero-scope .hero-tag {
+    border: 1px solid rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b5cf6; background: rgba(139, 92, 246, 0.05);
+    margin-bottom: 30px; letter-spacing: 1px;
+}
+
+.hero-scope .hero-title {
+    font-family: 'Syncopate', sans-serif;
+    font-size: clamp(3rem, 10vw, 90px); line-height: 0.95; font-weight: 700; text-transform: uppercase;
+    letter-spacing: -3px; margin-bottom: 30px;
+    background: linear-gradient(180deg, #fff 20%, #666 100%);
+    -webkit-background-clip: text; color: transparent;
+}
+
+.hero-scope .hero-desc {
+    font-size: 18px; color: #888; max-width: 600px; line-height: 1.6; margin-bottom: 50px;
+}
+
+.hero-scope .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.hero-scope .btn-primary {
+    padding: 16px 40px; background: #fff; color: #000; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 14px;
+    transition: 0.3s; position: relative; overflow: hidden;
+}
+.hero-scope .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+
+.hero-scope .btn-ghost {
+    padding: 16px 40px; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 10px; transition: 0.3s;
+}
+.hero-scope .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+
+/* TRUST STRIP */
+.trust-strip {
+    padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; justify-content: center; gap: 60px; color: #333; font-size: 24px;
+    flex-wrap: wrap;
+}
+.logo-ph { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1px; transition: 0.3s; }
+.logo-ph:hover { color: #fff; }

@@ -1,0 +1,205 @@
+/* Scoped styles for Content Sections (24.html) */
+.content-24-scope {
+    /* --- 公共物理层 --- */
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    
+}
+
+.content-24-scope .section-wrap {
+    padding: 100px 40px;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+}
+
+.content-24-scope .label-divider {
+    text-align: center; margin: 100px 0; color: #333; font-family: 'JetBrains Mono'; letter-spacing: 5px;
+}
+
+
+/* =================================================================
+   OPTION 1: THE PRISM LATTICE (晶格棱镜 · 奢华感)
+   ================================================================= */
+.content-24-scope .prism-bg {
+    /* 极光背景 */
+    background: radial-gradient(circle at 50% 30%, #111115 0%, #000 70%);
+}
+
+/* 标题区：艺术排版 */
+.content-24-scope .prism-header {
+    text-align: center; margin-bottom: 80px; position: relative;
+}
+.content-24-scope .prism-title {
+    font-family: 'Cinzel', serif; font-size: 60px; font-weight: 400; letter-spacing: 10px;
+    background: linear-gradient(135deg, #fff 0%, #666 100%); -webkit-background-clip: text; color: transparent;
+    margin-bottom: 20px;
+}
+.content-24-scope .prism-sub {
+    font-family: 'JetBrains Mono'; color: #666; font-size: 12px; border: 1px solid #333;
+    display: inline-block; padding: 8px 20px; border-radius: 50px;
+}
+
+/* 晶格布局 */
+.content-24-scope .prism-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1400px; margin: 0 auto;
+}
+
+/* 核心组件：水晶卡片 */
+.content-24-scope .crystal-card {
+    position: relative; height: 500px;
+    background: rgba(10, 10, 10, 0.4);
+    /* 多重边框模拟厚度与色散 */
+    box-shadow: 
+        inset 0 0 0 1px rgba(255,255,255,0.08), /* 内描边 */
+        0 0 0 1px rgba(0,0,0,1), /* 黑分割 */
+        0 20px 50px -10px rgba(0,0,0,0.8);
+    border-radius: 4px; /* 较小的圆角，更像宝石 */
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex; flex-direction: column;
+}
+
+/* 顶部玻璃高光 */
+.content-24-scope .crystal-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 40%);
+    opacity: 0.5; pointer-events: none; z-index: 2;
+}
+
+/* 底部色散光 (模拟棱镜) */
+.content-24-scope .crystal-card::after {
+    content: ''; position: absolute; bottom: -50px; right: -50px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(59,130,246,0.2), transparent 70%);
+    filter: blur(40px); transition: 0.5s; opacity: 0;
+}
+.content-24-scope .crystal-card:hover::after { opacity: 1; bottom: -20px; right: -20px; }
+
+.content-24-scope .crystal-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 
+        inset 0 0 0 1px rgba(255,255,255,0.2),
+        0 30px 60px -10px rgba(0,0,0,0.9);
+}
+
+/* 内容布局 */
+.content-24-scope .cc-visual {
+    flex: 1; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); overflow: hidden;
+}
+.content-24-scope .cc-img {
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: grayscale(100%) contrast(1.2); transition: 0.7s;
+}
+.content-24-scope .crystal-card:hover .cc-img { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
+
+.content-24-scope .cc-info {
+    padding: 30px; position: relative; z-index: 3; background: rgba(5,5,5,0.8); backdrop-filter: blur(10px);
+}
+.content-24-scope .cc-num { font-family: 'Playfair Display'; font-style: italic; color: #333; font-size: 40px; position: absolute; top: -20px; right: 20px; }
+.content-24-scope .crystal-card:hover .cc-num { color: #fff; }
+
+.content-24-scope .cc-title { font-family: 'Inter'; font-weight: 300; font-size: 24px; color: #fff; margin-bottom: 10px; letter-spacing: -0.5px; }
+.content-24-scope .cc-desc { font-family: 'JetBrains Mono'; font-size: 11px; color: #666; line-height: 1.6; }
+
+/* 装饰线条 */
+.content-24-scope .cc-line { width: 40px; height: 1px; background: #fff; margin-top: 20px; transition: 0.5s; width: 0; }
+.content-24-scope .crystal-card:hover .cc-line { width: 40px; }
+
+
+/* =================================================================
+   OPTION 2: THE NEURAL BLUEPRINT (神经蓝图 · 精密感)
+   ================================================================= */
+.content-24-scope .blueprint-bg {
+    background-color: #050505;
+    /* 精密网格 */
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* 复杂边框容器 */
+.content-24-scope .blueprint-frame {
+    border: 1px solid #222;
+    position: relative;
+    padding: 60px;
+    max-width: 1400px; margin: 0 auto;
+}
+/* 四角瞄准器 */
+.content-24-scope .bp-corner { position: absolute; width: 10px; height: 10px; border: 2px solid #fff; transition: 0.3s; }
+.content-24-scope .tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.content-24-scope .tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.content-24-scope .bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.content-24-scope .br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.content-24-scope .blueprint-frame:hover .bp-corner { width: 30px; height: 30px; }
+
+/* 顶部标尺 */
+.content-24-scope .bp-ruler {
+    position: absolute; top: 0; left: 0; width: 100%; height: 20px;
+    background: repeating-linear-gradient(90deg, #333 0, #333 1px, transparent 1px, transparent 10px);
+    opacity: 0.5; border-bottom: 1px solid #222;
+}
+
+/* 内容布局 */
+.content-24-scope .bp-layout {
+    display: grid; grid-template-columns: 400px 1fr; gap: 60px; align-items: center;
+}
+
+/* 左侧文字 */
+.content-24-scope .bp-text h2 {
+    font-family: 'Inter'; font-weight: 700; font-size: 48px; line-height: 1.1; margin-bottom: 30px;
+    text-transform: uppercase; letter-spacing: -1px;
+}
+.content-24-scope .bp-text p {
+    font-family: 'JetBrains Mono'; font-size: 13px; color: #888; line-height: 1.8; margin-bottom: 40px;
+    border-left: 1px solid #333; padding-left: 20px;
+}
+
+/* 精密参数列表 */
+.content-24-scope .bp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-top: 1px solid #222; padding-top: 20px; }
+.content-24-scope .bp-stat-item label { display: block; font-family: 'JetBrains Mono'; font-size: 10px; color: #555; margin-bottom: 5px; }
+.content-24-scope .bp-stat-item span { font-family: 'Inter'; font-size: 24px; font-weight: 600; color: #fff; }
+
+/* 右侧终端 */
+.content-24-scope .bp-terminal {
+    background: #000; border: 1px solid #333; height: 500px; position: relative;
+    box-shadow: 0 0 0 10px rgba(255,255,255,0.02); /* 外发光 */
+    display: flex; flex-direction: column;
+}
+
+.content-24-scope .term-head {
+    height: 40px; border-bottom: 1px solid #222; display: flex; align-items: center; padding: 0 20px; gap: 10px;
+    font-family: 'JetBrains Mono'; font-size: 10px; color: #666;
+}
+.content-24-scope .term-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; }
+.content-24-scope .term-dot.active { background: #3b82f6; box-shadow: 0 0 10px #3b82f6; }
+
+.content-24-scope .term-body {
+    flex: 1; padding: 30px; position: relative; overflow: hidden;
+}
+
+/* 动态扫描线 */
+.content-24-scope .term-scan {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: #3b82f6; box-shadow: 0 0 20px #3b82f6;
+    animation: scan 3s infinite linear; z-index: 10; opacity: 0.5;
+}
+@keyframes scan { 0% {top: 0;} 100% {top: 100%;} }
+
+/* 内部 UI 模拟 */
+.content-24-scope .ui-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #222; padding-bottom: 5px; }
+.content-24-scope .ui-key { font-family: 'JetBrains Mono'; font-size: 12px; color: #666; }
+.content-24-scope .ui-val { font-family: 'JetBrains Mono'; font-size: 12px; color: #fff; }
+
+.content-24-scope .ui-graph {
+    height: 150px; margin-top: 30px; border: 1px solid #222; position: relative;
+    background: repeating-linear-gradient(45deg, #050505, #050505 5px, #080808 5px, #080808 10px);
+}
+.content-24-scope .ui-line-path {
+    position: absolute; bottom: 20px; left: 20px; right: 20px; top: 50px;
+    border-bottom: 2px solid #333; border-left: 2px solid #333;
+}
+.content-24-scope .ui-point {
+    position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%;
+    bottom: 40px; left: 60%; box-shadow: 0 0 10px #fff;
+}

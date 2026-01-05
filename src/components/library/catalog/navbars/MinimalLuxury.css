@@ -1,0 +1,96 @@
+/* 引入高级感字体 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+/* 导航栏容器 */
+.minimal-luxury-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+
+  /* 核心：纯白磨砂质感 */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* 只有一条极细的底边线 */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+
+  z-index: 1000;
+  transition: all 0.4s ease;
+}
+
+/* Logo 设计 - 核心视觉点 */
+.minimal-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  font-style: italic;
+}
+
+/* 菜单链接 */
+.minimal-nav-links {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.minimal-nav-links li a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* 极简的下划线动画 */
+.minimal-nav-links li a::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: #1a1a1a;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.minimal-nav-links li a:hover {
+  color: #000;
+}
+
+.minimal-nav-links li a:hover::before {
+  width: 100%;
+}
+
+/* 极简按钮 */
+.minimal-btn {
+  padding: 10px 24px;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.minimal-btn:hover {
+  border-color: #1a1a1a;
+  background: #1a1a1a;
+  color: #fff;
+}

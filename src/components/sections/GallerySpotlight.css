@@ -1,0 +1,64 @@
+.gallery-spotlight-scope {
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.gs-container {
+    max-width: 1400px; margin: 0 auto; padding: 0 40px;
+    display: flex; gap: 60px;
+}
+
+.gs-sticky-side {
+    width: 35%;
+    position: sticky; top: 100px; height: fit-content;
+}
+.gs-scroll-side {
+    width: 65%;
+}
+
+.gs-label {
+    font-family: 'JetBrains Mono'; font-size: 12px; color: #8b5cf6; margin-bottom: 20px; display: block;
+}
+.gs-title {
+    font-family: 'Syncopate', sans-serif; font-size: 56px; line-height: 0.9; margin-bottom: 40px;
+    background: linear-gradient(135deg, #fff 0%, #888 100%); -webkit-background-clip: text; color: transparent;
+}
+.gs-desc {
+    font-family: 'Inter', sans-serif; font-size: 18px; color: #888; line-height: 1.6; margin-bottom: 40px;
+}
+
+.gs-artist-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 20px; background: rgba(255,255,255,0.05); border-radius: 50px;
+    font-family: 'Space Grotesk'; color: #fff;
+}
+.gs-artist-avatar {
+    width: 30px; height: 30px; border-radius: 50%; background: #ccc;
+}
+
+/* Image Cards */
+.gs-card {
+    margin-bottom: 80px;
+    position: relative;
+}
+.gs-card-img {
+    width: 100%; height: 600px; object-fit: cover;
+    border-radius: 4px;
+    filter: grayscale(20%); transition: 0.5s;
+}
+.gs-card:hover .gs-card-img { filter: grayscale(0%); }
+
+.gs-card-meta {
+    position: absolute; bottom: -20px; right: -20px;
+    background: #000; padding: 20px; border: 1px solid #333;
+    max-width: 250px;
+}
+.gs-meta-title { font-family: 'Space Grotesk'; font-size: 18px; color: #fff; margin-bottom: 5px; }
+.gs-meta-date { font-family: 'JetBrains Mono'; font-size: 12px; color: #666; }
+
+@media (max-width: 900px) {
+    .gs-container { flex-direction: column; }
+    .gs-sticky-side { width: 100%; position: relative; top: 0; margin-bottom: 60px; }
+    .gs-scroll-side { width: 100%; }
+}

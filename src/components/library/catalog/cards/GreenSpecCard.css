@@ -1,0 +1,350 @@
+.lib-green-card {
+  /*
+    设计目标：粗描边 + 轻微硬阴影，模拟“漫画贴纸”质感。
+    关键：用变量统一颜色，方便后续对齐设计稿迭代。
+  */
+  --gc-bg: #dff8a8;
+  --gc-shell: #38d21a;
+  --gc-dark: #0f2333;
+  --gc-cream: #fbf2dc;
+  --gc-border: #000;
+  --gc-text: #000;
+  --gc-text-sub: #6b7280;
+  --gc-accent-lime: #b7ff55;
+  
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  position: relative;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  background-color: var(--gc-shell);
+  padding: 24px;
+  border-radius: 28px;
+  border: 5px solid var(--gc-border);
+  box-sizing: border-box;
+  color: var(--gc-text);
+  box-shadow: 0 0 0 5px var(--gc-bg);
+}
+
+/* Grid Layout */
+.lib-gc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 600px) {
+  .lib-gc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Columns */
+.lib-gc-col-left,
+.lib-gc-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header Section - Trapezoidal Design */
+.lib-gc-header-wrap {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: -10px; /* Overlap with the panel below for hierarchy */
+  position: relative;
+  z-index: 10;
+  filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.1));
+}
+
+.lib-gc-header-body {
+  background-color: var(--gc-dark);
+  border: 5px solid var(--gc-border);
+  border-right: none; /* Connect to slant */
+  border-radius: 16px 0 0 0; /* Top-left rounded only */
+  padding: 16px 10px 16px 28px;
+  display: flex;
+  align-items: center;
+}
+
+.lib-gc-header-slant {
+  background-color: var(--gc-dark);
+  border: 5px solid var(--gc-border);
+  border-left: none; /* Connect to body */
+  border-radius: 0 16px 0 0; /* Top-right rounded */
+  width: 60px; /* Width of the slanted area */
+  transform: skewX(-15deg); /* The trapezoid angle */
+  transform-origin: bottom left;
+  margin-left: -2px; /* Fix any sub-pixel rendering gaps */
+  position: relative;
+  /* Clip the bottom-right corner if needed to match the panel below, 
+     but for now, a simple skew creates the 'cut' effect visually. */
+}
+
+/* Fix the border connection visual glitch */
+.lib-gc-header-body::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 5px;
+  bottom: 5px;
+  width: 4px;
+  background: var(--gc-dark);
+  z-index: 1;
+}
+
+.lib-gc-header-text {
+  margin: 0;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(180deg, #ffffff 0%, #baf7e8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 2;
+}
+
+/* Common Panel Styles */
+.lib-gc-panel {
+  background-color: var(--gc-cream);
+  border: 5px solid var(--gc-border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.lib-gc-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gc-text);
+}
+
+.lib-gc-panel-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.lib-gc-btn-more {
+  background: var(--gc-accent-lime);
+  border: 3px solid var(--gc-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+.lib-gc-btn-more:hover {
+  transform: translateY(-1px);
+}
+
+.lib-gc-btn-more:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.12);
+}
+
+.lib-gc-btn-arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Left Column: Rewards */
+.lib-gc-rewards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1; /* Fill remaining height if needed */
+}
+
+.lib-gc-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lib-gc-tag-dark {
+  background-color: var(--gc-dark);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.lib-gc-reward-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.lib-gc-reward-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--gc-border);
+}
+
+.lib-gc-reward-img {
+  height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  opacity: 0.98;
+}
+
+.lib-gc-reward-img-1 {
+  background:
+    radial-gradient(80% 120% at 20% 20%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, #2b1c14 0%, #6b4b3b 45%, #2b1c14 100%);
+}
+
+.lib-gc-reward-img-2 {
+  background:
+    radial-gradient(80% 120% at 20% 20%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, #98a6af 0%, #cbd5e1 45%, #8aa0ad 100%);
+}
+
+.lib-gc-img-tag {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.lib-gc-point-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: var(--gc-accent-lime);
+  border: 3px solid var(--gc-border);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Bloggers Section */
+.lib-gc-bloggers {
+  /* Minimal height if needed */
+}
+
+.lib-gc-avatar-list {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.lib-gc-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid var(--gc-border);
+  background-color: #ddd;
+  margin-right: -16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mock Avatar Colors */
+.lib-gc-avatar-1 { background-color: #FFCDD2; }
+.lib-gc-avatar-2 { background-color: #F8BBD0; }
+.lib-gc-avatar-3 { background-color: #E1BEE7; }
+.lib-gc-avatar-4 { background-color: #D1C4E9; }
+.lib-gc-avatar-5 { background-color: #C5CAE9; }
+.lib-gc-avatar-6 { background-color: #BBDEFB; }
+
+.lib-gc-avatar-more {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--gc-dark);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: 3px solid var(--gc-border);
+  z-index: 2;
+  margin-left: -16px;
+}
+
+/* Growth Plan Section */
+.lib-gc-growth {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.lib-gc-topic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.lib-gc-topic-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lib-gc-topic-title {
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lib-gc-topic-icon {
+  background-color: var(--gc-accent-lime);
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  border: 2px solid var(--gc-border);
+}
+
+.lib-gc-fire {
+  font-size: 14px;
+}
+
+.lib-gc-topic-desc {
+  font-size: 16px;
+  color: var(--gc-text-sub);
+  line-height: 1.5;
+  margin: 0;
+  padding-left: 40px;
+}
+
+@media (max-width: 720px) {
+  .lib-gc-header-text { font-size: 40px; }
+  .lib-green-card { padding: 18px; }
+  .lib-gc-title { font-size: 22px; }
+  .lib-gc-point-tag { font-size: 18px; }
+  .lib-gc-avatar, .lib-gc-avatar-more { width: 48px; height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lib-gc-btn-more { transition: none; }
+  .lib-gc-btn-more:hover { transform: none; }
+  .lib-gc-btn-more:active { transform: none; }
+}

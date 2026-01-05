@@ -1,0 +1,134 @@
+/* 
+  MAXIMALIST FUSION SYSTEM 
+  The "Chaos Engine" uniting distinct aesthetic dimensions.
+*/
+
+:root {
+  /* --- ACID / CYBERPUNK --- */
+  --acid-lime: #ccff00;
+  --acid-pink: #ff00ff;
+  --acid-purple: #bc13fe;
+  --acid-black: #050505;
+  --acid-grid: rgba(204, 255, 0, 0.2);
+
+  /* --- VAPORWAVE / POP --- */
+  --pop-cyan: #00ffff;
+  --pop-yellow: #fff500;
+  --pop-magenta: #ff0090;
+  --vapor-grad: linear-gradient(180deg, #ff71ce, #01cdfe);
+
+  /* --- NEW CHINESE / GLASS --- */
+  --ink-black: #1a1a1a;
+  --paper-white: #f4f4f4;
+  --china-red: #c21f30;
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+}
+
+/* --- UTILITIES --- */
+.font-stretch { transform: scaleY(1.5); }
+.font-wide { letter-spacing: 0.2em; }
+.blend-exclusion { mix-blend-mode: exclusion; }
+.blend-screen { mix-blend-mode: screen; }
+
+/* --- ANIMATIONS --- */
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-10deg); }
+  40% { transform: skew(10deg); }
+  60% { transform: skew(-5deg); }
+  80% { transform: skew(5deg); }
+  100% { transform: skew(0deg); }
+}
+
+@keyframes float-ethereal {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- COMPONENTS --- */
+
+/* 1. ACID BUTTON */
+.btn-acid {
+  background: var(--acid-black);
+  color: var(--acid-lime);
+  border: 1px solid var(--acid-lime);
+  padding: 12px 24px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-acid:hover {
+  background: var(--acid-lime);
+  color: var(--acid-black);
+  box-shadow: 4px 4px 0 var(--acid-pink);
+}
+
+/* 2. GLASS CARD */
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* 3. POP ART BADGE */
+.badge-pop {
+  background: var(--pop-yellow);
+  color: black;
+  border: 2px solid black;
+  box-shadow: 3px 3px 0 black;
+  padding: 4px 8px;
+  font-weight: 900;
+  font-size: 12px;
+  transform: rotate(-2deg);
+}
+
+/* 4. INK TEXT */
+.text-ink {
+  font-family: 'Times New Roman', serif;
+  color: var(--ink-black); /* Will need light bg or inversion */
+  filter: contrast(1.2);
+  letter-spacing: 0.05em;
+}
+
+/* --- PAGE SPECIFIC OVERRIDES --- */
+
+/* BLUEPRINT: Grid & Terminal */
+.blueprint-grid-bg {
+  background-image: 
+    linear-gradient(var(--acid-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--acid-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* GALLERY: Dot Pattern */
+.gallery-dot-bg {
+  background-image: radial-gradient(var(--pop-cyan) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* INTERFACE: Noise */
+.interface-noise {
+  position: relative;
+}
+.interface-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 5;
+}

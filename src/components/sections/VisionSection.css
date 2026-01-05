@@ -1,0 +1,84 @@
+.vision-scope {
+    position: relative;
+    padding: 150px 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #030303 0%, #0a0a0a 100%);
+}
+
+.vision-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+
+/* 动态模糊文字 */
+.vision-blur-text {
+    font-family: 'Syncopate', sans-serif;
+    font-size: clamp(3rem, 8vw, 120px);
+    font-weight: 800;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 60px;
+    user-select: none;
+}
+.vision-blur-text span {
+    display: inline-block;
+    transition: 0.5s;
+    filter: blur(0px);
+}
+.vision-blur-text:hover span {
+    color: #fff;
+    -webkit-text-stroke: 0px;
+    filter: blur(0) !important;
+}
+
+/* 使得文字产生随机模糊效果 */
+.vision-blur-text span:nth-child(2n) { filter: blur(2px); color: rgba(255,255,255,0.1); }
+.vision-blur-text span:nth-child(3n) { filter: blur(4px); }
+
+.vision-manifesto {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 1.6;
+    color: #888;
+    max-width: 800px;
+    position: relative;
+}
+.vision-manifesto strong { color: #fff; font-weight: 500; }
+
+/* 装饰性光束 */
+.vision-beam {
+    position: absolute;
+    width: 2px; height: 0;
+    background: linear-gradient(to bottom, transparent, #8b5cf6, transparent);
+    left: 50%; top: 0;
+    animation: beam-drop 3s infinite ease-in-out;
+    opacity: 0.5;
+}
+@keyframes beam-drop {
+    0% { top: 0; height: 0; opacity: 0; }
+    50% { opacity: 1; height: 200px; }
+    100% { top: 100%; height: 0; opacity: 0; }
+}
+
+/* 滚动文字带 */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    bottom: 50px; left: 0;
+    opacity: 0.2;
+    font-family: 'JetBrains Mono';
+    font-size: 14px;
+}
+.ticker {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+}
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}

@@ -1,0 +1,333 @@
+/*
+  FoodFruitDrawCard
+  - 目标：复刻“美食专区 / 水果免费抽奖”街机风格瓷片区。
+  - 交互：CTA 按钮 hover/active，屏幕水果轻微漂浮；支持 prefers-reduced-motion。
+*/
+
+.lib-ffd-shell {
+  --ffd-bg: #dff8a8;
+  --ffd-shell: #38d21a;
+  --ffd-dark: #0f2333;
+  --ffd-cream: #eaffc5;
+  --ffd-border: #000;
+  --ffd-shadow: rgba(0, 0, 0, 0.12);
+  --ffd-screen: #6ff7ff;
+  --ffd-cta: #ffd65c;
+  --ffd-cta-shadow: #7adf35;
+
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.lib-ffd-surface {
+  background: var(--ffd-shell);
+  border: 5px solid var(--ffd-border);
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: 0 0 0 5px var(--ffd-bg);
+  box-sizing: border-box;
+}
+
+.lib-ffd-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.lib-ffd-title-wrap {
+  display: flex;
+  align-items: stretch;
+}
+
+.lib-ffd-title-panel {
+  background: var(--ffd-dark);
+  border: 5px solid var(--ffd-border);
+  border-right: 0;
+  border-radius: 18px 0 0 18px;
+  padding: 16px 26px;
+  box-shadow: 6px 6px 0 var(--ffd-shadow);
+}
+
+.lib-ffd-title-notch {
+  width: 44px;
+  background: var(--ffd-dark);
+  border: 5px solid var(--ffd-border);
+  border-left: 0;
+  border-radius: 0 18px 18px 0;
+  box-shadow: 6px 6px 0 var(--ffd-shadow);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 70%);
+}
+
+.lib-ffd-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 1px;
+  background: linear-gradient(180deg, #ffffff 0%, #baf7e8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+.lib-ffd-tags {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px 12px;
+  align-content: start;
+}
+
+.lib-ffd-tag {
+  background: #b7ff55;
+  border: 4px solid var(--ffd-border);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 4px 4px 0 var(--ffd-shadow);
+  white-space: nowrap;
+}
+
+/* 街机机身 */
+.lib-ffd-machine {
+  position: relative;
+  background: rgba(0, 0, 0, 0.06);
+  border: 5px solid var(--ffd-border);
+  border-radius: 26px;
+  padding: 26px 22px 22px 22px;
+  box-shadow: 6px 6px 0 var(--ffd-shadow);
+  overflow: hidden;
+}
+
+.lib-ffd-machine-frame {
+  position: absolute;
+  inset: 14px;
+  border: 5px solid var(--ffd-border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* 标题：白描边 + 绿色填充，双层文本叠加实现 */
+.lib-ffd-headline {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 12px 0 16px 0;
+}
+
+.lib-ffd-headline-stroke,
+.lib-ffd-headline-fill {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 58px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.lib-ffd-headline-stroke {
+  color: #fff;
+  -webkit-text-stroke: 10px #fff;
+  text-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+}
+
+.lib-ffd-headline-fill {
+  position: absolute;
+  color: #31c316;
+  text-shadow: 0 6px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* 屏幕 */
+.lib-ffd-screen {
+  position: relative;
+  height: 250px;
+  border: 5px solid var(--ffd-border);
+  border-radius: 24px;
+  background: var(--ffd-screen);
+  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+
+.lib-ffd-waves {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 220px at 0% 40%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(1200px 220px at 100% 70%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.lib-ffd-fruits {
+  position: absolute;
+  inset: 0;
+}
+
+.lib-ffd-fruit {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.12);
+  transform: translateZ(0);
+  animation: ffd-float 3.2s ease-in-out infinite;
+}
+
+.lib-ffd-fruit.f1 { left: 70px; top: 40px; background: radial-gradient(circle at 30% 30%, #fff 0%, #ffb84d 40%, #ff7a00 100%); }
+.lib-ffd-fruit.f2 { left: 260px; top: 52px; background: radial-gradient(circle at 30% 30%, #fff 0%, #93ff6b 40%, #26c53b 100%); animation-delay: -0.8s; }
+.lib-ffd-fruit.f3 { left: 460px; top: 68px; background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd1b0 40%, #ffb43a 100%); animation-delay: -1.4s; }
+.lib-ffd-fruit.f4 { right: 82px; top: 52px; background: radial-gradient(circle at 30% 30%, #fff 0%, #ff88a6 40%, #ff2a57 100%); animation-delay: -0.4s; }
+.lib-ffd-fruit.f5 { left: 120px; bottom: 52px; background: radial-gradient(circle at 30% 30%, #fff 0%, #ffe873 40%, #ffb400 100%); animation-delay: -1.1s; }
+.lib-ffd-fruit.f6 { left: 330px; bottom: 62px; width: 70px; height: 70px; background: radial-gradient(circle at 30% 30%, #fff 0%, #9b6bff 40%, #4b1bdc 100%); animation-delay: -1.8s; }
+.lib-ffd-fruit.f7 { right: 110px; bottom: 62px; background: radial-gradient(circle at 30% 30%, #fff 0%, #ff6a6a 40%, #d10000 100%); animation-delay: -0.9s; }
+
+@keyframes ffd-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* 摇杆 */
+.lib-ffd-joystick {
+  position: absolute;
+  bottom: 18px;
+  width: 120px;
+  height: 120px;
+}
+
+.lib-ffd-joystick.left { left: 26px; }
+.lib-ffd-joystick.right { right: 26px; }
+
+.lib-ffd-joy-base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 92px;
+  height: 42px;
+  transform: translateX(-50%);
+  border: 5px solid #000;
+  border-radius: 999px;
+  background: #ecffd0;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.12);
+}
+
+.lib-ffd-joy-stick {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  width: 20px;
+  height: 64px;
+  transform: translateX(-50%) rotate(-10deg);
+  border: 5px solid #000;
+  border-radius: 999px;
+  background: #31c316;
+}
+
+.lib-ffd-joystick.right .lib-ffd-joy-stick {
+  transform: translateX(-50%) rotate(10deg);
+}
+
+.lib-ffd-joy-ball {
+  position: absolute;
+  bottom: 78px;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translateX(-50%);
+  border: 5px solid #000;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #ff9640 35%, #ff2a2a 100%);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* CTA */
+.lib-ffd-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  min-width: 240px;
+  height: 68px;
+  padding: 0 22px;
+  border: 5px solid #000;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe6a6 0%, var(--ffd-cta) 100%);
+  font-size: 30px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 10px 0 var(--ffd-cta-shadow);
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.lib-ffd-cta:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.lib-ffd-cta:active {
+  transform: translateX(-50%) translateY(6px);
+  box-shadow: 0 2px 0 var(--ffd-cta-shadow);
+}
+
+.lib-ffd-cta:focus-visible {
+  outline: 4px solid #000;
+  outline-offset: 4px;
+}
+
+/* 底部说明条 */
+.lib-ffd-footer {
+  margin-top: 18px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 5px solid #000;
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.12);
+}
+
+.lib-ffd-hash {
+  background: #b7ff55;
+  border: 4px solid #000;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@media (max-width: 760px) {
+  .lib-ffd-title { font-size: 42px; }
+  .lib-ffd-headline-stroke,
+  .lib-ffd-headline-fill {
+    font-size: 44px;
+  }
+  .lib-ffd-tag { font-size: 14px; }
+  .lib-ffd-fruit { width: 48px; height: 48px; }
+  .lib-ffd-cta { min-width: 210px; height: 62px; font-size: 26px; }
+}
+
+@media (max-width: 620px) {
+  .lib-ffd-top { flex-direction: column; }
+  .lib-ffd-tags { grid-template-columns: 1fr; }
+  .lib-ffd-joystick { display: none; }
+  .lib-ffd-cta { bottom: 16px; }
+  .lib-ffd-machine { padding-bottom: 92px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lib-ffd-fruit { animation: none; }
+  .lib-ffd-cta { transition: none; }
+  .lib-ffd-cta:hover { transform: translateX(-50%); }
+  .lib-ffd-cta:active { transform: translateX(-50%); }
+}
+

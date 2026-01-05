@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-deep: #050505;
+  --bg-panel: #0a0a0a;
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.3);
+  --text-main: #ffffff;
+  --text-mute: #888888;
+  --font-ui: 'Inter', sans-serif;
+  --font-art: 'Playfair Display', serif;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+.sys-bar {
+  height: 30px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  font-family: var(--font-code);
+  font-size: 10px;
+  color: var(--text-mute);
+  letter-spacing: 1px;
+  background: rgba(5, 5, 5, 0.9);
+}
+
+.sys-stat span {
+  color: #fff;
+  margin-left: 5px;
+}
+
+.sys-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  margin-right: 5px;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  height: 70px;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-art);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.brand-text {
+  font-family: var(--font-code);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.5px;
+}
+
+.menu {
+  display: flex;
+  height: 100%;
+  gap: 5px;
+}
+
+.menu-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ccc;
+  transition: 0.3s;
+  position: relative;
+}
+
+.menu-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.menu-item i {
+  margin-left: 6px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: #fff;
+  transform: scaleX(0);
+  transition: 0.3s;
+}
+
+.menu-item:hover::after {
+  transform: scaleX(1);
+}
+
+.mega-panel {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: #080808;
+  border-bottom: 1px solid var(--border-light);
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
+}
+
+.menu-item:hover .mega-panel {
+  height: 420px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.mega-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 240px 1fr 300px;
+}
+
+.col-nav {
+  border-right: 1px solid var(--border-light);
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.col-main {
+  padding: 40px;
+  display: flex;
+  gap: 30px;
+}
+
+.col-side {
+  border-left: 1px solid var(--border-light);
+  padding: 40px;
+  background: #0c0c0c;
+}
+
+.nav-group-title {
+  font-family: var(--font-code);
+  font-size: 10px;
+  color: #555;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.nav-list-link {
+  display: block;
+  padding: 10px 0;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: 0.2s;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-list-link:hover {
+  color: #fff;
+  padding-left: 5px;
+}
+
+.nav-list-link i {
+  font-size: 12px;
+}
+
+.feature-card {
+  flex: 1;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 20px;
+  transition: 0.3s;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.feature-card:hover {
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.card-icon {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.card-title {
+  font-family: var(--font-art);
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.5;
+}
+
+.card-preview {
+  margin-top: 20px;
+  height: 100px;
+  background: #000;
+  border: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: 0.5s;
+}
+
+.feature-card:hover img {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.voice-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 30px;
+  margin-top: 20px;
+}
+
+.bar {
+  width: 3px;
+  background: #fff;
+  animation: wave 1s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0%, 100% {
+    height: 5px;
+    opacity: 0.3;
+  }
+  50% {
+    height: 25px;
+    opacity: 1;
+  }
+}
+
+.doc-mini {
+  background: #fff;
+  color: #000;
+  padding: 15px;
+  font-family: var(--font-art);
+  font-size: 10px;
+  opacity: 0.8;
+  margin-top: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: rotate(-2deg);
+  transition: 0.3s;
+}
+
+.feature-card:hover .doc-mini {
+  transform: rotate(0) scale(1.02);
+  opacity: 1;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn-solid {
+  background: #fff;
+  color: #000;
+  padding: 8px 18px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: 0.3s;
+}
+
+.btn-solid:hover {
+  background: #ddd;
+}

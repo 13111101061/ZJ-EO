@@ -1,0 +1,217 @@
+/* 
+  FUSION STYLE SYSTEM 
+  A chaotic mix of Fauvism, Acid, Pop Art, Memphis, Cyberpunk, Glassmorphism, New Chinese, and MBE.
+*/
+
+:root {
+  --f-neon-lime: #ccff00;
+  --f-hot-pink: #ff00ff;
+  --f-deep-purple: #4d00ff;
+  --f-cyan: #00ffff;
+  --f-acid-yellow: #fff500;
+  --f-void-black: #050505;
+  --f-ink-black: #1a1a1a;
+  --f-paper-white: #f2f2f2;
+  --f-glass-border: rgba(255, 255, 255, 0.2);
+  --f-glass-bg: rgba(255, 255, 255, 0.05);
+}
+
+.fusion-container {
+  background-color: transparent; /* Changed to transparent for FusionLayout */
+  color: var(--f-paper-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+/* --- ACID / GLITCH TEXT --- */
+.acid-text {
+  font-family: "Impact", "Haettenschweiler", sans-serif;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--f-neon-lime);
+  position: relative;
+  display: inline-block;
+  mix-blend-mode: exclusion;
+}
+
+.acid-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 2px;
+  color: var(--f-hot-pink);
+  mix-blend-mode: screen;
+  z-index: -1;
+  opacity: 0.8;
+  animation: glitch-anim 0.3s infinite;
+}
+
+.acid-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: -2px;
+  color: var(--f-cyan);
+  mix-blend-mode: screen;
+  z-index: -1;
+  opacity: 0.8;
+  animation: glitch-anim 0.3s infinite reverse;
+}
+
+@keyframes glitch-anim {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* --- NEW CHINESE INK --- */
+.ink-stroke {
+  position: absolute;
+  background: var(--f-ink-black);
+  filter: blur(4px) contrast(1.5);
+  border-radius: 50% 20% / 10% 40%;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: "Times New Roman", serif;
+  letter-spacing: 0.5em;
+  font-weight: bold;
+  color: var(--f-paper-white);
+  text-shadow: 0 0 10px var(--f-cyan);
+}
+
+/* --- MEMPHIS PATTERNS --- */
+.memphis-bg {
+  background-image: 
+    radial-gradient(circle, var(--f-hot-pink) 2px, transparent 2.5px),
+    linear-gradient(45deg, var(--f-deep-purple) 25%, transparent 25%, transparent 75%, var(--f-deep-purple) 75%, var(--f-deep-purple)),
+    linear-gradient(45deg, var(--f-deep-purple) 25%, transparent 25%, transparent 75%, var(--f-deep-purple) 75%, var(--f-deep-purple));
+  background-size: 20px 20px, 40px 40px, 40px 40px;
+  background-position: 0 0, 0 0, 20px 20px;
+  opacity: 0.1;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* --- GLASSMORPHISM CARD --- */
+.glass-card {
+  background: var(--f-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--f-glass-border);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px 0 rgba(204, 255, 0, 0.2); /* Neon glow */
+  border-color: var(--f-neon-lime);
+}
+
+/* --- MBE STYLE --- */
+.mbe-shape {
+  border: 4px solid var(--f-acid-yellow);
+  border-radius: 20px;
+  background-color: var(--f-hot-pink);
+  box-shadow: 8px 8px 0 var(--f-deep-purple);
+  transform: rotate(-5deg);
+}
+
+/* --- VAPORWAVE GRID --- */
+.vapor-grid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  background: 
+    linear-gradient(transparent 0%, var(--f-deep-purple) 100%),
+    repeating-linear-gradient(0deg, transparent 0, transparent 48%, var(--f-cyan) 50%, transparent 52%, transparent 100%),
+    repeating-linear-gradient(90deg, transparent 0, transparent 48%, var(--f-cyan) 50%, transparent 52%, transparent 100%);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  transform: perspective(500px) rotateX(60deg) translateY(100px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --- POP ART HALFTONE --- */
+.pop-halftone {
+  background-image: radial-gradient(var(--f-acid-yellow) 20%, transparent 20%);
+  background-size: 10px 10px;
+  mix-blend-mode: overlay;
+}
+
+/* --- SECTION STYLES --- */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- FLOATING ELEMENTS --- */
+.float-1 { animation: float-y 4s ease-in-out infinite; }
+.float-2 { animation: float-y 5s ease-in-out infinite reverse; }
+.float-3 { animation: float-y 6s ease-in-out infinite 1s; }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* --- ANIMATIONS --- */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--f-void-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--f-neon-lime);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--f-hot-pink);
+}

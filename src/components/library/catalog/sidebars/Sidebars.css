@@ -1,0 +1,341 @@
+/* Sidebars / Docks CSS */
+
+/* =================================================================
+   VAR 1: THE BLACK CAPSULE
+   ================================================================= */
+.dock-1 {
+    position: relative; /* Changed from absolute for component usage */
+    width: 72px; padding: 20px 0;
+    background: #000;
+    border: 1px solid #222;
+    border-radius: 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8);
+    z-index: 10;
+    margin: 0 auto;
+}
+
+.d1-logo {
+    width: 40px; height: 40px; background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: #000; font-size: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2); margin-bottom: 20px;
+}
+
+.d1-item {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #666; font-size: 20px; cursor: pointer; transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.d1-item:hover { color: #fff; background: #1a1a1a; transform: scale(1.1); }
+.d1-item.active { background: #fff; color: #000; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+
+/* Tooltip */
+.d1-tooltip {
+    position: absolute; left: 60px; background: #222; color: #fff; padding: 4px 10px; border-radius: 4px;
+    font-size: 12px; opacity: 0; transform: translateX(-10px); transition: 0.2s; pointer-events: none;
+    border: 1px solid #333; white-space: nowrap;
+    z-index: 20;
+}
+.d1-item:hover .d1-tooltip { opacity: 1; transform: translateX(10px); }
+
+
+/* =================================================================
+   VAR 2: THE GLASS PANEL
+   ================================================================= */
+.dock-2 {
+    position: relative; /* Changed from absolute */
+    width: 240px;
+    height: 500px; /* Fixed height for showcase */
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    margin: 0 auto;
+}
+
+.d2-brand {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding-left: 8px;
+}
+.d2-logo-icon { font-size: 24px; color: #fff; }
+.d2-brand-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.5px; }
+
+.d2-group-title { font-size: 11px; color: #555; text-transform: uppercase; margin-bottom: 12px; padding-left: 12px; font-weight: 600; letter-spacing: 1px; }
+
+.d2-link {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+    border-radius: 10px; color: #999; cursor: pointer; transition: 0.2s; font-size: 14px;
+}
+.d2-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+.d2-link.active { background: rgba(255,255,255,0.1); color: #fff; font-weight: 500; border: 1px solid rgba(255,255,255,0.05); }
+
+.d2-user {
+    margin-top: auto; display: flex; align-items: center; gap: 12px; padding: 12px;
+    background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+}
+
+
+/* =================================================================
+   VAR 3: THE SPLIT ISLANDS
+   ================================================================= */
+.dock-3-wrap {
+    position: relative; /* Changed from absolute */
+    display: flex; flex-direction: column; gap: 12px;
+    align-items: center;
+}
+
+/* Block 1: Brand */
+.d3-block-brand {
+    width: 64px; height: 64px; background: #111; border-radius: 20px; border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center; font-size: 24px; color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); cursor: pointer;
+}
+
+/* Block 2: Menu */
+.d3-block-menu {
+    width: 64px; background: #0a0a0a; border-radius: 32px; border: 1px solid #222;
+    padding: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.d3-btn {
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    color: #666; border-radius: 50%; transition: 0.2s; font-size: 20px;
+}
+.d3-btn:hover { background: #222; color: #fff; }
+.d3-btn.active { background: #fff; color: #000; }
+
+/* Block 3: Settings */
+.d3-block-set {
+    width: 64px; height: 64px; background: #0a0a0a; border-radius: 20px; border: 1px solid #222;
+    display: flex; align-items: center; justify-content: center; color: #666; transition: 0.2s;
+}
+.d3-block-set:hover { border-color: #666; color: #fff; }
+
+
+/* =================================================================
+   VAR 4: THE NEON EDGE
+   ================================================================= */
+.dock-4 {
+    position: relative; /* Changed from absolute */
+    width: 220px; padding: 30px 0;
+    border-left: 1px solid #222;
+    margin: 0 auto;
+}
+
+.d4-item {
+    position: relative; padding: 12px 0 12px 30px;
+    display: flex; align-items: center; gap: 15px;
+    color: #666; cursor: pointer; transition: 0.3s;
+}
+
+/* Active Light Edge */
+.d4-item::before {
+    content: ''; position: absolute; left: -1px; top: 0; bottom: 0; width: 2px;
+    background: #fff; box-shadow: 0 0 15px #fff;
+    opacity: 0; transition: 0.3s;
+}
+
+.d4-item:hover { color: #fff; }
+.d4-item:hover::before { opacity: 0.5; }
+
+.d4-item.active { color: #fff; }
+.d4-item.active::before { opacity: 1; height: 100%; box-shadow: 2px 0 20px rgba(255,255,255,0.6); }
+
+.d4-icon { font-size: 18px; }
+.d4-text { font-size: 14px; letter-spacing: 0.5px; }
+
+/* =================================================================
+   VAR 5: THE FLOATING DOCK (悬浮坞 · 玻璃拟态)
+   ================================================================= */
+.lib-sb-19-1 {
+    position: relative;
+    width: 80px;
+    height: 500px;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    display: flex; flex-direction: column; align-items: center; padding: 30px 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    margin: 0 auto;
+}
+
+.lib-s19-1-logo {
+    width: 40px; height: 40px; background: linear-gradient(135deg, #fff, #999);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 20px; margin-bottom: 40px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+.lib-s19-1-menu { display: flex; flex-direction: column; gap: 20px; width: 100%; align-items: center; }
+
+.lib-s19-1-icon {
+    width: 44px; height: 44px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: #888; font-size: 20px; cursor: pointer; transition: 0.3s; position: relative;
+}
+/* 选中状态：光晕 */
+.lib-s19-1-icon.active, .lib-s19-1-icon:hover {
+    background: rgba(255,255,255,0.1); color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+/* 提示红点 */
+.lib-s19-1-dot {
+    position: absolute; top: 10px; right: 10px; width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 5px #3b82f6;
+}
+
+.lib-s19-1-profile { margin-top: auto; width: 36px; height: 36px; border-radius: 50%; background: #333; border: 2px solid #555; }
+
+
+/* =================================================================
+   VAR 6: THE EXPANDING RAIL (交互式导轨 · 鼠标感应)
+   ================================================================= */
+.lib-sb-19-2-container {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    border-radius: 12px;
+}
+
+.lib-sb-19-2 {
+    height: 100%; width: 70px;
+    background: #080808; border-right: 1px solid #222;
+    display: flex; flex-direction: column;
+    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow: hidden;
+    position: absolute; left: 0; top: 0; z-index: 10;
+}
+/* 展开逻辑 */
+.lib-sb-19-2:hover { width: 240px; border-right-color: #333; box-shadow: 10px 0 50px rgba(0,0,0,0.8); }
+
+.lib-s19-2-head {
+    height: 80px; display: flex; align-items: center; padding-left: 20px; min-width: 240px;
+}
+.lib-s19-2-brand { 
+    font-family: 'Space Grotesk'; font-weight: 700; color: #fff; font-size: 18px; 
+    opacity: 0; transition: 0.2s; transform: translateX(-10px);
+}
+.lib-sb-19-2:hover .lib-s19-2-brand { opacity: 1; transform: translateX(10px); }
+
+.lib-s19-2-list { display: flex; flex-direction: column; gap: 5px; padding: 0 10px; }
+
+.lib-s19-2-item {
+    display: flex; align-items: center; height: 44px; border-radius: 8px;
+    color: #888; cursor: pointer; transition: 0.2s;
+    white-space: nowrap; overflow: hidden;
+}
+.lib-s19-2-item:hover { background: #1a1a1a; color: #fff; }
+.lib-s19-2-icon { min-width: 50px; display: flex; justify-content: center; font-size: 18px; }
+.lib-s19-2-text { opacity: 0; transition: 0.2s; font-size: 14px; transform: translateX(-10px); }
+
+.lib-sb-19-2:hover .lib-s19-2-text { opacity: 1; transform: translateX(0); }
+
+
+/* =================================================================
+   VAR 7: THE PRECISION TREE (精密树 · 代码极客)
+   ================================================================= */
+.lib-sb-19-3 {
+    width: 260px; height: 500px;
+    background: #050505; border-right: 1px dashed #333;
+    padding: 30px 20px; font-family: 'JetBrains Mono';
+    margin: 0 auto;
+}
+
+.lib-s19-3-group { margin-bottom: 30px; }
+.lib-s19-3-title { font-size: 11px; color: #444; margin-bottom: 15px; padding-left: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+.lib-s19-3-node {
+    position: relative; padding-left: 20px;
+}
+/* 树状连线 */
+.lib-s19-3-node::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 1px; background: #222;
+}
+.lib-s19-3-link {
+    position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+    color: #888; font-size: 13px; text-decoration: none; transition: 0.2s;
+}
+/* 水平连线 */
+.lib-s19-3-link::before {
+    content: ''; position: absolute; left: -12px; top: 50%; width: 10px; height: 1px; background: #222;
+    transform: translateY(-50%);
+}
+
+.lib-s19-3-link:hover { color: #fff; background: #111; }
+.lib-s19-3-link.active { color: #3b82f6; background: rgba(59, 130, 246, 0.05); }
+.lib-s19-3-link.active::before { background: #3b82f6; }
+
+
+/* =================================================================
+   VAR 8: THE MODULAR DOCK (模块化 · 生产力)
+   ================================================================= */
+.lib-sb-19-4 {
+    display: flex; height: 500px;
+    margin: 0 auto;
+    width: fit-content;
+}
+/* 第一层：图标主轨 */
+.lib-s19-4-rail {
+    width: 60px; height: 100%; background: #0c0c0c; border-right: 1px solid #222;
+    display: flex; flex-direction: column; align-items: center; padding-top: 20px; gap: 20px; z-index: 2;
+}
+.lib-s19-4-app-icon {
+    width: 36px; height: 36px; background: #222; border-radius: 8px; display: flex; justify-content: center; align-items: center; color: #888; cursor: pointer; transition: 0.2s;
+}
+.lib-s19-4-app-icon:hover, .lib-s19-4-app-icon.active { background: #fff; color: #000; }
+
+/* 第二层：子面板 */
+.lib-s19-4-panel {
+    width: 200px; height: 100%; background: #080808; border-right: 1px solid #222;
+    padding: 20px;
+}
+.lib-s19-4-header { font-family: 'Space Grotesk'; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #222; }
+.lib-s19-4-tool {
+    display: flex; align-items: center; gap: 10px; padding: 10px; color: #999; font-size: 13px; border-radius: 6px; cursor: pointer;
+}
+.lib-s19-4-tool:hover { background: #1a1a1a; color: #fff; }
+
+
+/* =================================================================
+   VAR 9: THE CYBER SPINE (赛博脊柱 · 视觉化)
+   ================================================================= */
+.lib-sb-19-5 {
+    width: 100px; height: 500px; background: #020202;
+    display: flex; flex-direction: column; align-items: center;
+    border-right: 1px solid #1a1a1a;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* 中间的能量线 */
+.lib-s19-5-spine {
+    position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #222; transform: translateX(-50%); z-index: 0;
+}
+
+.lib-s19-5-node {
+    position: relative; z-index: 1; margin: 20px 0;
+    width: 50px; height: 50px; background: #0a0a0a; border: 1px solid #333;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #666; transition: 0.3s; cursor: pointer;
+}
+
+.lib-s19-5-node:hover {
+    border-color: #fff; color: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    transform: scale(1.1); background: #000;
+}
+
+/* 激活状态：连接线发光 */
+.lib-s19-5-node.active { border-color: #8b5cf6; color: #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
+
+.lib-s19-5-label {
+    position: absolute; left: 60px; background: #fff; color: #000; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700;
+    opacity: 0; transform: translateX(-10px); transition: 0.2s; pointer-events: none;
+}
+.lib-s19-5-node:hover .lib-s19-5-label { opacity: 1; transform: translateX(0); }
+

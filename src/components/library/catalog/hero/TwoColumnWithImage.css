@@ -1,0 +1,29 @@
+/* TwoColumnWithImage Component Styles */
+
+.lib-hero-twocolumnwithimage {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.lib-hero-twocolumnwithimage:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .lib-hero-twocolumnwithimage {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lib-hero-twocolumnwithimage {
+    padding: 12px;
+  }
+}

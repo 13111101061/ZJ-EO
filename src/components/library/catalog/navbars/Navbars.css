@@ -1,0 +1,2183 @@
+/* Navbars CSS */
+
+/* =================================================================
+   1. THE DYNAMIC PILL (from 17.html)
+   ================================================================= */
+.lib-nav-17-1-pill {
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 50px;
+    height: 60px;
+    padding: 5px;
+    display: flex; align-items: center;
+    width: 200px; /* 初始宽度 */
+    overflow: hidden;
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    margin: 0 auto;
+}
+.lib-nav-17-1-pill:hover { width: 800px; }
+.lib-n17-1-logo {
+    min-width: 50px; height: 50px; background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700;
+    margin-right: 15px; z-index: 2;
+}
+.lib-n17-1-content {
+    display: flex; align-items: center; gap: 30px; opacity: 0; transition: 0.3s; width: 600px;
+}
+.lib-nav-17-1-pill:hover .lib-n17-1-content { opacity: 1; transition-delay: 0.1s; }
+.lib-n17-1-link { color: #aaa; white-space: nowrap; cursor: pointer; transition: 0.2s; font-size: 14px; }
+.lib-n17-1-link:hover { color: #fff; }
+.lib-n17-1-cta { margin-left: auto; background: #3b82f6; padding: 8px 20px; border-radius: 20px; white-space: nowrap; font-size: 13px; color: #fff; }
+
+/* =================================================================
+   2. THE LUMINOUS BORDER (from 17.html)
+   ================================================================= */
+.lib-nav-17-2-box {
+    position: relative; width: 100%; max-width: 1200px; height: 70px;
+    background: #080808; border-radius: 12px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.lib-nav-17-2-box::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: conic-gradient(transparent, #8b5cf6, #3b82f6, transparent 30%);
+    animation: lib-n17-2-rotate 4s linear infinite;
+}
+.lib-nav-17-2-inner {
+    position: absolute; inset: 1px; background: #080808; border-radius: 11px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+    z-index: 1;
+}
+@keyframes lib-n17-2-rotate { 100% { transform: rotate(360deg); } }
+.lib-n17-2-brand { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; color: transparent; }
+.lib-n17-2-menu { display: flex; gap: 20px; }
+.lib-n17-2-item { 
+    position: relative; color: #888; padding: 8px 12px; cursor: pointer; font-size: 13px; 
+    border: 1px solid transparent; border-radius: 6px; transition: 0.3s;
+}
+.lib-n17-2-item:hover { color: #fff; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+
+/* =================================================================
+   3. THE ARCHITECT (from 17.html)
+   ================================================================= */
+.lib-nav-17-3 {
+    width: 100%; height: 80px;
+    border-bottom: 1px dashed #333;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 50px;
+    font-family: 'Rajdhani', sans-serif;
+    background: #050505;
+}
+.lib-n17-3-left { display: flex; align-items: center; gap: 10px; border-right: 1px dashed #333; height: 100%; padding-right: 30px; }
+.lib-n17-3-logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: #fff; }
+.lib-n17-3-mid { display: flex; gap: 40px; height: 100%; align-items: center; }
+.lib-n17-3-link {
+    position: relative; color: #666; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.2s; font-size: 16px;
+}
+.lib-n17-3-link::before {
+    content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 1px; height: 5px; background: #333;
+}
+.lib-n17-3-link:hover { color: #fff; letter-spacing: 1px; }
+.lib-n17-3-right { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #3b82f6; }
+
+/* =================================================================
+   4. THE ACROBAT (from 17.html)
+   ================================================================= */
+.lib-nav-17-4 {
+    width: 95%; height: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 0 auto;
+}
+.lib-n17-4-capsule {
+    background: #fff; color: #000; padding: 10px 25px; border-radius: 100px;
+    font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;
+}
+.lib-n17-4-bar {
+    background: #1a1a1a; padding: 8px 8px 8px 30px; border-radius: 100px;
+    display: flex; align-items: center; gap: 20px; border: 1px solid #333;
+}
+.lib-n17-4-link { color: #aaa; font-size: 13px; cursor: pointer; transition: 0.2s; }
+.lib-n17-4-link:hover { color: #fff; }
+.lib-n17-4-btn {
+    width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;
+}
+
+/* =================================================================
+   5. THE STACKED DECK (from 17.html)
+   ================================================================= */
+.lib-nav-17-5-container {
+    height: 80px; display: flex; align-items: flex-end; justify-content: center;
+}
+.lib-nav-17-5-layer1 {
+    width: 800px; height: 60px; background: #222; border-radius: 16px 16px 0 0;
+    margin: 0 auto; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%) scale(0.95); z-index: 1; opacity: 0.5;
+}
+.lib-nav-17-5 {
+    width: 800px; height: 60px;
+    background: #111; border: 1px solid #333; border-radius: 16px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    position: relative; z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.lib-n17-5-brand { font-family: 'Italiana', serif; font-size: 22px; color: #fff; }
+.lib-n17-5-menu { display: flex; gap: 20px; font-size: 13px; color: #888; }
+.lib-n17-5-item:hover { color: #fff; text-decoration: underline; cursor: pointer; }
+
+/* =================================================================
+   6. THE TRANSPARENT FILM (from 17.html)
+   ================================================================= */
+.lib-nav-17-6 {
+    width: 100%; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2);
+    height: 70px; display: flex; align-items: center; padding: 0 60px;
+    background: rgba(255,255,255,0.02);
+}
+.lib-n17-6-item {
+    flex: 1; text-align: center; color: #fff; font-size: 14px; font-weight: 300; letter-spacing: 1px; cursor: pointer; position: relative;
+}
+.lib-n17-6-item::after {
+    content: '↗'; font-size: 10px; opacity: 0; position: absolute; top: -5px; transition: 0.2s;
+}
+.lib-n17-6-item:hover::after { opacity: 1; top: 0; }
+.lib-n17-6-item:hover { color: #aaa; }
+.lib-n17-6-logo { flex: 0 0 100px; font-weight: 900; letter-spacing: -2px; font-size: 24px; text-align: center; color: #fff; }
+
+/* =================================================================
+   7. THE CYBER TERMINAL (from 17.html)
+   ================================================================= */
+.lib-nav-17-7 {
+    width: 90%; max-width: 1200px; border: 1px solid #0f0;
+    background: #000; height: 60px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    font-family: 'JetBrains Mono', monospace; color: #0f0;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    margin: 0 auto;
+}
+.lib-n17-7-blink { animation: lib-n17-7-blink 1s infinite; }
+@keyframes lib-n17-7-blink { 50% { opacity: 0; } }
+
+.lib-n17-7-menu { display: flex; gap: 30px; }
+.lib-n17-7-link { cursor: pointer; text-transform: uppercase; }
+.lib-n17-7-link:hover { background: #0f0; color: #000; }
+
+/* =================================================================
+   IMPORTED: THE ROYAL GRID (from 2.html)
+   ================================================================= */
+.nav-royal-wrapper {
+    width: 100%;
+    /* max-width: 1400px; removed to fit container */
+    margin: 0 auto;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #111;
+}
+
+/* 顶层工具栏 */
+.royal-top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.royal-socials i { margin-right: 15px; cursor: pointer; transition: color 0.3s;}
+.royal-socials i:hover { color: #d4af37; }
+
+/* 主导航层 */
+.royal-main-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* 三栏布局 */
+    align-items: center;
+    height: 90px;
+}
+
+/* 左侧菜单 */
+.royal-menu-left {
+    display: flex;
+    height: 100%;
+}
+.royal-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    color: #ccc;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.royal-item:hover { background: #1a1a1a; color: #d4af37; }
+
+/* 中间 Logo */
+.royal-logo {
+    padding: 0 60px;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #fff;
+    letter-spacing: 4px;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    text-decoration: none;
+}
+
+/* 右侧功能 */
+.royal-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 30px;
+    gap: 20px;
+}
+
+/* 搜索框 */
+.royal-search {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+.royal-search input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    width: 120px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+}
+.royal-search i { color: #888; font-size: 14px;}
+
+
+/* =================================================================
+   IMPORTED: THE FLOATING ISLAND (from 2.html)
+   ================================================================= */
+.nav-island-container {
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+    padding: 20px;
+}
+
+.nav-island {
+    width: 90%;
+    max-width: 1200px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 50px; /* 胶囊形状 */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+.nav-island:hover { transform: translateY(-5px); }
+
+.island-logo {
+    background: #fff;
+    color: #000;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.island-links {
+    display: flex;
+    gap: 10px;
+    background: rgba(0,0,0,0.2);
+    padding: 5px;
+    border-radius: 30px;
+}
+
+.island-link {
+    text-decoration: none;
+    color: #aaa;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.island-link i { font-size: 16px; opacity: 0.7;}
+
+.island-link.active, .island-link:hover {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+}
+
+.island-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-right: 20px;
+}
+
+.island-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    background: #333;
+    background-size: cover;
+    position: relative;
+}
+.island-avatar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background: #00ff88;
+    border-radius: 50%;
+    border: 2px solid #000;
+}
+
+
+/* =================================================================
+   IMPORTED: THE DARK AVANT-GARDE (from 2.html)
+   ================================================================= */
+.nav-avant {
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Cormorant Garamond', serif; /* 使用衬线体提升艺术感 */
+    background: #0f0f11;
+}
+
+.avant-left {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.avant-logo {
+    font-size: 36px;
+    color: #fff;
+    letter-spacing: -1px;
+    position: relative;
+}
+.avant-logo span { color: #666; font-size: 12px; position: absolute; top: -10px; right: -20px; font-family: sans-serif;}
+
+.avant-menu {
+    display: flex;
+    gap: 40px;
+}
+
+.avant-item {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 复合型文字链接：主标题+副标题 */
+.avant-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.avant-sub {
+    color: #555;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+    transition: 0.3s;
+}
+
+.avant-item:hover .avant-title { color: #bcaaa4; transform: translateY(-2px); }
+.avant-item:hover .avant-sub { color: #888; }
+
+.avant-right {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #1a1a1a;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+/* 艺术化搜索条 */
+.avant-search-box {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 10px;
+    border-right: 1px solid #333;
+}
+.avant-search-box input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    width: 150px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    outline: none;
+}
+
+.avant-btn {
+    padding: 12px 25px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 18px;
+}
+.avant-btn:hover { background: #333; }
+.avant-btn-primary {
+    background: #fff;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 15px 30px;
+}
+
+
+/* =================================================================
+   IMPORTED: MONOLITH AI NAVBAR (from 8.html)
+   ================================================================= */
+.monolith-wrapper {
+    --mono-bg: #000000;
+    --mono-fg: #ffffff;
+    --mono-border: #333333;
+    --mono-border-heavy: #ffffff;
+    --mono-accent-gray: #1a1a1a;
+    font-family: 'Space Grotesk', sans-serif;
+    width: 100%;
+}
+
+/* --- 顶部系统通告栏 (System Ticker) --- */
+.sys-ticker {
+    background: var(--mono-fg);
+    color: var(--mono-bg);
+    height: 28px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--mono-border);
+    position: relative;
+    z-index: 1002;
+}
+.ticker-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+}
+.ticker-item { margin-right: 40px; white-space: nowrap; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* --- 导航栏主体 --- */
+.monolith-navbar {
+    position: sticky;
+    top: 0;
+    height: 80px;
+    background: var(--mono-bg);
+    border-bottom: 1px solid var(--mono-border-heavy); /* 粗白线强调 */
+    display: flex;
+    z-index: 1000;
+}
+
+/* Logo 区 */
+.brand-zone {
+    width: 280px;
+    border-right: 1px solid var(--mono-border-heavy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+    background: var(--mono-bg);
+    transition: 0.3s;
+}
+.brand-zone:hover { background: var(--mono-fg); }
+.brand-zone:hover .brand-main { color: var(--mono-bg); }
+.brand-zone:hover .brand-sub { color: var(--mono-bg); }
+
+.brand-main {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--mono-fg);
+    line-height: 0.9;
+    letter-spacing: -1px;
+}
+.brand-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #666;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+
+/* 菜单链接区 */
+.nav-links {
+    flex: 1;
+    display: flex;
+    list-style: none;
+}
+
+.nav-item {
+    flex: 1;
+    border-right: 1px solid var(--mono-border);
+    position: static; /* Allows mega menu to position relative to navbar */
+}
+
+/* =================================================================
+   IMPORTED: 7 PREMIUM NAVBARS (from 14.html)
+   ================================================================= */
+
+/* --- 1. THE FLOATING GLASS (SaaS Standard) --- */
+.lib-nav-14-1-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+.lib-nav-14-1 {
+    width: 90%; max-width: 1200px; height: 70px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.lib-n14-1-logo { font-family: 'Space Grotesk'; font-weight: 700; font-size: 18px; color: #fff; text-decoration: none; }
+.lib-n14-1-menu { display: flex; gap: 5px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 10px; }
+.lib-n14-1-link {
+    padding: 8px 16px; border-radius: 8px; color: #999; font-size: 13px; cursor: pointer; transition: 0.3s;
+}
+.lib-n14-1-link:hover, .lib-n14-1-link.active { background: rgba(255,255,255,0.1); color: #fff; }
+.lib-n14-1-btn {
+    background: #fff; color: #000; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; text-decoration: none; transition: 0.3s;
+}
+.lib-n14-1-btn:hover { box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+
+/* --- 2. THE NEON HORIZON (Cyber Tech) --- */
+.lib-nav-14-2 {
+    width: 100%; height: 80px;
+    background: #000;
+    border-bottom: 1px solid #222;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 50px;
+    position: relative;
+}
+.lib-nav-14-2::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, #8b5cf6, #3b82f6, transparent);
+}
+.lib-n14-2-logo { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; color: #fff; font-size: 20px; text-decoration: none; text-transform: uppercase;}
+.lib-n14-2-menu { display: flex; gap: 40px; }
+.lib-n14-2-link {
+    color: #666; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; position: relative; transition: 0.3s;
+}
+.lib-n14-2-link:hover { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
+.lib-n14-2-link::before {
+    content:''; position: absolute; top: -32px; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 20px; background: linear-gradient(to bottom, transparent, #3b82f6); opacity: 0; transition: 0.3s;
+}
+.lib-n14-2-link:hover::before { opacity: 1; top: -20px; }
+
+/* --- 3. THE INVISIBLE TECH (Minimalist) --- */
+.lib-nav-14-3 {
+    width: 100%; height: 100px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px;
+    font-family: 'Inter', sans-serif;
+    background: #050505;
+}
+.lib-n14-3-left { display: flex; gap: 60px; align-items: center; }
+.lib-n14-3-logo { width: 40px; height: 40px; background: #fff; border-radius: 50%; }
+.lib-n14-3-link { color: #888; text-decoration: none; font-size: 14px; transition: 0.3s; cursor: pointer; }
+.lib-n14-3-link:hover { color: #fff; }
+.lib-n14-3-right { display: flex; align-items: center; gap: 20px; }
+.lib-n14-3-icon {
+    width: 40px; height: 40px; border: 1px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; transition: 0.3s;
+}
+.lib-n14-3-icon:hover { border-color: #fff; background: #fff; color: #000; }
+
+/* --- 4. THE COMMAND NOTCH (Utility) --- */
+.lib-nav-14-4-container { display: flex; justify-content: center; width: 100%; }
+.lib-nav-14-4 {
+    background: #111;
+    border: 1px solid #333; border-top: none;
+    border-radius: 0 0 20px 20px;
+    padding: 0 30px; height: 60px;
+    display: flex; align-items: center; gap: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,1);
+}
+.lib-n14-4-logo { font-weight: 800; color: #fff; letter-spacing: -1px; }
+.lib-n14-4-divider { width: 1px; height: 20px; background: #333; }
+.lib-n14-4-link { color: #aaa; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.2s; cursor: pointer;}
+.lib-n14-4-link:hover { color: #fff; }
+.lib-n14-4-btn { background: #3b82f6; color: #fff; padding: 6px 15px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+/* --- 5. THE ELEGANT SERIF (Luxury) --- */
+.lib-nav-14-5 {
+    width: 100%; height: 90px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; padding: 0 40px;
+    background: #050505;
+}
+.lib-n14-5-menu { display: flex; gap: 30px; }
+.lib-n14-5-link { font-family: 'Cinzel', serif; color: #aaa; text-decoration: none; font-size: 13px; transition: 0.3s; cursor: pointer; }
+.lib-n14-5-link:hover { color: #d4af37; }
+.lib-n14-5-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-style: italic; color: #fff; text-align: center; }
+.lib-n14-5-actions { display: flex; justify-content: flex-end; gap: 20px; color: #fff; }
+
+/* --- 6. THE GLOWING ORB (Dreamy) --- */
+.lib-nav-14-6-wrap {
+    width: 100%; display: flex; justify-content: center; position: relative; padding: 20px 0;
+}
+.lib-nav-14-6-glow {
+    position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 100px; background: #8b5cf6; filter: blur(80px); opacity: 0.5; pointer-events: none;
+}
+.lib-nav-14-6 {
+    width: 800px; height: 60px;
+    background: rgba(10, 10, 10, 0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 8px 0 25px;
+    z-index: 10;
+}
+.lib-n14-6-logo { font-weight: 700; color: #fff; font-size: 16px; }
+.lib-n14-6-center { display: flex; gap: 20px; }
+.lib-n14-6-link { color: #ccc; text-decoration: none; font-size: 13px; transition: 0.2s; cursor: pointer; }
+.lib-n14-6-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.lib-n14-6-btn {
+    width: 44px; height: 44px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; transition: 0.3s; cursor: pointer;
+}
+.lib-n14-6-btn:hover { transform: rotate(90deg); }
+
+/* --- 7. THE SPLIT DECK (Structured) --- */
+.lib-nav-14-7 {
+    width: 100%; padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    background: #050505;
+}
+.lib-n14-7-brand { font-family: 'Space Grotesk'; font-size: 24px; font-weight: 700; color: #fff; line-height: 1; }
+.lib-n14-7-brand span { font-size: 10px; display: block; color: #666; font-weight: 400; letter-spacing: 2px; margin-top: 5px; }
+
+.lib-n14-7-menu-box {
+    background: #111; border: 1px solid #222; padding: 10px 10px 10px 30px;
+    border-radius: 100px; display: flex; align-items: center; gap: 30px;
+}
+.lib-n14-7-link { color: #888; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.2s; cursor: pointer; }
+.lib-n14-7-link:hover { color: #fff; }
+.lib-n14-7-btn {
+    background: #222; color: #fff; padding: 10px 20px; border-radius: 100px; font-size: 12px; font-weight: 600; border: 1px solid #333; transition: 0.3s; cursor: pointer;
+}
+.lib-n14-7-btn:hover { background: #fff; color: #000; }
+
+
+/* =================================================================
+   IMPORTED: ULTIMATE LUMINOUS NAVBAR (from 9 (2).html)
+   ================================================================= */
+.lib-nav-9-2-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+.lib-nav-9-2 {
+    width: 100%;
+    max-width: 1280px;
+    height: 64px;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    transition: border-color 0.3s;
+}
+.lib-nav-9-2:hover { border-color: rgba(255, 255, 255, 0.15); }
+
+.lib-n9-2-brand {
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+.lib-n9-2-brand-logo {
+    width: 28px; height: 28px;
+    background: #fff;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #000; font-weight: 900; font-size: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+.lib-n9-2-brand-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+    color: #fff;
+}
+
+.lib-n9-2-menu {
+    display: flex;
+    gap: 4px;
+    height: 100%;
+    align-items: center;
+}
+
+.lib-n9-2-menu-item {
+    position: relative;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    user-select: none;
+    display: flex; align-items: center; gap: 6px;
+}
+.lib-n9-2-menu-item:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+.lib-n9-2-menu-item i { font-size: 12px; opacity: 0.5; transition: transform 0.2s; }
+.lib-n9-2-menu-item:hover i { transform: rotate(180deg); }
+
+/* Mega Dropdown Panel */
+.lib-n9-2-dropdown {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 1000px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 0 0 1px rgba(0,0,0,1), 0 40px 80px -20px rgba(0,0,0,0.8);
+    overflow: hidden;
+    z-index: 100;
+}
+.lib-n9-2-menu-item:hover .lib-n9-2-dropdown {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+
+.lib-n9-2-panel-inner {
+    display: grid;
+    grid-template-columns: 240px 1fr 280px;
+    background: #0f0f0f;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+/* Sidebar Col */
+.lib-n9-2-col-sidebar {
+    padding: 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255,255,255,0.01);
+    display: flex; flex-direction: column; gap: 4px;
+}
+.lib-n9-2-sidebar-link {
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #888;
+    font-size: 13px;
+    text-decoration: none;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: 0.2s;
+}
+.lib-n9-2-sidebar-link:hover { background: #1a1a1a; color: #fff; }
+.lib-n9-2-sidebar-link.active { background: #1a1a1a; color: #fff; font-weight: 500; }
+
+/* Grid Col */
+.lib-n9-2-col-grid {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.lib-n9-2-feature-card {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: linear-gradient(180deg, rgba(30,30,30,0.4) 0%, rgba(20,20,20,0.4) 100%);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+}
+.lib-n9-2-feature-card:hover {
+    border-color: rgba(255,255,255,0.1);
+    background: linear-gradient(180deg, rgba(40,40,40,0.6) 0%, rgba(25,25,25,0.6) 100%);
+    transform: translateY(-1px);
+}
+.lib-n9-2-card-icon {
+    width: 36px; height: 36px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Promo Col */
+.lib-n9-2-col-promo {
+    padding: 24px;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 60%);
+}
+.lib-n9-2-promo-img {
+    width: 100%; height: 140px;
+    background: #111;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 16px;
+    overflow: hidden;
+    position: relative;
+}
+.lib-n9-2-promo-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+.lib-n9-2-promo-img:hover img { opacity: 1; transform: scale(1.05); }
+
+/* Actions */
+.lib-n9-2-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 6px;
+}
+.lib-n9-2-search-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #666; font-size: 12px;
+    cursor: pointer; transition: 0.2s;
+}
+.lib-n9-2-search-btn:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.1); }
+.lib-n9-2-btn-primary {
+    background: #fff;
+    color: #000;
+    font-size: 13px; font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+.lib-n9-2-btn-primary:hover {
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+}
+
+.nav-trigger {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--mono-fg);
+    transition: all 0.2s;
+}
+
+.nav-trigger span { position: relative; z-index: 2; }
+.nav-trigger i { font-size: 12px; transition: transform 0.3s; }
+
+/* Hover 效果：反色块填充 */
+.nav-item:hover .nav-trigger { background: var(--mono-fg); color: var(--mono-bg); }
+.nav-item:hover .nav-trigger i { transform: rotate(180deg); }
+
+/* 角标 */
+.badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    border: 1px solid currentColor;
+    padding: 1px 4px;
+    margin-left: 8px;
+    border-radius: 2px;
+}
+
+
+/* =================================================================
+   MEGA MENU SYSTEM (重型下拉菜单)
+   ================================================================= */
+.mega-fixed {
+    position: absolute; /* Changed from fixed for component encapsulation */
+    top: 80px; /* Navbar height */
+    left: 0;
+    width: 100%; /* Relative to nav-item? No, needs to be full width */
+    /* Since we can't easily break out of relative container without fixed, 
+       we might need to rely on the library's layout or use portal.
+       For now, let's try absolute positioning relative to the wrapper if possible,
+       or just keep it absolute and hope the parent container allows overflow. 
+       The user previously asked to "extend outside parent borders". 
+       So absolute should work if parent has no overflow hidden.
+    */
+    background: #000;
+    border-bottom: 2px solid #fff;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    box-shadow: 0 50px 100px rgba(0,0,0,1);
+    z-index: 900;
+}
+
+/* We need to make sure the mega menu is full width of the navbar container, not the item */
+/* This requires the parent (nav-links) or navbar to be the positioning context */
+/* But nav-item is the hover trigger. */
+/* We can use a trick: width: 100vw; left: 50%; transform: translateX(-50%); */
+/* But that might be too wide. */
+/* Let's try width: 300% or similar, or just fixed width if we know the container size. */
+/* For this specific component, let's use a known width or javascript calculation. */
+/* Or, simpler: put the mega menu outside the item in React, but control it via state. */
+/* CSS-only approach: */
+.nav-item:hover .mega-fixed {
+    max-height: 600px;
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* --- 样式 1: AI_VISION --- */
+.grid-vision {
+    display: grid;
+    grid-template-columns: 280px 1fr 350px;
+    height: 500px;
+}
+.gv-sidebar {
+    border-right: 1px solid var(--mono-border);
+    padding: 40px;
+    background: var(--mono-accent-gray);
+}
+.gv-link {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #888; text-decoration: none;
+    padding: 12px 0; border-bottom: 1px dashed #333; transition: 0.2s;
+}
+.gv-link:hover { color: #fff; padding-left: 10px; border-bottom-style: solid; }
+.gv-link strong { color: #fff; font-family: 'Syne', sans-serif; font-size: 16px; margin-right: 8px; }
+
+.gv-gallery {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: #333;
+}
+.gv-card {
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.gv-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.4s; }
+.gv-card:hover img { filter: grayscale(0%); transform: scale(1.1); }
+.gv-card-meta {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px;
+    background: rgba(0,0,0,0.8); border-top: 1px solid #333;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #fff; transform: translateY(100%); transition: 0.3s;
+}
+.gv-card:hover .gv-card-meta { transform: translateY(0); }
+
+.gv-promo {
+    border-left: 1px solid var(--mono-border);
+    padding: 40px;
+    display: flex; flex-direction: column; justify-content: space-between;
+}
+.promo-box { border: 1px solid #fff; padding: 20px; text-align: center; }
+
+
+/* --- 样式 2: AI_VOICE --- */
+.grid-voice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 450px;
+}
+.voice-col { padding: 40px; border-right: 1px solid var(--mono-border); }
+
+.voice-track-list { display: flex; flex-direction: column; gap: 10px; }
+.voice-track {
+    display: flex; align-items: center; gap: 20px; padding: 15px; border: 1px solid var(--mono-border);
+    transition: 0.2s; cursor: pointer;
+}
+.voice-track:hover { background: #fff; border-color: #fff; }
+.voice-track:hover * { color: #000 !important; border-color: #000 !important;}
+
+.vt-icon { width: 40px; height: 40px; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.vt-info h4 { font-family: 'Syne', sans-serif; font-size: 18px; margin-bottom: 2px; }
+.vt-info p { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #888; }
+.vt-wave { flex: 1; height: 20px; display: flex; align-items: center; gap: 2px; justify-content: flex-end; opacity: 0.5;}
+.vt-bar { width: 2px; background: #fff; height: 100%; }
+
+.voice-demo {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: radial-gradient(circle, #1a1a1a 0%, #000 70%);
+}
+.visualizer { display: flex; gap: 5px; height: 100px; align-items: center; }
+.v-bar { width: 10px; background: #fff; animation: equalizer 1s infinite ease-in-out; }
+@keyframes equalizer { 0%, 100% { height: 20px; } 50% { height: 80px; } }
+
+
+   ================================================================= */
+.nav-4 {
+    width: 100%; height: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.n4-capsule {
+    background: #fff; color: #000; padding: 10px 25px; border-radius: 100px;
+    font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;
+}
+.n4-bar {
+    background: #1a1a1a; padding: 8px 8px 8px 30px; border-radius: 100px;
+    display: flex; align-items: center; gap: 20px; border: 1px solid #333;
+}
+.n4-link { color: #aaa; font-size: 13px; cursor: pointer; transition: 0.2s; }
+.n4-link:hover { color: #fff; }
+.n4-btn {
+    width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; transition: 0.2s;
+}
+.n4-btn:hover { background: #fff; color: #000; }
+
+
+/* =================================================================
+   5. THE STACKED DECK (堆叠卡片 · 层次感)
+   ================================================================= */
+.nav-5-container {
+    position: relative;
+    height: 80px; display: flex; align-items: flex-end; justify-content: center;
+}
+.nav-5-layer1 {
+    width: 800px; height: 60px; background: #222; border-radius: 16px 16px 0 0;
+    margin: 0 auto; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scale(0.95) translateY(-10px); z-index: 1; opacity: 0.5;
+}
+.nav-5 {
+    width: 800px; height: 60px;
+    background: #111; border: 1px solid #333; border-radius: 16px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    position: relative; z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.n5-brand { font-family: 'Italiana', serif; font-size: 22px; color: #fff; }
+.n5-menu { display: flex; gap: 20px; font-size: 13px; color: #888; }
+.n5-item { cursor: pointer; transition: 0.2s; }
+.n5-item:hover { color: #fff; text-decoration: underline; }
+
+
+/* =================================================================
+   6. THE TRANSPARENT FILM (胶片感 · 全透明)
+   ================================================================= */
+.nav-6 {
+    width: 100%; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2);
+    height: 70px; display: flex; align-items: center; padding: 0 60px;
+    background: rgba(255,255,255,0.02);
+}
+.n6-item {
+    flex: 1; text-align: center; color: #fff; font-size: 14px; font-weight: 300; letter-spacing: 1px; cursor: pointer; position: relative;
+}
+.n6-item::after {
+    content: '↗'; font-size: 10px; opacity: 0; position: absolute; top: -5px; transition: 0.2s;
+}
+.n6-item:hover::after { opacity: 1; top: 0; }
+.n6-item:hover { color: #aaa; }
+.n6-logo { flex: 0 0 100px; font-weight: 900; letter-spacing: -2px; font-size: 24px; text-align: center; color: #fff; }
+
+
+/* =================================================================
+   7. THE CYBER TERMINAL (赛博终端 · 绿色荧光)
+   ================================================================= */
+.nav-7 {
+    width: 100%; max-width: 1200px; border: 1px solid #0f0;
+    background: #000; height: 60px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    font-family: 'JetBrains Mono', monospace; color: #0f0;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    margin: 0 auto;
+}
+.n7-blink { animation: n7-blink 1s infinite; }
+@keyframes n7-blink { 50% { opacity: 0; } }
+
+.n7-menu { display: flex; gap: 30px; }
+.n7-link { cursor: pointer; text-transform: uppercase; padding: 5px 10px; transition: 0.2s; }
+.n7-link:hover { background: #0f0; color: #000; }
+
+/* =================================================================
+   8. THE WHITE LAB (极简白 / 纸面质感 / 学术风)
+   ================================================================= */
+.wrap-white {
+    background-color: #ffffff;
+    color: #111;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding-bottom: 20px;
+    border-radius: 8px;
+}
+
+.nav-white {
+    max-width: 1400px; margin: 0 auto;
+    height: 90px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+}
+
+.w-logo {
+    font-family: 'DM Serif Display', serif; /* 衬线体显高级 */
+    font-size: 28px; color: #000; text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+}
+.w-logo span { width: 12px; height: 12px; background: #000; border-radius: 50%; display: inline-block; }
+
+.w-menu { display: flex; gap: 40px; height: 100%; align-items: center; }
+
+.w-link {
+    text-decoration: none; color: #555; font-size: 15px; font-weight: 500;
+    position: relative; padding: 30px 0; transition: 0.3s; cursor: pointer;
+}
+.w-link:hover { color: #000; }
+/* 这种极简风通常用小圆点做指示 */
+.w-link::after {
+    content: ''; position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%) scale(0);
+    width: 4px; height: 4px; background: #000; border-radius: 50%; transition: 0.2s;
+}
+.w-link:hover::after { transform: translateX(-50%) scale(1); }
+
+/* Style 1 Mega Menu: 极其干净的大白板 */
+.w-mega {
+    position: absolute; left: 0; width: 100%; top: 90px;
+    background: #fff; border-bottom: 1px solid #eee;
+    padding: 60px 0;
+    display: none; z-index: 100;
+}
+.w-link:hover .w-mega { display: block; animation: w-fadeUp 0.3s ease; }
+
+.w-grid {
+    max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 250px 1fr; gap: 60px;
+}
+.w-desc { font-size: 14px; color: #666; line-height: 1.6; text-align: left; }
+.w-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+.w-card {
+    display: block; text-decoration: none; color: #000;
+    padding: 20px; border: 1px solid #eee; border-radius: 8px; transition: 0.2s; text-align: left;
+}
+.w-card:hover { border-color: #000; background: #fafafa; }
+.w-card-icon { font-size: 24px; margin-bottom: 15px; display: block; }
+.w-card-title { font-weight: 700; font-size: 16px; margin-bottom: 5px; display: block; }
+.w-card-sub { font-size: 13px; color: #666; display: block; }
+
+@keyframes w-fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* =================================================================
+   9. THE FLUID AURORA (多彩流体 / 梦幻 / 创造力)
+   ================================================================= */
+.wrap-aurora {
+    background-color: #050505;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    padding-bottom: 100px;
+    position: relative; overflow: visible; /* Changed from hidden to visible for dropdowns */
+    border-radius: 8px;
+}
+/* 背景极光 */
+.aurora-bg {
+    position: absolute; top: -100px; left: 20%; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(120, 50, 255, 0.3) 0%, transparent 70%);
+    filter: blur(80px); pointer-events: none; z-index: 0;
+}
+
+.nav-aurora {
+    position: relative; z-index: 10;
+    padding: 20px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+
+.a-logo {
+    font-size: 24px; font-weight: 300; letter-spacing: -1px; color: #fff; text-decoration: none;
+    background: linear-gradient(90deg, #fff, #bbaaff); -webkit-background-clip: text; color: transparent;
+}
+
+/* 胶囊菜单 */
+.a-menu-capsule {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px; border-radius: 50px;
+    display: flex; gap: 5px;
+}
+
+.a-item {
+    padding: 10px 24px; border-radius: 40px; cursor: pointer; color: #ccc; font-size: 14px; position: relative; transition: 0.3s;
+}
+.a-item:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+/* Style 2 Mega Menu: 悬浮的发光卡片 */
+.a-mega {
+    position: absolute; top: 70px; left: 50%; transform: translateX(-50%);
+    width: 800px;
+    background: rgba(20, 20, 30, 0.9);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 50px rgba(120, 50, 255, 0.2);
+    border-radius: 24px;
+    padding: 30px;
+    display: none;
+    grid-template-columns: 1fr 1fr; gap: 20px;
+    z-index: 100;
+}
+.a-item:hover .a-mega { display: grid; }
+
+.a-feature {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+    border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; gap: 15px; transition: 0.3s;
+    text-align: left;
+}
+.a-feature:hover { border-color: rgba(120, 50, 255, 0.5); background: rgba(255,255,255,0.08); }
+.a-icon-box {
+    width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #6366f1, #a855f7);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff;
+    flex-shrink: 0;
+}
+
+
+/* =================================================================
+   10. THE SOFT CLAY (现代SaaS / 浅色高亮 / 亲和力)
+   ================================================================= */
+.wrap-soft {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    font-family: 'Inter', sans-serif;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.nav-soft {
+    margin: 20px auto; max-width: 1200px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    height: 70px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+
+.s-logo {
+    font-weight: 800; font-size: 20px; color: #3b82f6; display: flex; align-items: center; gap: 5px; text-decoration: none;
+}
+
+.s-menu { display: flex; gap: 5px; height: 100%; align-items: center; }
+
+.s-btn {
+    padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; color: #4b5563; cursor: pointer; transition: 0.2s; position: relative;
+}
+.s-btn:hover { background: #eff6ff; color: #2563eb; }
+
+/* Style 3 Mega Menu: 干净的阴影面板 */
+.s-mega {
+    position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
+    width: 1000px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 30px;
+    display: none;
+    grid-template-columns: 200px 1fr; gap: 40px;
+    z-index: 100;
+}
+.s-btn:hover .s-mega { display: grid; }
+
+.s-sidebar h4 { font-size: 12px; text-transform: uppercase; color: #9ca3af; margin-bottom: 15px; text-align: left; }
+.s-link { display: block; padding: 8px 10px; border-radius: 6px; color: #374151; text-decoration: none; margin-bottom: 2px; font-size: 14px; text-align: left; }
+.s-link:hover { background: #f3f4f6; color: #000; }
+
+.s-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.s-card {
+    border: 1px solid #e5e7eb; border-radius: 10px; padding: 15px; text-decoration: none; transition: 0.2s;
+    text-align: left; display: block;
+}
+.s-card:hover { border-color: #3b82f6; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1); }
+.s-card-img { width: 100%; height: 80px; background: #e0e7ff; border-radius: 6px; margin-bottom: 10px; }
+
+
+/* =================================================================
+   11. THE NEURAL HUB (神经中枢)
+   ================================================================= */
+.nav-island {
+    --deep-space: #030303;
+    --glass-surface: rgba(10, 10, 12, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --neon-primary: #fff;
+    --neon-accent: #6366f1; /* Indigo */
+    --neon-secondary: #10b981; /* Emerald */
+    --text-main: #ffffff;
+    --text-dim: #666;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+    width: 100%;
+    height: 70px;
+    background: var(--glass-surface);
+    backdrop-filter: blur(30px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px; /* 极致的胶囊形 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+    position: relative;
+    box-shadow: 
+        0 20px 50px -10px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.1); /* 顶部高光 */
+    overflow: visible;
+}
+
+/* 顶部装饰线：能量流 */
+.nav-island::before {
+    content: ''; position: absolute; top: -1px; left: 20%; width: 60%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    opacity: 0.5;
+}
+
+.brand-pill {
+    display: flex; align-items: center; gap: 12px;
+    background: #000;
+    padding: 8px 20px 8px 8px;
+    border-radius: 100px;
+    border: 1px solid #222;
+    height: 100%;
+}
+.brand-logo {
+    width: 40px; height: 40px; background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #000; font-size: 20px;
+    position: relative;
+}
+/* Logo 呼吸光环 */
+.brand-logo::after {
+    content:''; position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+    animation: pulse-ring 3s infinite;
+}
+@keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.2); opacity: 0; } }
+
+.brand-text { font-family: 'Syncopate', sans-serif; font-weight: 700; letter-spacing: -1px; font-size: 14px; color: #fff; text-transform: uppercase; text-align: left; }
+
+.menu-cluster {
+    display: flex; align-items: center; gap: 4px;
+    background: rgba(255,255,255,0.02);
+    padding: 4px; border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.02);
+}
+
+.menu-node {
+    position: relative;
+    padding: 10px 24px;
+    border-radius: 100px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; gap: 6px;
+}
+
+.menu-node:hover { color: #fff; background: rgba(255,255,255,0.08); box-shadow: 0 0 20px rgba(255,255,255,0.05); }
+.node-dot { width: 4px; height: 4px; background: currentColor; border-radius: 50%; opacity: 0; transition: 0.3s; }
+.menu-node:hover .node-dot { opacity: 1; }
+
+/* 全息控制台 */
+.holo-deck {
+    position: absolute;
+    top: 80px; left: 50%; transform: translateX(-50%) rotateX(-10deg) scale(0.95);
+    width: 1000px; /* Fixed width for better layout in component */
+    background: #050505;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 10px;
+    opacity: 0; visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 50px 100px -20px rgba(0,0,0,1);
+    perspective: 2000px;
+    overflow: hidden;
+    z-index: 900;
+}
+
+/* 触发态 */
+.menu-node:hover .holo-deck {
+    opacity: 1; visibility: visible;
+    transform: translateX(-50%) rotateX(0deg) scale(1);
+}
+
+.holo-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 300px;
+    background: #0a0a0a;
+    border-radius: 18px;
+    border: 1px solid #1a1a1a;
+    overflow: hidden;
+    height: 480px;
+    text-align: left;
+}
+
+.col-stream {
+    padding: 30px;
+    border-right: 1px solid #1a1a1a;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent);
+    display: flex; flex-direction: column;
+}
+.stream-header { font-family: 'JetBrains Mono'; font-size: 10px; color: #444; margin-bottom: 20px; }
+
+.stream-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid #1a1a1a;
+    color: #888; text-decoration: none; font-size: 14px; transition: 0.3s;
+}
+.stream-link span { font-family: 'Inter'; letter-spacing: 0.5px; }
+.stream-link code { font-family: 'JetBrains Mono'; font-size: 10px; opacity: 0.5; background: #111; padding: 2px 4px; border-radius: 2px;}
+
+.stream-link:hover { color: #fff; padding-left: 10px; border-bottom-color: #333; }
+.stream-link:hover code { color: #6366f1; background: rgba(99, 102, 241, 0.1); }
+
+.col-core {
+    padding: 30px;
+    display: grid; grid-template-rows: auto 1fr; gap: 20px;
+    background: radial-gradient(circle at center, #111 0%, #0a0a0a 100%);
+}
+
+.core-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; height: 100%; }
+
+.ai-card {
+    background: #0e0e0e; border: 1px solid #222; border-radius: 12px;
+    padding: 20px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: 0.4s; cursor: pointer;
+}
+.ai-card:hover { border-color: #444; background: #141414; }
+
+.card-visual {
+    height: 80px; display: flex; align-items: center; justify-content: center;
+    border: 1px dashed #333; border-radius: 8px; margin-bottom: 15px; color: #444; font-size: 24px; transition: 0.3s;
+}
+.ai-card:hover .card-visual { border-color: #6366f1; color: #6366f1; border-style: solid; box-shadow: 0 0 20px rgba(99, 102, 241, 0.2); }
+
+.voice-bars { display: flex; align-items: center; gap: 3px; height: 30px; }
+.vb { width: 4px; background: #444; border-radius: 2px; animation: eq 1s infinite ease-in-out; }
+.ai-card:hover .vb { background: #10b981; }
+@keyframes eq { 0%,100%{height:10px} 50%{height:30px} }
+
+.col-tele {
+    padding: 30px;
+    border-left: 1px solid #1a1a1a;
+    background: #080808;
+    font-family: 'JetBrains Mono';
+}
+.tele-box {
+    border: 1px solid #222; background: #0c0c0c; padding: 15px; border-radius: 8px;
+    margin-bottom: 20px;
+}
+.tele-label { font-size: 10px; color: #555; text-transform: uppercase; margin-bottom: 8px; }
+.tele-val { font-size: 13px; color: #fff; display: flex; align-items: center; gap: 8px; }
+.status-led { width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
+
+.code-snippet {
+    font-size: 10px; color: #666; line-height: 1.6;
+}
+
+.action-pod {
+    display: flex; align-items: center; gap: 8px;
+    background: #000; padding: 6px; border-radius: 100px; border: 1px solid #222;
+    height: 100%;
+}
+
+.icon-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; cursor: pointer; transition: 0.3s; border: 1px solid transparent;
+}
+.icon-btn:hover { background: #1a1a1a; border-color: #333; }
+
+.connect-btn {
+    background: #fff; color: #000;
+    padding: 0 24px; height: 40px; border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; text-decoration: none;
+    transition: 0.3s;
+}
+.connect-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+
+
+/* =================================================================
+   12. THE OBSIDIAN ARCHITECT (黑曜石架构师)
+   ================================================================= */
+.nav-shell {
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --line-dim: #1a1a1a;
+    --line-mid: #333333;
+    --line-bright: #ffffff;
+    --text-main: #ffffff;
+    --text-mute: #666666;
+    --font-display: 'Michroma', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+    --font-ui: 'Inter', sans-serif;
+
+    position: relative;
+    width: 100%;
+    height: 90px;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-mid);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+}
+
+/* 顶部的精密刻度线 */
+.nav-shell::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: repeating-linear-gradient(90deg, #333 0, #333 1px, transparent 1px, transparent 10px);
+    opacity: 0.5;
+}
+
+.brand-unit {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    position: relative;
+    padding: 10px 0;
+}
+.brand-logo-box {
+    width: 40px; height: 40px;
+    border: 1px solid var(--line-bright);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    background: #000;
+}
+.brand-logo-box::after { content: ''; position: absolute; top: -2px; left: -2px; width: 4px; height: 4px; background: #fff; box-shadow: 42px 0 0 #fff, 0 42px 0 #fff, 42px 42px 0 #fff; }
+
+.brand-icon { font-size: 20px; color: #fff; animation: blink-logo 4s infinite; }
+@keyframes blink-logo { 0%,90%,100% { opacity: 1; } 95% { opacity: 0; } }
+
+.brand-text h1 { font-family: var(--font-display); font-size: 16px; letter-spacing: 2px; color: #fff; text-transform: uppercase; line-height: 1; }
+.brand-text p { font-family: var(--font-code); font-size: 9px; color: var(--text-mute); margin-top: 4px; letter-spacing: 1px; }
+
+.nav-core {
+    display: flex;
+    height: 100%;
+    border-left: 1px solid var(--line-dim);
+    border-right: 1px solid var(--line-dim);
+}
+
+.nav-btn {
+    position: relative;
+    height: 100%;
+    padding: 0 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font-code);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #888;
+}
+.nav-num { position: absolute; top: 15px; left: 10px; font-size: 9px; color: #333; transition: 0.3s; }
+
+.nav-btn::before, .nav-btn::after {
+    content: ''; position: absolute; background: #fff; transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.nav-btn::before { top: 0; left: 0; width: 0%; height: 1px; }
+.nav-btn::after { top: 0; right: 0; width: 1px; height: 0%; }
+
+.nav-btn:hover { background: #050505; color: #fff; }
+.nav-btn:hover .nav-num { color: #fff; }
+.nav-btn:hover::before { width: 100%; }
+.nav-btn:hover::after { height: 100%; }
+
+.mega-void {
+    position: absolute; /* Changed from fixed to absolute */
+    top: 90px; left: 50%; transform: translateX(-50%); /* Centered */
+    width: 1000px;
+    background: #000;
+    border-bottom: 1px solid var(--line-mid);
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s cubic-bezier(0.8, 0, 0.2, 1);
+    z-index: 900;
+}
+
+.nav-btn:hover .mega-void { height: 500px; border-bottom: 2px solid #fff; }
+
+.mega-grid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 200px 1fr 300px;
+    text-align: left;
+}
+
+.zone-index {
+    border-right: 1px solid var(--line-dim);
+    padding: 40px;
+    display: flex; flex-direction: column; justify-content: space-between;
+}
+.index-list a {
+    display: block; font-family: var(--font-display); font-size: 12px; color: #444; text-decoration: none;
+    margin-bottom: 20px; padding-left: 10px; border-left: 1px solid transparent; transition: 0.2s;
+}
+.index-list a:hover { color: #fff; border-left-color: #fff; padding-left: 20px; }
+.index-meta { font-family: var(--font-code); font-size: 9px; color: #333; line-height: 1.5; }
+
+.zone-visual {
+    padding: 40px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.tech-card {
+    border: 1px solid var(--line-mid);
+    background: linear-gradient(135deg, rgba(20,20,20,0.5), rgba(0,0,0,0.8));
+    padding: 2px;
+    position: relative;
+    transition: 0.4s;
+}
+.tech-card-inner {
+    background: #000; height: 100%; padding: 25px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+}
+.scan-line {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);
+    transform: translateY(-100%);
+    transition: 0.5s;
+}
+.tech-card:hover .scan-line { transform: translateY(400px); }
+.tech-card:hover { border-color: #fff; }
+
+.tc-icon { font-size: 32px; color: #fff; margin-bottom: 20px; }
+.tc-title { font-family: var(--font-display); font-size: 18px; color: #fff; margin-bottom: 5px; }
+.tc-desc { font-family: var(--font-code); font-size: 11px; color: #888; line-height: 1.4; }
+
+.tc-stat {
+    margin-top: 20px; padding-top: 15px; border-top: 1px solid #222;
+    display: flex; justify-content: space-between; font-family: var(--font-code); font-size: 10px; color: #555;
+}
+
+.zone-data {
+    border-left: 1px solid var(--line-dim);
+    padding: 40px;
+    background: repeating-linear-gradient(45deg, #050505, #050505 10px, #080808 10px, #080808 20px);
+}
+.data-monitor {
+    border: 1px solid var(--line-mid);
+    padding: 20px;
+    font-family: var(--font-code); font-size: 11px; color: #888;
+    margin-bottom: 20px;
+}
+.monitor-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.monitor-val { color: #fff; }
+.blink-dot { display: inline-block; width: 6px; height: 6px; background: #fff; margin-right: 5px; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.audio-viz { display: flex; align-items: flex-end; gap: 2px; height: 40px; margin-top: 10px; }
+.av-bar { width: 3px; background: #333; animation: bounce 0.5s infinite ease-in-out; }
+.tech-card:hover .av-bar { background: #fff; }
+@keyframes bounce { 0%, 100% { height: 5px; } 50% { height: 35px; } }
+
+.nav-end { display: flex; align-items: center; gap: 30px; }
+
+.search-trigger {
+    font-family: var(--font-code); font-size: 12px; color: #fff; cursor: pointer;
+    border-bottom: 1px solid transparent; transition: 0.3s;
+}
+.search-trigger:hover { border-bottom-color: #fff; letter-spacing: 1px; }
+
+.btn-launch {
+    padding: 12px 24px;
+    background: #fff; color: #000;
+    font-family: var(--font-display); font-size: 12px;
+    text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+    position: relative; overflow: hidden;
+    transition: 0.3s;
+}
+.btn-launch::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.2), transparent);
+    transition: 0.5s;
+}
+.btn-launch:hover::after { left: 100%; }
+.btn-launch:hover { background: #ccc; }
+
+
+/* =================================================================
+   14. THE FROSTED GLASS (经典毛玻璃 · 悬浮岛)
+   ================================================================= */
+.nav-frosted {
+    width: 90%; max-width: 1200px; height: 70px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 0 auto;
+}
+.n-frosted-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #fff; text-decoration: none; }
+.n-frosted-menu { display: flex; gap: 5px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 10px; }
+.n-frosted-link {
+    padding: 8px 16px; border-radius: 8px; color: #999; font-size: 13px; cursor: pointer; transition: 0.3s;
+}
+.n-frosted-link:hover, .n-frosted-link.active { background: rgba(255,255,255,0.1); color: #fff; }
+.n-frosted-btn {
+    background: #fff; color: #000; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; text-decoration: none; transition: 0.3s;
+}
+.n-frosted-btn:hover { box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+
+
+/* =================================================================
+   15. THE NEON HORIZON (霓虹光束 · 赛博风)
+   ================================================================= */
+.nav-neon-horizon {
+    width: 100%; height: 80px;
+    background: #000;
+    border-bottom: 1px solid #222;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 50px;
+    position: relative;
+}
+/* 底部流光条 */
+.nav-neon-horizon::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, #8b5cf6, #3b82f6, transparent);
+}
+.n-neon-logo { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; color: #fff; font-size: 20px; text-decoration: none; text-transform: uppercase;}
+.n-neon-menu { display: flex; gap: 40px; }
+.n-neon-link {
+    color: #666; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; position: relative; transition: 0.3s; cursor: pointer;
+}
+.n-neon-link:hover { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
+.n-neon-link::before {
+    content:''; position: absolute; top: -32px; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 20px; background: linear-gradient(to bottom, transparent, #3b82f6); opacity: 0; transition: 0.3s;
+}
+.n-neon-link:hover::before { opacity: 1; top: -20px; }
+
+
+/* =================================================================
+   16. THE INVISIBLE TECH (极简科技 · 无边框)
+   ================================================================= */
+.nav-invisible {
+    width: 100%; height: 100px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px;
+    font-family: 'Inter', sans-serif;
+    background: #050505;
+}
+.n-invis-left { display: flex; gap: 60px; align-items: center; }
+.n-invis-logo { width: 40px; height: 40px; background: #fff; border-radius: 50%; }
+.n-invis-link { color: #888; text-decoration: none; font-size: 14px; transition: 0.3s; cursor: pointer; }
+.n-invis-link:hover { color: #fff; }
+.n-invis-right { display: flex; align-items: center; gap: 20px; }
+.n-invis-icon {
+    width: 40px; height: 40px; border: 1px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; transition: 0.3s;
+}
+.n-invis-icon:hover { border-color: #fff; background: #fff; color: #000; }
+
+
+/* =================================================================
+   17. THE COMMAND NOTCH (刘海屏设计 · 异形)
+   ================================================================= */
+.nav-notch-container { display: flex; justify-content: center; width: 100%; }
+.nav-notch {
+    background: #111;
+    border: 1px solid #333; border-top: none;
+    border-radius: 0 0 20px 20px;
+    padding: 0 30px; height: 60px;
+    display: flex; align-items: center; gap: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,1);
+}
+.n-notch-logo { font-weight: 800; color: #fff; letter-spacing: -1px; }
+.n-notch-divider { width: 1px; height: 20px; background: #333; }
+.n-notch-link { color: #aaa; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.2s; cursor: pointer;}
+.n-notch-link:hover { color: #fff; }
+.n-notch-btn { background: #3b82f6; color: #fff; padding: 6px 15px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+
+/* =================================================================
+   18. THE ELEGANT SERIF (古典艺术 · 杂志风)
+   ================================================================= */
+.nav-serif {
+    width: 100%; height: 90px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; padding: 0 40px;
+    background: #050505;
+}
+.n-serif-menu { display: flex; gap: 30px; }
+.n-serif-link { font-family: 'Cinzel', serif; color: #aaa; text-decoration: none; font-size: 13px; transition: 0.3s; cursor: pointer; }
+.n-serif-link:hover { color: #d4af37; }
+.n-serif-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-style: italic; color: #fff; text-align: center; }
+.n-serif-actions { display: flex; justify-content: flex-end; gap: 20px; color: #fff; }
+
+
+/* =================================================================
+   19. THE GLOWING ORB (中心发光 · 极光)
+   ================================================================= */
+.nav-orb-wrap {
+    width: 100%; display: flex; justify-content: center; position: relative;
+    padding: 20px 0;
+}
+.nav-orb-glow {
+    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 100px; background: #8b5cf6; filter: blur(80px); opacity: 0.5; pointer-events: none;
+}
+.nav-orb {
+    width: 800px; height: 60px;
+    background: rgba(10, 10, 10, 0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 8px 0 25px;
+    z-index: 10;
+}
+.n-orb-logo { font-weight: 700; color: #fff; font-size: 16px; }
+.n-orb-center { display: flex; gap: 20px; }
+.n-orb-link { color: #ccc; text-decoration: none; font-size: 13px; transition: 0.2s; cursor: pointer; }
+.n-orb-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+.n-orb-btn {
+    width: 44px; height: 44px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; transition: 0.3s; cursor: pointer;
+}
+.n-orb-btn:hover { transform: rotate(90deg); }
+
+
+/* =================================================================
+   20. THE SPLIT DECK (双层甲板 · 结构化)
+   ================================================================= */
+.nav-split-deck {
+    width: 100%; padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    background: #050505;
+}
+.n-split-brand { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: #fff; line-height: 1; }
+.n-split-brand span { font-size: 10px; display: block; color: #666; font-weight: 400; letter-spacing: 2px; margin-top: 5px; }
+
+.n-split-menu-box {
+    background: #111; border: 1px solid #222; padding: 10px 10px 10px 30px;
+    border-radius: 100px; display: flex; align-items: center; gap: 30px;
+}
+.n-split-link { color: #888; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.2s; cursor: pointer; }
+.n-split-link:hover { color: #fff; }
+.n-split-btn {
+    background: #222; color: #fff; padding: 10px 20px; border-radius: 100px; font-size: 12px; font-weight: 600; border: 1px solid #333; transition: 0.3s; cursor: pointer;
+}
+.n-split-btn:hover { background: #fff; color: #000; }
+.nav-luminous-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.nav-luminous {
+    --bg-nav: rgba(10, 10, 10, 0.8);
+    --border-base: rgba(255, 255, 255, 0.06);
+    --border-highlight: rgba(255, 255, 255, 0.15);
+    --accent-glow: rgba(255, 255, 255, 0.08);
+
+    width: 100%;
+    max-width: 1280px;
+    height: 64px;
+    background: var(--bg-nav);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-base);
+    border-radius: 12px;
+    /* 内部高光，模拟玻璃厚度 */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    transition: border-color 0.3s;
+}
+
+.nav-luminous:hover { border-color: var(--border-highlight); }
+
+.brand {
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+.brand-logo {
+    width: 28px; height: 28px;
+    background: #fff;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #000; font-weight: 900; font-size: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+.brand-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+    color: #fff;
+}
+
+.menu {
+    display: flex;
+    gap: 4px;
+    height: 100%;
+    align-items: center;
+}
+
+.menu-item {
+    position: relative;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    user-select: none;
+    display: flex; align-items: center; gap: 6px;
+}
+
+.menu-item:hover {
+    color: #fff;
+    background: var(--accent-glow);
+}
+
+.menu-item i { font-size: 12px; opacity: 0.5; transition: transform 0.2s; }
+.menu-item:hover i { transform: rotate(180deg); }
+
+.dropdown-panel {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 1000px;
+    background: #0a0a0a;
+    border: 1px solid var(--border-base);
+    border-radius: 16px;
+    padding: 8px;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    box-shadow: 
+        0 0 0 1px rgba(0,0,0,1),
+        0 40px 80px -20px rgba(0,0,0,0.8);
+    overflow: hidden;
+    z-index: 900;
+}
+
+.menu-item:hover .dropdown-panel {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+
+.panel-inner {
+    display: grid;
+    grid-template-columns: 240px 1fr 280px;
+    background: #0f0f0f;
+    border-radius: 12px;
+    border: 1px solid var(--border-base);
+    overflow: hidden;
+    text-align: left;
+}
+
+.col-sidebar {
+    padding: 24px;
+    border-right: 1px solid var(--border-base);
+    background: rgba(255,255,255,0.01);
+    display: flex; flex-direction: column; gap: 4px;
+}
+.sidebar-link {
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #888;
+    font-size: 13px;
+    text-decoration: none;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: 0.2s;
+}
+.sidebar-link:hover { background: #1a1a1a; color: #fff; }
+.sidebar-link.active { background: #1a1a1a; color: #fff; font-weight: 500; }
+
+.col-grid {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.feature-card {
+    border: 1px solid var(--border-base);
+    background: linear-gradient(180deg, rgba(30,30,30,0.4) 0%, rgba(20,20,20,0.4) 100%);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+}
+.feature-card:hover {
+    border-color: rgba(255,255,255,0.1);
+    background: linear-gradient(180deg, rgba(40,40,40,0.6) 0%, rgba(25,25,25,0.6) 100%);
+    transform: translateY(-1px);
+}
+
+.card-icon {
+    width: 36px; height: 36px;
+    background: #1a1a1a;
+    border: 1px solid var(--border-base);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.card-content h4 { font-size: 14px; color: #fff; font-weight: 500; margin-bottom: 4px; }
+.card-content p { font-size: 12px; color: #666; line-height: 1.4; }
+
+.col-promo {
+    padding: 24px;
+    border-left: 1px solid var(--border-base);
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 60%);
+}
+.promo-img {
+    width: 100%; height: 140px;
+    background: #111;
+    border-radius: 8px;
+    border: 1px solid var(--border-base);
+    margin-bottom: 16px;
+    overflow: hidden;
+    position: relative;
+}
+.promo-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+.promo-img:hover img { opacity: 1; transform: scale(1.05); }
+
+.promo-tag {
+    font-size: 10px; color: #000; background: #fff; padding: 2px 6px; border-radius: 4px; font-weight: 700;
+    margin-bottom: 8px; display: inline-block;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 6px;
+}
+
+.search-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-base);
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #666; font-size: 12px;
+    cursor: pointer; transition: 0.2s;
+}
+.search-btn:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.1); }
+.kbd { background: #222; padding: 1px 4px; border-radius: 3px; font-family: monospace; font-size: 10px; border: 1px solid #333;}
+
+.btn-primary {
+    background: #fff;
+    color: #000;
+    font-size: 13px; font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+.btn-primary:hover {
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+}
+
+.user-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: #333;
+    border: 1px solid rgba(255,255,255,0.2);
+    position: relative; cursor: pointer;
+}
+.user-avatar::after {
+    content:''; position: absolute; bottom: 0; right: 0; width: 8px; height: 8px; 
+    background: #10b981; border: 2px solid #111; border-radius: 50%;
+}

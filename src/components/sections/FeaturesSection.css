@@ -1,0 +1,70 @@
+.features-scope { padding: 100px 0; max-width: 1400px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+.features-scope .section-header { margin-bottom: 60px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+.features-scope .sec-title { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 600; }
+
+.features-scope .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 350px 300px;
+    gap: 20px;
+}
+@media (max-width: 1024px) {
+    .features-scope .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+}
+
+/* 统一卡片样式 */
+.features-scope .card {
+    background: #080808;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 30px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: 0.4s;
+}
+.features-scope .card:hover { border-color: rgba(255,255,255,0.15); background: #0c0c0c; transform: translateY(-5px); }
+.features-scope .card:hover .card-icon { color: #fff; background: rgba(255,255,255,0.1); }
+
+/* 卡片内容 */
+.features-scope .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.features-scope .card-icon {
+    width: 40px; height: 40px; border-radius: 10px; background: #111; color: #666;
+    display: flex; align-items: center; justify-content: center; font-size: 20px; transition: 0.3s;
+}
+
+.features-scope .card-content h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; font-family: 'Space Grotesk', sans-serif; }
+.features-scope .card-content p { font-size: 13px; color: #666; line-height: 1.5; }
+
+/* 特殊卡片 */
+.features-scope .card-span-2 { grid-column: span 2; background: radial-gradient(circle at bottom right, #111, #080808); }
+.features-scope .card-tall { grid-row: span 2; border: 1px solid rgba(255,255,255,0.15); }
+
+@media (max-width: 1024px) {
+    .features-scope .card-span-2 { grid-column: auto; }
+    .features-scope .card-tall { grid-row: auto; }
+}
+
+/* 可视化演示区 */
+.features-scope .viz-box {
+    margin-top: auto; height: 150px; background: #050505; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+}
+
+/* [Voice] 声波动画 */
+.features-scope .wave-group { display: flex; gap: 4px; align-items: center; height: 40px; }
+.features-scope .wave { width: 4px; background: #fff; animation: features-wave 1s infinite ease-in-out; border-radius: 2px; }
+@keyframes features-wave { 0%,100%{height:10px; opacity:0.3;} 50%{height:40px; opacity:1;} }
+
+/* [Code] 代码片段 */
+.features-scope .code-block { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #aaa; text-align: left; width: 100%; padding: 20px; opacity: 0.7; }
+.features-scope .code-hl { color: #3b82f6; }
+
+/* [Image] 扫描线 */
+.features-scope .scan-img {
+    width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); opacity: 0.5;
+}
+.features-scope .scan-line {
+    position: absolute; top:0; left:0; width:100%; height:2px; background:#fff;
+    box-shadow: 0 0 20px #fff; animation: features-scan 3s infinite linear;
+}
+@keyframes features-scan { 0%{top:0} 100%{top:100%} }

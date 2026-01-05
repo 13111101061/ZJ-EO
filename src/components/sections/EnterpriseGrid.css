@@ -1,0 +1,72 @@
+.enterprise-grid-scope {
+    padding: 100px 40px;
+    background: #f4f4f4; /* Contrast light theme for this section */
+    color: #000;
+}
+
+.eg-header {
+    display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px;
+    border-bottom: 2px solid #000; padding-bottom: 20px;
+}
+.eg-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 1;
+}
+.eg-subtitle {
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+}
+
+.eg-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: #000; /* Create grid lines */
+    border: 1px solid #000;
+}
+
+.eg-cell {
+    background: #f4f4f4;
+    padding: 40px;
+    min-height: 250px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: 0.3s;
+}
+.eg-cell:hover { background: #fff; }
+
+.eg-metric {
+    font-family: 'Syncopate', sans-serif; font-size: 48px; font-weight: 700; letter-spacing: -2px;
+}
+.eg-label {
+    font-family: 'Inter', sans-serif; font-size: 14px; color: #666; font-weight: 500;
+}
+
+.eg-cell-large {
+    grid-column: span 2;
+    background: #fff;
+}
+
+/* Map Visualization (CSS Only) */
+.map-viz {
+    width: 100%; height: 100%; position: relative;
+    display: flex; align-items: center; justify-content: center;
+}
+.map-point {
+    width: 8px; height: 8px; background: #000; border-radius: 50%;
+    position: absolute;
+    animation: pulse-dot 2s infinite;
+}
+.mp-1 { top: 30%; left: 20%; }
+.mp-2 { top: 50%; left: 50%; animation-delay: 0.5s; }
+.mp-3 { top: 70%; right: 30%; animation-delay: 1s; }
+
+@keyframes pulse-dot {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.2); }
+    70% { transform: scale(1.5); box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 1024px) {
+    .eg-grid { grid-template-columns: 1fr 1fr; }
+    .eg-cell-large { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+    .eg-grid { grid-template-columns: 1fr; }
+    .eg-cell-large { grid-column: span 1; }
+}

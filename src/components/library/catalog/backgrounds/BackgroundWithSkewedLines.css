@@ -1,0 +1,29 @@
+/* BackgroundWithSkewedLines Component Styles */
+
+.lib-bg-backgroundwithskewedlines {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.lib-bg-backgroundwithskewedlines:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .lib-bg-backgroundwithskewedlines {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lib-bg-backgroundwithskewedlines {
+    padding: 12px;
+  }
+}

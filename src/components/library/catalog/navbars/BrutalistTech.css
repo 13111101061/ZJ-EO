@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500;700&display=swap');
+/* Remix Icon is already included globally, no need to import here */
+
+/* 核心变量 */
+:root {
+  --brutalist-neon: #d1ff00;
+  --brutalist-bg: #080808;
+  --brutalist-border: #333;
+  --brutalist-text: #fff;
+}
+
+.brutalist-tech-container {
+  position: relative;
+  width: 100%;
+}
+
+/* 跑马灯 */
+.brutalist-ticker-wrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  background: var(--brutalist-neon);
+  color: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 1002;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #000;
+}
+
+.brutalist-ticker-move {
+  display: inline-block;
+  white-space: nowrap;
+  animation: brutalist-ticker 20s linear infinite;
+}
+
+.brutalist-ticker-item {
+  margin-right: 40px;
+}
+
+@keyframes brutalist-ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* 导航栏主体 */
+.brutalist-navbar {
+  position: fixed;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--brutalist-border);
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+}
+
+.brutalist-brand {
+  width: 240px;
+  height: 100%;
+  border-right: 1px solid var(--brutalist-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: -1px;
+  color: var(--brutalist-neon);
+  text-decoration: none;
+  background: var(--brutalist-bg);
+}
+
+.brutalist-brand span {
+  color: #fff;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.5;
+}
+
+.brutalist-nav-menu {
+  flex: 1;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.brutalist-nav-item {
+  flex: 1;
+  border-right: 1px solid var(--brutalist-border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.brutalist-nav-item > a {
+  color: var(--brutalist-text);
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.brutalist-nav-item:hover {
+  background: var(--brutalist-neon);
+}
+
+.brutalist-nav-item:hover > a {
+  color: #000;
+}
+
+/* 下拉菜单 */
+.brutalist-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #000;
+  border-top: 2px solid var(--brutalist-neon);
+  border-bottom: 2px solid var(--brutalist-neon);
+  display: none;
+  padding: 40px 0;
+  z-index: 20;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.brutalist-nav-item:hover .brutalist-dropdown {
+  display: grid;
+}
+
+.brutalist-dd-col {
+  padding: 0 40px;
+  border-right: 1px dashed #333;
+}
+
+.brutalist-dd-col:last-child {
+  border-right: none;
+}
+
+.brutalist-dd-col h3 {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.brutalist-dd-link {
+  display: block;
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: 0.2s;
+  font-weight: 800;
+  font-family: 'Syne', sans-serif;
+}
+
+.brutalist-dd-link:hover {
+  color: var(--brutalist-neon);
+  transform: translateX(20px);
+}
+
+.brutalist-dd-link span {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.brutalist-featured {
+  border: 1px solid #333;
+  padding: 20px;
+}
+
+.brutalist-featured h2 {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.brutalist-featured p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.brutalist-artist {
+  font-size: 60px;
+  line-height: 0.9;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+}
+
+.brutalist-tools {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #333;
+}
+
+.brutalist-search-btn,
+.brutalist-cart-btn {
+  padding: 12px 25px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.brutalist-search-btn:hover,
+.brutalist-cart-btn:hover {
+  background: #333;
+}
+
+.brutalist-cart-btn {
+  background: var(--brutalist-neon);
+  color: #000;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.brutalist-cart-btn:hover {
+  background: #fff;
+}

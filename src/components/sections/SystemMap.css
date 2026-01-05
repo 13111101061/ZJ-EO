@@ -1,0 +1,54 @@
+.system-map-scope {
+    padding: 100px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.system-map-header {
+    text-align: center; margin-bottom: 80px;
+}
+.system-map-title {
+    font-family: 'Syncopate', sans-serif;
+    font-size: 48px; font-weight: 700; text-transform: uppercase;
+    background: linear-gradient(180deg, #fff, #666); -webkit-background-clip: text; color: transparent;
+    letter-spacing: -2px; margin-bottom: 20px;
+}
+.system-map-desc {
+    font-family: 'Inter', sans-serif; color: #888; font-size: 16px; max-width: 600px; margin: 0 auto;
+}
+
+.system-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;
+}
+@media (max-width: 768px) {
+    .system-grid { grid-template-columns: 1fr; }
+}
+
+.system-card {
+    position: relative; height: 300px; border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #080808;
+    transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    text-decoration: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px;
+}
+.system-card:hover {
+    transform: scale(0.98); border-color: rgba(255,255,255,0.3);
+}
+
+/* 动态背景图 */
+.card-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center; opacity: 0.3; transition: 0.5s;
+    filter: grayscale(100%);
+}
+.system-card:hover .card-bg { opacity: 0.6; filter: grayscale(0%); transform: scale(1.1); }
+
+.card-content { position: relative; z-index: 2; pointer-events: none; }
+.card-num { font-family: 'JetBrains Mono'; color: #666; font-size: 12px; margin-bottom: 10px; display: block; }
+.card-title { font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin-bottom: 10px; font-weight: 600; }
+.card-arrow {
+    width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #000;
+    display: flex; align-items: center; justify-content: center; position: absolute; top: 30px; right: 30px;
+    opacity: 0; transform: rotate(-45deg) scale(0.8); transition: 0.4s;
+}
+.system-card:hover .card-arrow { opacity: 1; transform: rotate(0) scale(1); }

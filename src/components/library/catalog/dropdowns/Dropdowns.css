@@ -1,0 +1,323 @@
+/* Dropdowns.css */
+
+/* --- 通用下拉容器 --- */
+.lib-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.lib-dropdown-content {
+    position: absolute;
+    top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+    margin-top: 10px;
+}
+
+/* Hover trigger logic will be handled by parent or utility class if used purely CSS, 
+   but for React we might toggle classes or just use this structure */
+.lib-dropdown-container:hover .lib-dropdown-content {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+
+
+/* =================================================================
+   STYLE 1: THE VISUAL MATRIX (视觉矩阵 · 适合AI绘图)
+   特点：以图片为主，带有参数浮层。
+   ================================================================= */
+.lib-dd-1 { 
+    width: 500px; 
+    padding: 10px; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    background: #09090b; /* Dark background */
+    border: 1px solid #27272a; 
+    border-radius: 12px;
+}
+
+.lib-d1-card {
+    height: 140px; border-radius: 6px; position: relative; overflow: hidden; cursor: pointer; border: 1px solid transparent;
+}
+.lib-d1-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.4s; }
+.lib-d1-card:hover img { filter: grayscale(0%); transform: scale(1.1); }
+.lib-d1-card:hover { border-color: #fff; }
+
+.lib-d1-meta {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px;
+    background: linear-gradient(to top, #000, transparent);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #fff; opacity: 0; transition: 0.3s;
+}
+.lib-d1-card:hover .lib-d1-meta { opacity: 1; }
+
+
+/* =================================================================
+   STYLE 2: THE PARAMETER TUNER (参数调音台 · 适合AI配音)
+   特点：包含滑块、波形，像一个控制器。
+   ================================================================= */
+.lib-dd-2 { 
+    width: 320px; 
+    padding: 20px; 
+    background: #09090b; 
+    border: 1px solid #27272a; 
+    border-radius: 12px;
+    /* border-top: 2px solid #fff; Removed to match card style or keep if desired, let's keep it consistent */
+}
+
+.lib-d2-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+.lib-d2-title { font-size: 12px; font-weight: 700; text-transform: uppercase; }
+
+.lib-d2-control { margin-bottom: 15px; }
+.lib-d2-label { display: flex; justify-content: space-between; font-size: 10px; color: #888; margin-bottom: 5px; font-family: 'JetBrains Mono', monospace; }
+
+/* 模拟滑块 */
+.lib-d2-slider {
+    width: 100%; height: 4px; background: #222; border-radius: 2px; position: relative;
+}
+.lib-d2-fill { height: 100%; background: #fff; border-radius: 2px; position: relative; }
+.lib-d2-knob {
+    width: 10px; height: 10px; background: #fff; border-radius: 50%; position: absolute; right: -5px; top: -3px; cursor: pointer; box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.lib-d2-wave {
+    height: 30px; display: flex; align-items: center; gap: 2px; margin-top: 20px; opacity: 0.5;
+}
+.lib-d2-bar { width: 3px; background: #555; height: 100%; animation: lib-d2-eq 1s infinite; }
+.lib-dd-2:hover .lib-d2-wave { opacity: 1; }
+.lib-dd-2:hover .lib-d2-bar { background: #fff; }
+@keyframes lib-d2-eq { 0%,100%{height:5px} 50%{height:25px} }
+
+
+/* =================================================================
+   STYLE 3: THE DOCS TREE (文档树 · 适合教程/API)
+   特点：结构化的树状连接线，非常极客。
+   ================================================================= */
+.lib-dd-3 { 
+    width: 280px; 
+    padding: 20px; 
+    background: #09090b; 
+    border: 1px solid #27272a; 
+    border-radius: 12px;
+}
+
+.lib-d3-item {
+    position: relative; padding-left: 20px; margin-bottom: 8px;
+}
+/* 连接线 */
+.lib-d3-item::before {
+    content: ''; position: absolute; top: 0; left: 6px; width: 1px; height: 100%; background: #222;
+}
+.lib-d3-item::after {
+    content: ''; position: absolute; top: 12px; left: 6px; width: 10px; height: 1px; background: #222;
+}
+.lib-d3-item:last-child::before { height: 12px; } /* 截断最后一条线 */
+
+.lib-d3-link {
+    display: block; padding: 6px 10px; border-radius: 4px; color: #888; font-size: 13px; text-decoration: none; font-family: 'JetBrains Mono', monospace; transition: 0.2s;
+}
+.lib-d3-link:hover { background: #1a1a1a; color: #fff; }
+.lib-d3-link span { color: #444; margin-right: 5px; }
+
+
+/* =================================================================
+   STYLE 4: THE BENTO GRID (便当盒 · 综合功能)
+   特点：大小不一的块状布局，信息展示效率高。
+   ================================================================= */
+.lib-dd-4 { 
+    width: 420px; 
+    padding: 12px; 
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr; 
+    grid-template-rows: 80px 80px; 
+    gap: 10px; 
+    background: #09090b; 
+    border: 1px solid #27272a; 
+    border-radius: 12px;
+}
+
+.lib-d4-box {
+    background: #111; border: 1px solid #222; border-radius: 8px; padding: 15px;
+    transition: 0.2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;
+}
+.lib-d4-box:hover { border-color: #555; background: #161616; }
+
+.lib-d4-large { grid-row: span 2; background: radial-gradient(circle at top right, #222, #000); }
+.lib-d4-icon-bento { font-size: 20px; color: #fff; margin-bottom: 5px; } /* Renamed from d4-icon to avoid conflicts if any */
+.lib-d4-title { font-size: 13px; font-weight: 600; color: #eee; }
+.lib-d4-sub { font-size: 10px; color: #666; margin-top: 2px; }
+
+
+/* =================================================================
+   STYLE 5: THE MODEL SELECTOR (模型选择器 · 适合写作/对话)
+   特点：带有状态指示灯，模拟切换模型的UI。
+   ================================================================= */
+.lib-dd-5 { 
+    width: 320px; 
+    padding: 12px; 
+    background: #09090b; 
+    border: 1px solid #27272a; 
+    border-radius: 12px;
+}
+
+.lib-d5-opt {
+    display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;
+}
+.lib-d5-opt:hover { background: #111; border-color: #222; }
+.lib-d5-opt.active { background: #111; border-color: #fff; }
+
+.lib-d5-icon {
+    width: 32px; height: 32px; background: #000; border: 1px solid #333; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+}
+.lib-d5-info h4 { font-size: 13px; color: #fff; margin-bottom: 2px; margin-top: 0; }
+.lib-d5-info p { font-size: 11px; color: #666; margin: 0; }
+
+.lib-d5-tag { margin-left: auto; font-size: 10px; padding: 2px 6px; border-radius: 4px; background: #222; color: #888; border: 1px solid #333; }
+.lib-d5-opt.active .lib-d5-tag { background: #fff; color: #000; }
+
+
+/* =================================================================
+   STYLE 6: THE COMMAND LIST (指令列表 · 效率工具)
+   特点：像代码编辑器的自动补全，极简黑白。
+   ================================================================= */
+.lib-dd-6 { 
+    width: 280px; 
+    padding: 10px 0; 
+    background: #09090b; 
+    border: 1px solid #27272a; 
+    border-radius: 12px;
+}
+
+.lib-d6-input-box { padding: 10px 15px; border-bottom: 1px solid #222; margin-bottom: 5px; }
+.lib-d6-input { background: transparent; border: none; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; width: 100%; outline: none; }
+
+.lib-d6-item {
+    padding: 8px 15px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: #aaa; cursor: pointer;
+}
+.lib-d6-item:hover { background: #fff; color: #000; }
+.lib-d6-key { font-family: 'JetBrains Mono', monospace; font-size: 10px; opacity: 0.5; }
+
+/* =========================================
+   NEW DROPDOWNS FROM IMPORT (Renamed)
+   ========================================= */
+
+/* --- STYLE 1: The 'Stack' --- */
+.lib-dd-stack { width: 320px; padding: 8px; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-stack-item {
+    display: flex; gap: 12px; padding: 12px; border-radius: 8px; text-decoration: none; transition: 0.2s;
+}
+.lib-dd-stack-item:hover { background: #1f1f1f; }
+.lib-dd-stack-icon {
+    width: 36px; height: 36px; background: #1a1a1a; border-radius: 6px; border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.lib-dd-stack-content h4 { color: #fff; font-size: 14px; margin-bottom: 2px; margin-top: 0; }
+.lib-dd-stack-content p { color: #666; font-size: 12px; margin: 0; }
+
+
+/* --- STYLE 2: The 'Feature Card' --- */
+.lib-dd-feature { width: 500px; display: flex; overflow: hidden; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-feature-list { flex: 1; padding: 15px; border-right: 1px solid #222; }
+.lib-dd-feature-link { display: block; padding: 8px 10px; color: #aaa; font-size: 13px; text-decoration: none; border-radius: 4px; }
+.lib-dd-feature-link:hover { color: #fff; background: #1a1a1a; }
+
+.lib-dd-feature-card {
+    width: 200px; background: linear-gradient(135deg, #2563eb, #1e40af); padding: 20px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+}
+.lib-dd-feature-card h5 { font-size: 14px; margin-bottom: 5px; color: #fff; margin-top: 0; }
+.lib-dd-feature-card p { font-size: 11px; opacity: 0.8; margin-bottom: 10px; color: #fff; margin-top: 0; }
+.lib-dd-feature-btn { background: #fff; color: #000; font-size: 11px; border: none; padding: 6px; border-radius: 4px; font-weight: bold; cursor: pointer; width: fit-content;}
+
+
+/* --- STYLE 3: The 'Grid System' --- */
+.lib-dd-app-grid { width: 280px; padding: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-app-item {
+    display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: #888; transition: 0.2s;
+}
+.lib-dd-app-item:hover { color: #fff; transform: translateY(-2px); }
+.lib-dd-app-icon {
+    width: 44px; height: 44px; background: #1a1a1a; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px; border: 1px solid #333;
+}
+
+
+/* --- STYLE 4: The 'Bento Box' --- */
+.lib-dd-bento-box { width: 400px; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-bento-item { background: #161616; padding: 15px; border-radius: 8px; border: 1px solid #222; transition: 0.2s; }
+.lib-dd-bento-item:hover { border-color: #444; }
+.lib-dd-bento-large { grid-column: span 2; display: flex; align-items: center; justify-content: space-between; background: #1a1a1a;}
+.lib-dd-bento-title { font-size: 13px; font-weight: 600; color: #ddd; margin-bottom: 4px; }
+.lib-dd-bento-desc { font-size: 11px; color: #666; }
+
+
+/* --- STYLE 5: The 'Sidebar Logic' --- */
+.lib-dd-sidebar-logic { width: 450px; display: flex; background: #09090b; border: 1px solid #27272a; border-radius: 12px; overflow: hidden; }
+.lib-dd-sidebar-nav { width: 140px; background: #161616; padding: 10px; border-right: 1px solid #222; }
+.lib-dd-sidebar-tab {
+    display: block; padding: 10px; font-size: 12px; color: #666; border-radius: 4px; cursor: pointer; margin-bottom: 2px;
+}
+.lib-dd-sidebar-tab:hover, .lib-dd-sidebar-tab.active { background: #0f0f0f; color: #fff; font-weight: 500; }
+
+.lib-dd-sidebar-content { flex: 1; padding: 20px; }
+.lib-dd-sidebar-group h4 { font-size: 12px; text-transform: uppercase; color: #444; margin-bottom: 15px; letter-spacing: 1px; margin-top: 0; }
+.lib-dd-sidebar-link { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 13px; color: #aaa; text-decoration: none; }
+.lib-dd-sidebar-link:hover { color: #3b82f6; }
+
+
+/* --- STYLE 6: The 'Two-Tone Footer' --- */
+.lib-dd-footer { width: 260px; overflow: hidden; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-footer-body { padding: 15px; }
+.lib-dd-footer-link { display: block; padding: 8px; color: #ccc; font-size: 13px; text-decoration: none; border-radius: 4px; }
+.lib-dd-footer-link:hover { background: #1a1a1a; color: #fff; }
+.lib-dd-footer-bar { background: #1a1a1a; padding: 12px 15px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+.lib-dd-footer-text { font-size: 11px; color: #666; }
+
+
+/* --- STYLE 7: The 'Interactive List' --- */
+.lib-dd-interactive { width: 240px; padding: 6px; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-interactive-item {
+    padding: 10px 15px; border-radius: 6px; color: #aaa; font-size: 13px; cursor: pointer;
+    position: relative; overflow: hidden; transition: 0.3s;
+}
+.lib-dd-interactive-item:hover { color: #fff; background: #000; }
+.lib-dd-interactive-item::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #8b5cf6;
+    transform: scaleY(0); transition: transform 0.2s;
+}
+.lib-dd-interactive-item:hover::before { transform: scaleY(1); }
+
+
+/* --- STYLE 8: The 'User Profile' --- */
+.lib-dd-profile { width: 260px; padding: 6px; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-profile-header { padding: 15px; border-bottom: 1px solid #222; display: flex; align-items: center; gap: 12px; margin-bottom: 5px; }
+.lib-dd-profile-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; }
+.lib-dd-profile-user h4 { font-size: 14px; color: #fff; margin: 0; }
+.lib-dd-profile-user p { font-size: 11px; color: #666; margin: 0; }
+.lib-dd-profile-menu { padding: 5px; }
+.lib-dd-profile-link { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; color: #bbb; font-size: 13px; border-radius: 4px; cursor: pointer; }
+.lib-dd-profile-link:hover { background: #1a1a1a; color: #fff; }
+.lib-dd-profile-badge { font-size: 10px; background: #b91c1c; color: #fff; padding: 2px 6px; border-radius: 10px; }
+
+
+/* --- STYLE 9: The 'Tags Cloud' --- */
+.lib-dd-tags { width: 300px; padding: 20px; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-tags-title { font-size: 11px; color: #555; text-transform: uppercase; margin-bottom: 15px; font-weight: 700;}
+.lib-dd-tags-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+.lib-dd-tags-item {
+    padding: 6px 12px; border: 1px solid #333; border-radius: 20px; color: #ccc; font-size: 12px; text-decoration: none; transition: 0.2s;
+}
+.lib-dd-tags-item:hover { border-color: #666; background: #222; color: #fff; }
+
+
+/* --- STYLE 10: The 'Minimal Divider' --- */
+.lib-dd-minimal { width: 200px; padding: 15px 0; background: #09090b; border: 1px solid #27272a; border-radius: 12px; }
+.lib-dd-minimal a { display: block; padding: 8px 25px; color: #888; font-size: 13px; text-decoration: none; transition: 0.2s; border-left: 2px solid transparent;}
+.lib-dd-minimal a:hover { color: #fff; border-left-color: #fff; background: linear-gradient(90deg, #1a1a1a, transparent); }
+.lib-dd-minimal hr { border: none; border-top: 1px solid #222; margin: 8px 0; }
+

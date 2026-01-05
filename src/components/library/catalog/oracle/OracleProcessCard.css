@@ -1,0 +1,98 @@
+.oracle-process-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(145deg, #111111, #0a0a0a);
+  border-radius: 12px;
+  border: 1px solid #222;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.oproc-glow {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(0, 255, 157, 0.15), transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.oproc-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.oproc-number {
+  font-size: 32px;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  line-height: 1;
+}
+
+.oproc-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, #333, transparent);
+}
+
+.oproc-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.oproc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.oproc-header h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #FFF;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.oproc-status {
+  font-size: 9px;
+  color: #00FF9D;
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 255, 157, 0.05);
+}
+
+.oproc-desc {
+  margin: 0;
+  font-size: 11px;
+  color: #888;
+  line-height: 1.5;
+}
+
+.oproc-progress-container {
+  height: 2px;
+  background: #222;
+  margin-top: 12px;
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.oproc-progress-bar {
+  height: 100%;
+  background: #00FF9D;
+  box-shadow: 0 0 10px #00FF9D;
+}
