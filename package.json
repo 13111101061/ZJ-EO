@@ -6,7 +6,7 @@
   "scripts": {
     "dev:client": "vite --host --port 3000",
     "dev": "pnpm dev:client",
-    "build:client": "vite build --outDir dist/static",
+    "build:client": "vite build",
     "build": "rm -rf dist && pnpm build:client && cp package.json dist && touch dist/build.flag",
     "ingest": "node scripts/ingest-html.cjs",
     "component:create": "node scripts/component-generator.cjs create",
