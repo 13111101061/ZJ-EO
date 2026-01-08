@@ -1,0 +1,35 @@
+.toy-search-pill {
+  position: relative;
+  width: 100%;
+}
+
+.toy-search-pill input {
+  width: 100%;
+  padding: 12px 50px 12px 20px;
+  border: 2px solid #1a1a1a;
+  border-radius: 50px;
+  background: #fff;
+  font-size: 14px;
+  font-family: 'Outfit', sans-serif;
+  box-sizing: border-box;
+}
+
+.toy-search-pill button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 34px;
+  height: 34px;
+  background: #86efac;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toy-search-pill button:hover {
+  background: #ffde59;
+}

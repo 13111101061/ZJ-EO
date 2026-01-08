@@ -38,7 +38,10 @@ const Sidebar: React.FC = () => {
                         'sidebars': '侧边栏',
                         'dropdowns': '下拉菜单',
                         'cards': '卡片',
-                        'oracle_ui': 'Oracle UI'
+                        'oracle_ui': 'Oracle UI',
+                        'workflownodes': '工作流节点',
+                        'wrappers': '容器组件',
+                        'toybox': '玩具箱'
                     };
 
                     return (

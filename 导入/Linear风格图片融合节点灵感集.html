@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear风格与图片融合灵感集 | Linear Image Fusion</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-void: #030303;
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-linear: #5E6AD2;
+            --font-main: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 60px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(94, 106, 210, 0.15), transparent 40%),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 60px;
+            align-content: start;
+        }
+
+        /* 基础节点容器 */
+        .node-wrapper {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .node-wrapper:hover { transform: translateY(-5px); }
+
+        /* 通用 Linear 元素 */
+        .linear-tag {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- 1. The Cinematic Card (全背景电影卡) --- */
+        /* 图片作为主体，Linear UI 悬浮其上 */
+        .node-cinematic {
+            height: 240px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8);
+        }
+        
+        .node-cinematic-bg {
+            position: absolute; inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+        .node-cinematic:hover .node-cinematic-bg { transform: scale(1.05); }
+
+        .node-cinematic-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .node-cinematic-ui {
+            backdrop-filter: blur(12px);
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 2. The Split Lens (分割透镜) --- */
+        /* 左图右参，中间光线分割 */
+        .node-split {
+            display: flex;
+            height: 180px;
+            background: #0a0a0a;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .node-split-img {
+            width: 40%;
+            background-image: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            position: relative;
+        }
+        
+        .node-split-img::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(94, 106, 210, 0.2);
+            mix-blend-mode: overlay;
+        }
+
+        .node-split-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: radial-gradient(circle at 0% 50%, rgba(255,255,255,0.05), transparent 50%);
+        }
+
+        .node-split-line {
+            position: absolute; left: 40%; top: 10%; bottom: 10%; width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent);
+        }
+
+        /* --- 3. The Floating Thumbnail (悬浮缩略) --- */
+        /* 经典 Linear 卡片，右上角悬浮图片 */
+        .node-float {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .node-float-thumb {
+            position: absolute;
+            top: -15px; right: 20px;
+            width: 80px; height: 80px;
+            border-radius: 12px;
+            background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            border: 2px solid #1a1a1a;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .node-float:hover .node-float-thumb { transform: translateY(-5px) scale(1.1); }
+
+        .node-float-header { margin-top: 10px; margin-bottom: 20px; }
+        .node-float-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 5px; }
+        .node-float-sub { font-size: 12px; color: var(--text-secondary); }
+
+        /* --- 4. The Glass Overlay (玻璃叠加) --- */
+        /* 图片在底层，半透明磨砂层覆盖 */
+        .node-overlay {
+            height: 220px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        .node-overlay-bg {
+            position: absolute; inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: 0.5s;
+        }
+        .node-overlay:hover .node-overlay-bg { filter: grayscale(0%) contrast(1.1); }
+
+        .node-overlay-glass {
+            position: absolute; bottom: 10px; left: 10px; right: 10px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 15px;
+            transform: translateY(0);
+            transition: 0.3s;
+        }
+        
+        .node-overlay-controls {
+            display: flex; gap: 10px; margin-top: 10px;
+        }
+        .node-overlay-btn {
+            flex: 1; padding: 6px; text-align: center; font-size: 11px;
+            background: rgba(255,255,255,0.1); border-radius: 6px;
+            color: #fff; border: 1px solid transparent;
+            transition: 0.2s;
+        }
+        .node-overlay-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.2); }
+
+        /* --- 5. The Dynamic Border (动态边框) --- */
+        /* 边框颜色提取自图片 */
+        .node-dynamic {
+            background: #080808;
+            border-radius: 16px;
+            padding: 4px; /* Space for border */
+            background: linear-gradient(135deg, #FF0080, #7928CA); /* Extracted Colors */
+            position: relative;
+        }
+
+        .node-dynamic-inner {
+            background: #0a0a0a;
+            border-radius: 13px;
+            padding: 20px;
+            height: 100%;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
+        }
+
+        .node-dynamic-img {
+            width: 100%; height: 120px;
+            background-image: url('https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+        .node-dynamic:hover .node-dynamic-img { opacity: 1; }
+
+        /* --- 6. The Texture Blend (纹理混合) --- */
+        /* 图片作为纹理淡淡地混合在背景中 */
+        .node-texture {
+            background-color: #111;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node-texture-bg {
+            position: absolute; inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1618172193763-c511deb635ca?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            opacity: 0.15;
+            mix-blend-mode: screen;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+        .node-texture:hover .node-texture-bg { opacity: 0.25; filter: grayscale(50%); }
+
+        .node-texture-content { position: relative; z-index: 2; }
+        
+        .node-texture input {
+            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15);
+            padding: 10px; border-radius: 6px; color: #fff; margin-top: 15px;
+            font-family: var(--font-main); font-size: 12px; box-sizing: border-box;
+        }
+
+        /* --- 7. The Gallery Row (画廊行) --- */
+        /* 极窄布局，像文件列表 */
+        .node-gallery {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 8px;
+            gap: 15px;
+            transition: 0.2s;
+        }
+        .node-gallery:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
+
+        .node-gallery-thumb {
+            width: 60px; height: 60px;
+            border-radius: 6px;
+            background-image: url('https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .node-gallery-info { flex: 1; }
+        .node-gallery-title { font-size: 13px; font-weight: 500; color: #eee; }
+        .node-gallery-meta { font-size: 11px; color: #666; margin-top: 4px; }
+        
+        .node-gallery-action {
+            width: 24px; height: 24px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: #666; cursor: pointer;
+        }
+        .node-gallery-action:hover { color: #fff; border-color: #fff; }
+
+        /* --- 8. The Focus Mode (专注模式) --- */
+        /* 圆形预览 */
+        .node-focus {
+            background: #0f0f0f;
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .node-focus-circle {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            border: 4px solid #1a1a1a;
+            box-shadow: 0 0 0 1px #333, 0 0 30px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .node-focus:hover .node-focus-circle { transform: scale(1.1); border-color: #fff; }
+
+        .node-focus-ring {
+            position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 1px dashed rgba(255,255,255,0.2);
+            animation: spin 20s linear infinite;
+        }
+
+        /* --- 9. The Card Stack (卡片堆叠) --- */
+        /* 图片像拍立得一样堆叠 */
+        .node-stack {
+            position: relative;
+            height: 200px;
+            padding: 20px;
+        }
+
+        .node-stack-card {
+            position: absolute;
+            top: 20px; left: 20px; right: 20px; height: 160px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            transform: rotate(-3deg);
+            z-index: 1;
+            transition: 0.3s;
+        }
+        .node-stack-card.img {
+            background-image: url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            transform: rotate(2deg);
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .node-stack:hover .node-stack-card.img {
+            transform: rotate(5deg) translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .node-stack-label {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            text-align: center; z-index: 3;
+            padding-bottom: 10px;
+        }
+
+        /* --- 10. The Hologram Base (全息底座) --- */
+        .node-holo {
+            background: transparent;
+            border: none;
+            perspective: 1000px;
+        }
+
+        .node-holo-content {
+            background: rgba(20,20,20,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .node-holo-img {
+            width: 100%; height: 100px;
+            background-image: url('https://images.unsplash.com/photo-1506259091721-347f798196d4?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .node-holo-reflection {
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+            transform: perspective(500px) rotateX(60deg) scale(0.8);
+            opacity: 0.3;
+            filter: blur(10px);
+            margin-top: -20px;
+        }
+
+        @keyframes spin { 100% { transform: translateX(-50%) rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. The Cinematic Card -->
+    <div class="node-wrapper node-cinematic">
+        <div class="node-cinematic-bg"></div>
+        <div class="node-cinematic-overlay">
+            <div class="node-cinematic-ui">
+                <div>
+                    <div style="font-size: 14px; font-weight: 600;">Cyberpunk City</div>
+                    <div style="font-size: 11px; color: #ccc;">Seed: 8493021</div>
+                </div>
+                <div class="linear-tag">UPSCALE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. The Split Lens -->
+    <div class="node-wrapper node-split">
+        <div class="node-split-img"></div>
+        <div class="node-split-line"></div>
+        <div class="node-split-content">
+            <div>
+                <div class="linear-tag" style="display:inline-block; margin-bottom:10px;">V5.1</div>
+                <div style="font-size: 13px; font-weight: 500;">Portrait Gen</div>
+            </div>
+            <div style="font-size: 11px; color: #888; line-height: 1.6;">
+                CFG Scale: 7.5<br>
+                Steps: 30<br>
+                Sampler: Euler a
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. The Floating Thumbnail -->
+    <div class="node-wrapper node-float">
+        <div class="node-float-thumb"></div>
+        <div class="node-float-header">
+            <div class="node-float-title">Img2Img Process</div>
+            <div class="node-float-sub">Denoising Strength: 0.65</div>
+        </div>
+        <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 15px 0;"></div>
+        <div style="display: flex; gap: 10px;">
+            <div class="linear-tag">MASK</div>
+            <div class="linear-tag">INPAINT</div>
+        </div>
+    </div>
+
+    <!-- 4. The Glass Overlay -->
+    <div class="node-wrapper node-overlay">
+        <div class="node-overlay-bg"></div>
+        <div class="node-overlay-glass">
+            <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 5px;">Style Transfer</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Applying "Van Gogh" style...</div>
+            <div class="node-overlay-controls">
+                <div class="node-overlay-btn">Edit</div>
+                <div class="node-overlay-btn">Save</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. The Dynamic Border -->
+    <div class="node-wrapper node-dynamic">
+        <div class="node-dynamic-inner">
+            <div class="node-dynamic-img"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 12px; font-weight: 500;">Neon Gradient</span>
+                <span style="font-size: 10px; color: #888;">#FF0080</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. The Texture Blend -->
+    <div class="node-wrapper node-texture">
+        <div class="node-texture-bg"></div>
+        <div class="node-texture-content">
+            <div style="font-size: 14px; font-weight: 600; color: #fff;">Texture Overlay</div>
+            <div style="font-size: 11px; color: #888; margin-top: 5px;">Blend Mode: Screen</div>
+            <input type="text" value="Opacity: 45%">
+        </div>
+    </div>
+
+    <!-- 7. The Gallery Row -->
+    <div class="node-wrapper">
+        <div class="node-gallery">
+            <div class="node-gallery-thumb"></div>
+            <div class="node-gallery-info">
+                <div class="node-gallery-title">Batch_001.png</div>
+                <div class="node-gallery-meta">1024x1024 • 2.4MB</div>
+            </div>
+            <div class="node-gallery-action">↓</div>
+        </div>
+        <div class="node-gallery" style="margin-top: 10px;">
+            <div class="node-gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=1000&auto=format&fit=crop');"></div>
+            <div class="node-gallery-info">
+                <div class="node-gallery-title">Batch_002.png</div>
+                <div class="node-gallery-meta">1024x1024 • 2.6MB</div>
+            </div>
+            <div class="node-gallery-action">↓</div>
+        </div>
+    </div>
+
+    <!-- 8. The Focus Mode -->
+    <div class="node-wrapper node-focus">
+        <div class="node-focus-ring"></div>
+        <div class="node-focus-circle"></div>
+        <div style="font-size: 14px; font-weight: 600; margin-bottom: 5px;">Face Restoration</div>
+        <div class="linear-tag">GFPGAN v1.4</div>
+    </div>
+
+    <!-- 9. The Card Stack -->
+    <div class="node-wrapper node-stack">
+        <div class="node-stack-card"></div>
+        <div class="node-stack-card img"></div>
+        <div class="node-stack-label">
+            <div class="linear-tag" style="display: inline-block;">HISTORY: 5 ITEMS</div>
+        </div>
+    </div>
+
+    <!-- 10. The Hologram Base -->
+    <div class="node-wrapper node-holo">
+        <div class="node-holo-content">
+            <div class="node-holo-img"></div>
+            <div style="font-size: 12px; font-weight: 600; color: #fff;">3D Model Preview</div>
+            <div style="height: 4px; background: #333; border-radius: 2px; margin-top: 10px; overflow: hidden;">
+                <div style="width: 60%; height: 100%; background: #5E6AD2;"></div>
+            </div>
+        </div>
+        <div class="node-holo-reflection"></div>
+    </div>
+
+</body>
+</html>

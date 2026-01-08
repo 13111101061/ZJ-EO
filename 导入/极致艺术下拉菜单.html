@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistic Interaction Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* --- 0. 核心环境设置 --- */
+        :root {
+            --bg-void: #030303;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.5);
+            
+            /* 噪点纹理 */
+            --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E");
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 全局噪点层 */
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background-image: var(--noise-url);
+            pointer-events: none; z-index: 9999;
+        }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 4px; margin-top: 80px; margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff, #444); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 24px; text-align: center;
+        }
+
+        p.intro {
+            color: var(--text-secondary); font-size: 12px; letter-spacing: 1px; margin-bottom: 100px;
+            font-family: 'Inter'; text-transform: uppercase;
+        }
+
+        .showcase-container {
+            width: 100%; max-width: 1400px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 100px; padding: 0 40px 100px;
+        }
+
+        .showcase-stage {
+            position: relative;
+            min-height: 400px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            /* 舞台聚光灯效果 */
+            background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+            border: 1px solid rgba(255,255,255,0.02);
+            border-radius: 32px;
+        }
+
+        /* ==========================================================================
+           MASTERPIECE 1: THE "LIQUID CHROME" (液态铬金属)
+           美学：流体金属，高光反射，扭曲变形
+           ========================================================================== */
+        .chrome-wrapper { position: relative; z-index: 10; }
+        
+        .chrome-btn {
+            position: relative;
+            background: #000;
+            color: #fff;
+            font-family: 'Syncopate'; font-weight: 700; letter-spacing: 2px;
+            padding: 20px 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            /* 金属光泽 */
+            box-shadow: 
+                0 0 0 1px rgba(0,0,0,1),
+                0 10px 20px rgba(0,0,0,0.5),
+                inset 0 10px 20px rgba(255,255,255,0.1),
+                inset 0 -10px 20px rgba(0,0,0,0.8);
+        }
+
+        /* 液态高光动画 */
+        .chrome-btn::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.3) 20%, transparent 40%);
+            animation: rotate-light 4s linear infinite;
+            opacity: 0; transition: 0.5s;
+        }
+        .chrome-btn:hover::before { opacity: 1; }
+        .chrome-btn:hover { transform: scale(1.05); border-color: rgba(255,255,255,0.5); }
+
+        .chrome-menu {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px);
+            width: 260px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px;
+            opacity: 0; pointer-events: none;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+        
+        /* 交互触发 (Demo用 hover) */
+        .chrome-wrapper:hover .chrome-menu { opacity: 1; transform: translateX(-50%) translateY(10px); pointer-events: auto; }
+
+        .chrome-item {
+            position: relative;
+            padding: 16px 20px;
+            color: #888;
+            font-family: 'Inter'; font-size: 14px; font-weight: 500;
+            transition: 0.3s;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .chrome-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+        .chrome-item span { position: relative; z-index: 2; }
+        
+        /* 悬浮时的液态球效果 */
+        .chrome-item::after {
+            content: ''; position: absolute; right: 20px; width: 6px; height: 6px;
+            background: #fff; border-radius: 50%;
+            transform: scale(0); transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 10px #fff;
+        }
+        .chrome-item:hover::after { transform: scale(1); }
+
+
+        /* ==========================================================================
+           MASTERPIECE 2: THE "PRISM GLASS" (棱镜玻璃)
+           美学：色散，极光，磨砂，高级感
+           ========================================================================== */
+        .prism-wrapper { position: relative; perspective: 1000px; z-index: 10; }
+
+        .prism-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 36px;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Inter'; font-weight: 300; letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        /* 内部彩虹光晕 */
+        .prism-btn::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%); transition: 0.5s;
+        }
+        .prism-btn:hover {
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 0 30px rgba(255,255,255,0.05);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .prism-btn:hover::after { transform: translateX(100%); }
+
+        .prism-menu {
+            position: absolute; top: 100%; left: 0; width: 280px;
+            margin-top: 15px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(40px); /* 强模糊 */
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.5),
+                inset 0 0 0 1px rgba(255,255,255,0.05);
+            opacity: 0; transform: rotateX(-10deg) translateY(-20px); transform-origin: top;
+            transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* 棱镜色散边框 */
+        .prism-menu::before {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            border-radius: 16px; padding: 1px;
+            background: linear-gradient(135deg, #ff0055, #00ddff, #ffcc00);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.3;
+        }
+
+        .prism-wrapper:hover .prism-menu { opacity: 1; transform: rotateX(0) translateY(0); pointer-events: auto; }
+
+        .prism-item {
+            padding: 16px 24px;
+            color: rgba(255,255,255,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-size: 13px; font-weight: 400;
+            display: flex; align-items: center; gap: 12px;
+            transition: 0.3s; cursor: pointer;
+            position: relative;
+        }
+        .prism-item:last-child { border-bottom: none; }
+        
+        .prism-item:hover { background: rgba(255,255,255,0.05); color: #fff; padding-left: 32px; }
+        
+        /* 选中时的光条 */
+        .prism-item::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+            background: linear-gradient(to bottom, #00ddff, #ff0055);
+            opacity: 0; transition: 0.3s;
+        }
+        .prism-item:hover::before { opacity: 1; }
+
+
+        /* ==========================================================================
+           MASTERPIECE 3: THE "KINETIC TYPE" (动感排版)
+           美学：瑞士平面设计，巨大的字体，图片遮罩，艺术感
+           ========================================================================== */
+        .kinetic-wrapper { position: relative; z-index: 10; }
+
+        .kinetic-btn {
+            font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px;
+            color: #fff; cursor: pointer;
+            position: relative; display: inline-block;
+        }
+        .kinetic-btn::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 1px;
+            background: #fff; transform: scaleX(0); transform-origin: right; transition: 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+        .kinetic-btn:hover::after { transform: scaleX(1); transform-origin: left; }
+
+        .kinetic-menu {
+            position: absolute; top: 100%; left: -40px; width: 320px;
+            background: #eee;
+            margin-top: 20px;
+            padding: 0;
+            opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+            pointer-events: none;
+        }
+        
+        .kinetic-wrapper:hover .kinetic-menu { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); pointer-events: auto; }
+
+        .kinetic-item {
+            position: relative;
+            height: 80px;
+            border-bottom: 1px solid #ccc;
+            display: flex; align-items: center; padding: 0 30px;
+            overflow: hidden; cursor: pointer;
+            background: #fff;
+            transition: 0.3s;
+        }
+        
+        /* 图片遮罩文字效果 */
+        .k-text {
+            font-family: 'Syncopate'; font-weight: 700; font-size: 24px; color: #000;
+            text-transform: uppercase; z-index: 2; mix-blend-mode: difference;
+            transition: 0.4s;
+        }
+        .k-sub {
+            font-family: 'Inter'; font-size: 10px; color: #666; position: absolute; top: 10px; right: 10px;
+            opacity: 0; transition: 0.3s;
+        }
+
+        /* 悬浮显示的图片背景 */
+        .k-img {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center;
+            opacity: 0; transform: scale(1.2); transition: 0.5s;
+            z-index: 1;
+        }
+
+        .kinetic-item:hover .k-img { opacity: 1; transform: scale(1); }
+        .kinetic-item:hover .k-text { color: #fff; letter-spacing: 2px; mix-blend-mode: normal; }
+        .kinetic-item:hover .k-sub { opacity: 1; color: #fff; }
+
+        @keyframes rotate-light { 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <h1>Artistic Interface Lab</h1>
+    <p class="intro">Curated Micro-Interactions // Series 01</p>
+
+    <div class="showcase-container">
+
+        <!-- 1. LIQUID CHROME -->
+        <div class="showcase-stage">
+            <div class="chrome-wrapper">
+                <div class="chrome-btn">Dimensions</div>
+                <div class="chrome-menu">
+                    <div class="chrome-item">
+                        <span>Neural Network</span>
+                    </div>
+                    <div class="chrome-item">
+                        <span>Quantum Grid</span>
+                    </div>
+                    <div class="chrome-item">
+                        <span>Vector Space</span>
+                    </div>
+                    <div class="chrome-item">
+                        <span>Flux Capacity</span>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 10px; color: #444; font-family: 'Syncopate';">FIG 01. LIQUID CHROME</p>
+        </div>
+
+        <!-- 2. PRISM GLASS -->
+        <div class="showcase-stage">
+            <div class="prism-wrapper">
+                <div class="prism-btn">Refraction</div>
+                <div class="prism-menu">
+                    <div class="prism-item">
+                        <i class="ri-flashlight-line"></i>
+                        <span>Optical Flare</span>
+                    </div>
+                    <div class="prism-item">
+                        <i class="ri-blur-off-line"></i>
+                        <span>Gaussian Blur</span>
+                    </div>
+                    <div class="prism-item">
+                        <i class="ri-contrast-drop-line"></i>
+                        <span>Chromatic Shift</span>
+                    </div>
+                    <div class="prism-item">
+                        <i class="ri-rainbow-line"></i>
+                        <span>Spectral Analysis</span>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 10px; color: #444; font-family: 'Syncopate';">FIG 02. PRISM GLASS</p>
+        </div>
+
+        <!-- 3. KINETIC TYPE -->
+        <div class="showcase-stage">
+            <div class="kinetic-wrapper">
+                <div class="kinetic-btn">Collections</div>
+                <div class="kinetic-menu">
+                    <!-- Item 1 -->
+                    <div class="kinetic-item">
+                        <div class="k-img" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop');"></div>
+                        <span class="k-text">Abstract</span>
+                        <span class="k-sub">01 / 04</span>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="kinetic-item">
+                        <div class="k-img" style="background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop');"></div>
+                        <span class="k-text">Neon</span>
+                        <span class="k-sub">02 / 04</span>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="kinetic-item">
+                        <div class="k-img" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop');"></div>
+                        <span class="k-text">Void</span>
+                        <span class="k-sub">03 / 04</span>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 10px; color: #444; font-family: 'Syncopate';">FIG 03. KINETIC TYPE</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

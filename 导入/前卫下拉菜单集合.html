@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 Avant-Garde Dropdowns</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&family=Syne:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* --- GLOBAL ENVIRONMENT --- */
+        :root {
+            --bg-deep: #050505;
+            --text-main: #eee;
+            --accent: #3b82f6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 40px;
+            /* Dot Matrix Background */
+            background-image: radial-gradient(#222 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1 {
+            text-align: center; font-family: 'Syne', sans-serif; font-size: 2.5rem; margin-bottom: 60px;
+            background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* --- GRID LAYOUT --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 60px;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        .showcase-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            min-height: 300px;
+        }
+        .showcase-label {
+            margin-top: 20px; font-family: 'JetBrains Mono'; font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* --- UTILS --- */
+        .trigger-btn {
+            cursor: pointer; padding: 12px 24px; font-size: 14px; 
+            display: flex; align-items: center; gap: 8px; user-select: none;
+        }
+        
+        /* Default visible state for demo (usually would be hover/click) */
+        .menu-content { display: block; } 
+
+
+        /* =========================================
+           1. THE "GLASS STACK" (Apple Vision Pro Style)
+           ========================================= */
+        .dd-glass { position: relative; font-family: 'Inter'; }
+        .dd-glass .btn {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; transition: 0.3s;
+        }
+        .dd-glass .btn:hover { background: rgba(255,255,255,0.2); }
+        .dd-glass .menu {
+            position: absolute; top: 120%; left: 0; width: 200px;
+            background: rgba(40,40,40,0.6); backdrop-filter: blur(20px);
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform-origin: top; animation: scaleIn 0.3s ease;
+        }
+        .dd-glass .item {
+            padding: 10px 16px; border-radius: 10px; color: #ccc; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 10px;
+        }
+        .dd-glass .item:hover { background: rgba(255,255,255,0.1); color: #fff; transform: scale(1.02); }
+
+
+        /* =========================================
+           2. THE "NEON TERMINAL" (Cyberpunk)
+           ========================================= */
+        .dd-neon { position: relative; font-family: 'JetBrains Mono'; }
+        .dd-neon .btn {
+            background: #000; border: 1px solid #0f0; color: #0f0;
+            text-transform: uppercase; box-shadow: 0 0 5px rgba(0,255,0,0.3);
+        }
+        .dd-neon .menu {
+            position: absolute; top: 110%; left: 0; width: 220px;
+            background: #000; border: 1px solid #0f0;
+            padding: 0; box-shadow: 0 0 15px rgba(0,255,0,0.2);
+        }
+        .dd-neon .item {
+            padding: 12px; border-bottom: 1px solid #003300; color: #0f0; cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+        .dd-neon .item:hover { background: #003300; }
+        .dd-neon .item::before { content: '>'; margin-right: 8px; opacity: 0; transition: 0.2s; }
+        .dd-neon .item:hover::before { opacity: 1; margin-left: 5px; }
+
+
+        /* =========================================
+           3. THE "MINIMALIST LINE" (Swiss Design)
+           ========================================= */
+        .dd-line { position: relative; font-family: 'Space Grotesk'; }
+        .dd-line .btn {
+            background: transparent; border: none; border-bottom: 1px solid #fff;
+            padding: 8px 0; color: #fff; width: 100%; justify-content: space-between;
+        }
+        .dd-line .menu {
+            position: absolute; top: 100%; left: 0; width: 100%;
+            background: #050505; border-left: 1px solid #333;
+            padding-left: 20px; margin-top: 10px;
+        }
+        .dd-line .item {
+            padding: 12px 0; color: #888; cursor: pointer; transition: 0.3s;
+            border-bottom: 1px solid #111;
+        }
+        .dd-line .item:hover { color: #fff; padding-left: 10px; }
+
+
+        /* =========================================
+           4. THE "ORIGAMI" (3D Fold)
+           ========================================= */
+        .dd-origami { position: relative; perspective: 1000px; }
+        .dd-origami .btn {
+            background: #fff; color: #000; font-weight: 700; clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+        }
+        .dd-origami .menu {
+            position: absolute; top: 100%; left: 5%; width: 90%;
+            transform-style: preserve-3d;
+        }
+        .dd-origami .item {
+            background: #eee; color: #333; padding: 12px; margin-bottom: 2px;
+            transform-origin: top; transform: rotateX(-20deg); opacity: 0.9;
+            transition: 0.3s; cursor: pointer; text-align: center; font-weight: 600;
+        }
+        .dd-origami .item:hover { transform: rotateX(0deg); background: #fff; opacity: 1; }
+        .dd-origami .item:nth-child(2) { animation-delay: 0.1s; }
+        .dd-origami .item:nth-child(3) { animation-delay: 0.2s; }
+
+
+        /* =========================================
+           5. THE "LIQUID BLOB" (Organic)
+           ========================================= */
+        .dd-blob { position: relative; filter: url('#goo'); }
+        .dd-blob .btn {
+            background: #ff0055; color: #fff; border-radius: 20px; z-index: 2; position: relative;
+        }
+        .dd-blob .menu {
+            position: absolute; top: 0; left: 0; width: 100%;
+        }
+        .dd-blob .item {
+            background: #ff0055; width: 40px; height: 40px; border-radius: 50%;
+            position: absolute; left: 50%; top: 0; transform: translate(-50%, 0);
+            display: flex; align-items: center; justify-content: center; color: #fff;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        /* Demo state: Expanded */
+        .dd-blob:hover .item:nth-child(1) { transform: translate(-50%, 60px); }
+        .dd-blob:hover .item:nth-child(2) { transform: translate(-50%, 110px); }
+        .dd-blob:hover .item:nth-child(3) { transform: translate(-50%, 160px); }
+
+
+        /* =========================================
+           6. THE "RETRO GAME" (Pixel Art)
+           ========================================= */
+        .dd-pixel { position: relative; font-family: 'Courier New', monospace; image-rendering: pixelated; }
+        .dd-pixel .btn {
+            background: #333; color: #fff; border: 4px solid #fff;
+            box-shadow: 4px 4px 0 #000;
+        }
+        .dd-pixel .menu {
+            position: absolute; top: 120%; left: 0; width: 200px;
+            background: #fff; border: 4px solid #000;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.5);
+        }
+        .dd-pixel .item {
+            padding: 8px; color: #000; font-weight: bold; cursor: pointer;
+        }
+        .dd-pixel .item:hover { background: #000; color: #fff; }
+
+
+        /* =========================================
+           7. THE "MAGAZINE" (Brutalist Typography)
+           ========================================= */
+        .dd-mag { position: relative; }
+        .dd-mag .btn {
+            background: #eab308; color: #000; font-family: 'Syne'; font-weight: 800;
+            border: 2px solid #000; transform: rotate(-2deg);
+        }
+        .dd-mag .menu {
+            position: absolute; top: 120%; left: -10px; width: 240px;
+            background: #fff; border: 2px solid #000;
+        }
+        .dd-mag .item {
+            padding: 15px; border-bottom: 2px solid #000;
+            font-family: 'Space Grotesk'; font-size: 18px; font-weight: 700; color: #000;
+            transition: 0.2s; display: flex; justify-content: space-between;
+        }
+        .dd-mag .item:hover { background: #000; color: #eab308; }
+        .dd-mag .item span { font-size: 10px; font-weight: 400; }
+
+
+        /* =========================================
+           8. THE "HOLOGRAM" (Sci-Fi)
+           ========================================= */
+        .dd-holo { position: relative; }
+        .dd-holo .btn {
+            background: rgba(0, 240, 255, 0.1); border: 1px solid #00f0ff;
+            color: #00f0ff; letter-spacing: 2px; text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        .dd-holo .menu {
+            position: absolute; top: 130%; left: 50%; transform: translateX(-50%); width: 200px;
+            background: linear-gradient(180deg, rgba(0,240,255,0.1) 0%, rgba(0,0,0,0) 100%);
+            border-top: 2px solid #00f0ff;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%); /* Trapezoid beam */
+            height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+        }
+        .dd-holo .item {
+            color: rgba(255,255,255,0.7); font-size: 12px; cursor: pointer; transition: 0.2s;
+        }
+        .dd-holo .item:hover { color: #00f0ff; text-shadow: 0 0 8px #00f0ff; transform: scale(1.1); }
+
+
+        /* =========================================
+           9. THE "CARD STACK" (Material 3.0)
+           ========================================= */
+        .dd-stack { position: relative; }
+        .dd-stack .btn {
+            background: #333; color: #fff; border-radius: 12px;
+        }
+        .dd-stack .menu {
+            position: absolute; top: 0; left: 0; width: 100%; pointer-events: none;
+        }
+        .dd-stack .item {
+            background: #222; padding: 12px; border-radius: 12px; border: 1px solid #444;
+            position: absolute; width: 100%; transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); pointer-events: auto; cursor: pointer;
+        }
+        /* Demo state */
+        .dd-stack:hover .item:nth-child(1) { transform: translateY(50px) scale(0.95); z-index: 3; }
+        .dd-stack:hover .item:nth-child(2) { transform: translateY(100px) scale(0.9); z-index: 2; opacity: 0.8; }
+        .dd-stack:hover .item:nth-child(3) { transform: translateY(140px) scale(0.85); z-index: 1; opacity: 0.6; }
+
+
+        /* =========================================
+           10. THE "NAVIGATOR" (Compass)
+           ========================================= */
+        .dd-nav { position: relative; width: 60px; height: 60px; }
+        .dd-nav .btn {
+            width: 60px; height: 60px; border-radius: 50%; background: #fff; color: #000;
+            display: flex; justify-content: center; align-items: center; z-index: 2; position: relative;
+        }
+        .dd-nav .item {
+            position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%;
+            background: #444; display: flex; justify-content: center; align-items: center;
+            transition: 0.4s; opacity: 0;
+        }
+        .dd-nav:hover .item:nth-child(1) { transform: translateY(-70px); opacity: 1; }
+        .dd-nav:hover .item:nth-child(2) { transform: translate(60px, -35px); opacity: 1; }
+        .dd-nav:hover .item:nth-child(3) { transform: translate(-60px, -35px); opacity: 1; }
+
+
+        /* =========================================
+           11. THE "TERMINAL CODE" (IDE Style)
+           ========================================= */
+        .dd-code { font-family: 'JetBrains Mono'; background: #1e1e1e; padding: 5px; border-radius: 4px; border: 1px solid #333; width: 200px; }
+        .dd-code .btn { color: #569cd6; padding: 5px; }
+        .dd-code .menu { padding-left: 10px; border-left: 1px solid #444; margin-left: 5px; }
+        .dd-code .item { color: #ce9178; padding: 4px; cursor: pointer; }
+        .dd-code .item::before { content: '"'; color: #808080; }
+        .dd-code .item::after { content: '",'; color: #808080; }
+        .dd-code .item:hover { background: #264f78; color: #fff; }
+
+
+        /* =========================================
+           12. THE "SKEUMORPHIC BUTTONS"
+           ========================================= */
+        .dd-skeu { width: 200px; background: #dcdcdc; padding: 10px; border-radius: 8px; box-shadow: inset 2px 2px 5px #fff, inset -2px -2px 5px #aaa; }
+        .dd-skeu .btn { color: #444; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .dd-skeu .item {
+            background: linear-gradient(145deg, #f0f0f0, #cacaca);
+            padding: 10px; margin-bottom: 8px; border-radius: 4px;
+            color: #333; text-align: center; cursor: pointer;
+            box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
+            transition: 0.1s;
+        }
+        .dd-skeu .item:active { box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff; }
+
+
+        /* =========================================
+           13. THE "VERTICAL TABS" (Side)
+           ========================================= */
+        .dd-tabs { display: flex; width: 240px; background: #111; border-radius: 8px; overflow: hidden; }
+        .dd-tabs .menu { width: 60px; background: #222; display: flex; flex-direction: column; }
+        .dd-tabs .icon { padding: 15px; color: #666; cursor: pointer; text-align: center; transition: 0.2s; }
+        .dd-tabs .icon:hover, .dd-tabs .icon.active { background: #333; color: #fff; border-left: 2px solid #fff; }
+        .dd-tabs .content { padding: 20px; color: #aaa; font-size: 12px; }
+
+
+        /* =========================================
+           14. THE "CIRCLE MENU" (Radial)
+           ========================================= */
+        .dd-radial { position: relative; width: 200px; height: 100px; overflow: hidden; }
+        .dd-radial .btn { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; background: #fff; border-radius: 50%; z-index: 2; color: #000; display:flex; justify-content:center; align-items:center; }
+        .dd-radial .item {
+            position: absolute; bottom: -50px; left: 50%; width: 30px; height: 30px; background: #333; border-radius: 50%;
+            transform-origin: 0 -60px; transition: 0.4s; color: #fff; display:flex; justify-content:center; align-items:center; font-size: 12px;
+        }
+        .dd-radial:hover .item:nth-child(1) { transform: rotate(-45deg) translateY(-80px); }
+        .dd-radial:hover .item:nth-child(2) { transform: rotate(0deg) translateY(-80px); }
+        .dd-radial:hover .item:nth-child(3) { transform: rotate(45deg) translateY(-80px); }
+
+
+        /* =========================================
+           15. THE "GLITCH" (Chaos)
+           ========================================= */
+        .dd-glitch .btn {
+            background: #000; color: #fff; font-family: 'Space Mono'; text-transform: uppercase;
+            position: relative;
+        }
+        .dd-glitch .btn::before {
+            content: attr(data-text); position: absolute; left: -2px; text-shadow: 1px 0 red; top:0; color:#fff; background:#000; overflow:hidden; clip:rect(0,900px,0,0); animation:noise-anim-2 3s infinite linear alternate-reverse;
+        }
+        .dd-glitch .menu {
+            margin-top: 10px; border: 1px solid #fff; padding: 5px;
+        }
+        .dd-glitch .item {
+            padding: 5px; color: #aaa; cursor: pointer;
+        }
+        .dd-glitch .item:hover {
+            background: #fff; color: #000; transform: skewX(-10deg);
+        }
+        @keyframes noise-anim-2 {
+            0% { clip: rect(10px, 9999px, 80px, 0); }
+            20% { clip: rect(80px, 9999px, 10px, 0); }
+            100% { clip: rect(40px, 9999px, 60px, 0); }
+        }
+
+    </style>
+    
+    <!-- Gooey Filter for Blob -->
+    <svg style="position: absolute; width: 0; height: 0;">
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+        </filter>
+    </svg>
+
+</head>
+<body>
+
+    <h1>15 DROPDOWN PARADIGMS</h1>
+
+    <div class="showcase-grid">
+
+        <!-- 1 -->
+        <div class="showcase-item">
+            <div class="dd-glass">
+                <div class="btn trigger-btn">Glass Stack <i class="ri-arrow-down-s-line"></i></div>
+                <div class="menu">
+                    <div class="item"><i class="ri-user-line"></i> Profile</div>
+                    <div class="item"><i class="ri-settings-2-line"></i> Settings</div>
+                    <div class="item"><i class="ri-logout-box-line"></i> Logout</div>
+                </div>
+            </div>
+            <div class="showcase-label">01. Vision OS</div>
+        </div>
+
+        <!-- 2 -->
+        <div class="showcase-item">
+            <div class="dd-neon">
+                <div class="btn trigger-btn">ROOT_ACCESS</div>
+                <div class="menu">
+                    <div class="item">EXEC_SHELL</div>
+                    <div class="item">NET_CONFIG</div>
+                    <div class="item">SYS_REBOOT</div>
+                </div>
+            </div>
+            <div class="showcase-label">02. Cyberpunk</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="showcase-item">
+            <div class="dd-line">
+                <div class="btn trigger-btn">Select Mode</div>
+                <div class="menu">
+                    <div class="item">Dark Mode</div>
+                    <div class="item">Light Mode</div>
+                    <div class="item">Auto Sync</div>
+                </div>
+            </div>
+            <div class="showcase-label">03. Swiss Line</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="showcase-item">
+            <div class="dd-origami">
+                <div class="btn trigger-btn">FOLD MENU</div>
+                <div class="menu">
+                    <div class="item">Paper</div>
+                    <div class="item">Rock</div>
+                    <div class="item">Scissors</div>
+                </div>
+            </div>
+            <div class="showcase-label">04. Origami 3D</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="showcase-item">
+            <div class="dd-blob">
+                <div class="menu">
+                    <div class="item"><i class="ri-heart-line"></i></div>
+                    <div class="item"><i class="ri-star-line"></i></div>
+                    <div class="item"><i class="ri-share-line"></i></div>
+                </div>
+                <div class="btn trigger-btn"><i class="ri-add-line"></i></div>
+            </div>
+            <div class="showcase-label" style="margin-top: 180px;">05. Organic Blob</div>
+        </div>
+
+        <!-- 6 -->
+        <div class="showcase-item">
+            <div class="dd-pixel">
+                <div class="btn trigger-btn">START</div>
+                <div class="menu">
+                    <div class="item">NEW GAME</div>
+                    <div class="item">LOAD</div>
+                    <div class="item">OPTIONS</div>
+                </div>
+            </div>
+            <div class="showcase-label">06. 8-Bit Retro</div>
+        </div>
+
+        <!-- 7 -->
+        <div class="showcase-item">
+            <div class="dd-mag">
+                <div class="btn trigger-btn">ISSUES</div>
+                <div class="menu">
+                    <div class="item">VOL.01 <span>JAN</span></div>
+                    <div class="item">VOL.02 <span>FEB</span></div>
+                    <div class="item">VOL.03 <span>MAR</span></div>
+                </div>
+            </div>
+            <div class="showcase-label">07. Brutalist Mag</div>
+        </div>
+
+        <!-- 8 -->
+        <div class="showcase-item">
+            <div class="dd-holo">
+                <div class="btn trigger-btn">SCAN</div>
+                <div class="menu">
+                    <div class="item">TARGET_A</div>
+                    <div class="item">TARGET_B</div>
+                    <div class="item">TARGET_C</div>
+                </div>
+            </div>
+            <div class="showcase-label">08. Hologram</div>
+        </div>
+
+        <!-- 9 -->
+        <div class="showcase-item">
+            <div class="dd-stack">
+                <div class="btn trigger-btn">NOTIFICATIONS</div>
+                <div class="menu">
+                    <div class="item">Message from Alice</div>
+                    <div class="item">System Update</div>
+                    <div class="item">New Comment</div>
+                </div>
+            </div>
+            <div class="showcase-label" style="margin-top: 150px;">09. Card Stack</div>
+        </div>
+
+        <!-- 10 -->
+        <div class="showcase-item">
+            <div class="dd-nav">
+                <div class="item"><i class="ri-home-line"></i></div>
+                <div class="item"><i class="ri-search-line"></i></div>
+                <div class="item"><i class="ri-user-line"></i></div>
+                <div class="btn"><i class="ri-menu-4-line"></i></div>
+            </div>
+            <div class="showcase-label">10. Radial Compass</div>
+        </div>
+
+        <!-- 11 -->
+        <div class="showcase-item">
+            <div class="dd-code">
+                <div class="btn">import Components</div>
+                <div class="menu">
+                    <div class="item">Button</div>
+                    <div class="item">Input</div>
+                    <div class="item">Modal</div>
+                </div>
+            </div>
+            <div class="showcase-label">11. IDE Code</div>
+        </div>
+
+        <!-- 12 -->
+        <div class="showcase-item">
+            <div class="dd-skeu">
+                <div class="btn">Control Panel</div>
+                <div class="item">Power On</div>
+                <div class="item">Reset</div>
+            </div>
+            <div class="showcase-label">12. Claymorphism</div>
+        </div>
+
+        <!-- 13 -->
+        <div class="showcase-item">
+            <div class="dd-tabs">
+                <div class="menu">
+                    <div class="icon active"><i class="ri-file-line"></i></div>
+                    <div class="icon"><i class="ri-search-line"></i></div>
+                    <div class="icon"><i class="ri-git-branch-line"></i></div>
+                </div>
+                <div class="content">
+                    SIDEBAR_MODE<br><br>
+                    Files...<br>
+                    Search...
+                </div>
+            </div>
+            <div class="showcase-label">13. Vertical Tab</div>
+        </div>
+
+        <!-- 14 -->
+        <div class="showcase-item">
+            <div class="dd-radial">
+                <div class="item"><i class="ri-twitter-line"></i></div>
+                <div class="item"><i class="ri-facebook-line"></i></div>
+                <div class="item"><i class="ri-instagram-line"></i></div>
+                <div class="btn"><i class="ri-share-line"></i></div>
+            </div>
+            <div class="showcase-label">14. Sun Fan</div>
+        </div>
+
+        <!-- 15 -->
+        <div class="showcase-item">
+            <div class="dd-glitch">
+                <div class="btn trigger-btn" data-text="SYSTEM_ERR">SYSTEM_ERR</div>
+                <div class="menu">
+                    <div class="item">IGNORE</div>
+                    <div class="item">REPORT</div>
+                    <div class="item">PANIC</div>
+                </div>
+            </div>
+            <div class="showcase-label">15. Glitch Art</div>
+        </div>
+
+    </div>
+
+</body>
+</html>

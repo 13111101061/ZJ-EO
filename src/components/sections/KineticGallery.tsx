@@ -30,10 +30,10 @@ const KineticGallery: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             className="relative group"
           >
-            <div className="absolute -inset-4 bg-gradient-to-r from-lime-400 to-cyan-400 opacity-75 blur-lg group-hover:opacity-100 transition duration-500 rounded-xl" />
-            <div className="relative bg-black border border-white/10 p-2 rounded-xl overflow-hidden transform group-hover:rotate-2 transition duration-500">
+            <div className="absolute -inset-4 bg-gradient-to-r from-lime-400 to-cyan-400 opacity-40 blur-lg group-hover:opacity-100 transition duration-500 rounded-xl" />
+            <div className="relative bg-black border border-white/10 p-2 rounded-xl overflow-hidden transition duration-500">
                <img 
-                 src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 src="/images/art1.avif" 
                  alt="Art 1" 
                  className="w-full h-auto grayscale group-hover:grayscale-0 transition duration-500 mix-blend-luminosity group-hover:mix-blend-normal"
                />
@@ -68,10 +68,10 @@ const KineticGallery: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             className="relative group order-1 md:order-2"
           >
-            <div className="absolute -inset-4 bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur-lg group-hover:opacity-100 transition duration-500 rounded-xl" />
-            <div className="relative bg-black border border-white/10 p-2 rounded-xl overflow-hidden transform group-hover:-rotate-2 transition duration-500">
+            <div className="absolute -inset-4 bg-gradient-to-r from-pink-500 to-purple-500 opacity-40 blur-lg group-hover:opacity-100 transition duration-500 rounded-xl" />
+            <div className="relative bg-black border border-white/10 p-2 rounded-xl overflow-hidden transition duration-500">
                <img 
-                 src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop" 
+                 src="/images/art2.avif" 
                  alt="Art 2" 
                  className="w-full h-auto grayscale group-hover:grayscale-0 transition duration-500 mix-blend-luminosity group-hover:mix-blend-normal"
                />

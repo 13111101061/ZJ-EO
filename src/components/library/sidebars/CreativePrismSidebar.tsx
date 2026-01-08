@@ -7,7 +7,7 @@ import './CreativePrismSidebar.css';
  */
 export const CreativePrismSidebar: React.FC = () => {
   const [activeTag, setActiveTag] = useState('Cyberpunk');
-  const [sliderValue, setSliderValue] = useState(60);
+  const [sliderValue] = useState(60);
 
   const tags = ['Cyberpunk', 'Fantasy', 'Minimal', 'Abstract', 'Portrait', 'Landscape'];
 

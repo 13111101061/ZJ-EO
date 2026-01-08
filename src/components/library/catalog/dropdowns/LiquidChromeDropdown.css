@@ -1,0 +1,72 @@
+.lc-dropdown-wrapper {
+  position: relative;
+  z-index: 10;
+  font-family: 'Syncopate', sans-serif;
+}
+
+.lc-btn {
+  position: relative;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 20px 40px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 1), 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.lc-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.lc-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  width: 260px;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+}
+
+.lc-menu.lc-open {
+  opacity: 1;
+  transform: translateX(-50%) translateY(10px);
+  pointer-events: auto;
+}
+
+.lc-item {
+  position: relative;
+  padding: 16px 20px;
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lc-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lc-item span {
+  position: relative;
+  z-index: 2;
+}

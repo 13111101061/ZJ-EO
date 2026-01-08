@@ -7,8 +7,8 @@ import './PrismAI.css';
  * 适用场景：AI图像生成工具、创意应用
  */
 export const PrismAI: React.FC = () => {
-  const [intensity, setIntensity] = useState(80);
-  const [creativity, setCreativity] = useState(40);
+  const [intensity] = useState(80);
+  const [creativity] = useState(40);
   const [activeTag, setActiveTag] = useState('Cyberpunk');
 
   const tags = ['Cyberpunk', 'Watercolor', '3D Render', 'Oil Painting', 'Sketch'];

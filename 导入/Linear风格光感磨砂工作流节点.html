@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear风格光感磨砂工作流节点 (Linear Glass Glow Nodes)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-dark: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --border-light: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(20, 20, 23, 0.6);
+            --glow-purple: rgba(120, 119, 198, 0.5);
+            --glow-blue: rgba(56, 189, 248, 0.5);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 80px;
+            min-height: 100vh;
+            /* Dynamic background to show off blur */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.15), transparent 25%), 
+                radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.15), transparent 25%);
+            background-attachment: fixed;
+        }
+
+        /* Background Grid */
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 500;
+            font-size: 24px;
+            margin-bottom: 80px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 80px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .showcase-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .showcase-label {
+            font-size: 11px;
+            color: #444;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Common Port */
+        .port {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #1a1a1a; border: 1px solid #444;
+            position: absolute; top: 24px; transition: 0.3s;
+            z-index: 10; cursor: pointer;
+        }
+        .port:hover { background: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.8); }
+        .port-in { left: -4px; }
+        .port-out { right: -4px; }
+
+        /* --- STYLE 1: Linear Standard (The Baseline) --- */
+        /* Dark glass, extremely subtle white border, clean layout */
+        .node-linear-std {
+            width: 280px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .node-linear-std:hover {
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.4);
+        }
+        .node-linear-std .header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px; font-weight: 500; color: #fff;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .node-linear-std .status { width: 6px; height: 6px; background: #5e6ad2; border-radius: 50%; box-shadow: 0 0 8px #5e6ad2; }
+        .node-linear-std .body { padding: 16px; }
+        .node-linear-std .row {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);
+        }
+        .node-linear-std .tag {
+            background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; color: #ccc; border: 1px solid rgba(255,255,255,0.05);
+        }
+
+
+        /* --- STYLE 2: Ambient Glow (Backlight) --- */
+        /* Light seems to emit from behind the card */
+        .node-ambient {
+            width: 260px;
+            position: relative;
+        }
+        .node-ambient::before { /* The Glow */
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(circle at 50% 0%, rgba(120, 119, 198, 0.4), transparent 70%);
+            filter: blur(20px); opacity: 0.6; transition: 0.5s;
+        }
+        .node-ambient:hover::before { opacity: 1; filter: blur(25px); }
+        .node-ambient-card {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255,255,255,0.15); /* Top highlight */
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .node-ambient h3 { margin: 0 0 16px 0; font-size: 14px; font-weight: 500; }
+        .node-ambient .slider {
+            height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; margin-top: 8px;
+        }
+        .node-ambient .fill {
+            width: 60%; height: 100%; background: linear-gradient(90deg, #a855f7, #6366f1); border-radius: 2px;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+
+        /* --- STYLE 3: Prism Edge (Chromatic) --- */
+        /* Subtle rainbow border effect on dark glass */
+        .node-prism {
+            width: 280px;
+            background: rgba(5, 5, 5, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 1px; /* For border */
+            position: relative;
+            background-clip: padding-box; /* Important for gradient border */
+        }
+        .node-prism::before { /* Gradient Border */
+            content: ''; position: absolute; inset: 0; border-radius: 12px; padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        /* The chromatic shine */
+        .node-prism::after {
+            content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.5), rgba(255,0,255,0.5), transparent);
+            opacity: 0.5;
+        }
+        .node-prism-content { padding: 16px; }
+        .node-prism h3 { font-size: 13px; font-weight: 500; color: #fff; margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px;}
+        .node-prism .icon { width: 16px; height: 16px; background: linear-gradient(135deg, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .node-prism p { font-size: 11px; color: #666; line-height: 1.5; margin: 0; }
+
+
+        /* --- STYLE 4: Frost Gradient (Blurry Color) --- */
+        /* Stronger blur with a color wash */
+        .node-frost {
+            width: 250px;
+            height: 140px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .node-frost-bg {
+            position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.15), transparent 50%),
+                        radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.15), transparent 50%);
+            backdrop-filter: blur(40px);
+        }
+        .node-frost-content {
+            padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;
+        }
+        .node-frost .big-icon { font-size: 24px; opacity: 0.8; }
+        .node-frost .label { font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
+
+
+        /* --- STYLE 5: Ghost Interface (Super Minimal) --- */
+        /* Almost invisible, text floats */
+        .node-ghost {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 16px;
+            transition: 0.3s;
+        }
+        .node-ghost:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
+        .node-ghost .row {
+            display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .node-ghost .row:last-child { border-bottom: none; }
+        .node-ghost .dot { width: 6px; height: 6px; background: #444; border-radius: 50%; }
+        .node-ghost .dot.active { background: #fff; box-shadow: 0 0 5px #fff; }
+        .node-ghost span { font-size: 12px; color: #aaa; }
+        .node-ghost span.highlight { color: #fff; }
+
+
+        /* --- STYLE 6: Neon Line (Cyber-Linear) --- */
+        /* Linear layout but with a single glowing accent line */
+        .node-neon {
+            width: 280px;
+            background: #0a0a0a;
+            border: 1px solid #1f1f1f;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        .node-neon::before { /* Top Glow Line */
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, #ec4899, transparent);
+            box-shadow: 0 0 10px #ec4899;
+        }
+        .node-neon .header {
+            padding: 12px 16px; background: rgba(255,255,255,0.02);
+            font-size: 12px; font-weight: 600; color: #ec4899; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .node-neon .body { padding: 16px; }
+        .node-neon .input-box {
+            background: #111; border: 1px solid #222; padding: 8px; border-radius: 6px; color: #888; font-size: 11px;
+            display: flex; justify-content: space-between;
+        }
+        .node-neon .input-box:hover { border-color: #333; color: #ccc; }
+
+
+        /* --- STYLE 7: Stacked Glass (Depth) --- */
+        /* Layers of glass on top of each other */
+        .node-stack {
+            width: 240px;
+            position: relative;
+        }
+        .node-stack-bg {
+            position: absolute; top: 4px; left: 4px; right: -4px; bottom: -4px;
+            background: rgba(255,255,255,0.03); border-radius: 12px; z-index: 0;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .node-stack-card {
+            position: relative; z-index: 1;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .node-stack h3 { margin: 0 0 5px 0; font-size: 14px; }
+        .node-stack p { margin: 0; font-size: 11px; color: #666; }
+        .node-stack .btn {
+            margin-top: 15px; width: 100%; padding: 6px; text-align: center;
+            background: rgba(255,255,255,0.1); border-radius: 6px; font-size: 11px; color: #fff;
+            transition: 0.2s; cursor: pointer;
+        }
+        .node-stack .btn:hover { background: rgba(255,255,255,0.2); }
+
+
+        /* --- STYLE 8: Grid Glass (Technical) --- */
+        /* Transparent card over the grid background */
+        .node-grid {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px); /* Low blur to see grid behind? Or high blur to obscure? Linear uses blur. */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .node-grid-inner {
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 2px;
+            padding: 15px;
+        }
+        .node-grid h3 { font-family: 'Courier New', monospace; font-size: 12px; margin: 0 0 10px 0; color: #888; }
+        .node-grid .data { font-family: 'Courier New', monospace; font-size: 14px; color: #fff; }
+        .node-grid .port { border-radius: 0; width: 6px; height: 6px; background: #fff; }
+
+
+        /* --- STYLE 9: Spotlight (Interactive) --- */
+        /* Gradient follows mouse (simulated here with fixed gradient) */
+        .node-spotlight {
+            width: 260px;
+            background: radial-gradient(600px circle at 50% 0%, rgba(255,255,255,0.06), transparent 40%);
+            background-color: #0d0d0d;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+        }
+        .node-spotlight h3 { font-size: 14px; font-weight: 500; margin-bottom: 20px; color: #fff; }
+        .node-spotlight .toggle {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: #888;
+        }
+        .node-spotlight .toggle-switch {
+            width: 32px; height: 18px; background: #333; border-radius: 10px; position: relative; transition: 0.3s;
+        }
+        .node-spotlight .toggle-switch.on { background: #fff; }
+        .node-spotlight .toggle-switch::after {
+            content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: #000; border-radius: 50%; transition: 0.3s;
+        }
+        .node-spotlight .toggle-switch.on::after { transform: translateX(14px); }
+
+
+        /* --- STYLE 10: Halo (Soft Border) --- */
+        /* The border itself is the glow */
+        .node-halo {
+            width: 250px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 0 20px rgba(56, 189, 248, 0.1);
+            position: relative;
+        }
+        .node-halo::after {
+            content: ''; position: absolute; inset: -1px; border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        .node-halo .circle-icon {
+            width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #38bdf8, #818cf8);
+            margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+        }
+        .node-halo h3 { margin: 0; font-size: 15px; font-weight: 600; }
+
+    </style>
+</head>
+<body>
+
+    <div class="grid-overlay"></div>
+
+    <h1>Linear Glass & Glow Workflow Nodes</h1>
+
+    <div class="gallery-grid">
+
+        <!-- 1. Linear Standard -->
+        <div class="showcase-wrapper">
+            <div class="node-linear-std">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <div class="header">
+                    <span>Model Loader</span>
+                    <div class="status"></div>
+                </div>
+                <div class="body">
+                    <div class="row">
+                        <span>Checkpoint</span>
+                        <span class="tag">v1.5-pruned</span>
+                    </div>
+                    <div class="row">
+                        <span>VAE</span>
+                        <span class="tag">vae-ft-mse</span>
+                    </div>
+                    <div class="row">
+                        <span>Clip Skip</span>
+                        <span class="tag">2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">01. Standard Linear</div>
+        </div>
+
+        <!-- 2. Ambient Glow -->
+        <div class="showcase-wrapper">
+            <div class="node-ambient">
+                <div class="node-ambient-card">
+                    <div class="port port-in"></div>
+                    <div class="port port-out"></div>
+                    <h3>Control Net</h3>
+                    <div style="font-size: 11px; color: #aaa; display: flex; justify-content: space-between;">
+                        <span>Strength</span>
+                        <span>0.85</span>
+                    </div>
+                    <div class="slider">
+                        <div class="fill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">02. Ambient Glow</div>
+        </div>
+
+        <!-- 3. Prism Edge -->
+        <div class="showcase-wrapper">
+            <div class="node-prism">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <div class="node-prism-content">
+                    <h3><div class="icon">✦</div> Image Upscale</h3>
+                    <p>4x UltraSharp (RealESRGAN)</p>
+                    <div style="margin-top: 15px; display: flex; gap: 8px;">
+                        <span style="font-size: 10px; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">4096px</span>
+                        <span style="font-size: 10px; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">PNG</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">03. Prism Edge</div>
+        </div>
+
+        <!-- 4. Frost Gradient -->
+        <div class="showcase-wrapper">
+            <div class="node-frost">
+                <div class="node-frost-bg"></div>
+                <div class="node-frost-content">
+                    <div class="big-icon">🌪️</div>
+                    <div class="label">LATENT NOISE</div>
+                </div>
+            </div>
+            <div class="showcase-label">04. Frost Gradient</div>
+        </div>
+
+        <!-- 5. Ghost Interface -->
+        <div class="showcase-wrapper">
+            <div class="node-ghost">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <div class="row">
+                    <div class="dot active"></div>
+                    <span class="highlight">Input Image</span>
+                </div>
+                <div class="row">
+                    <div class="dot"></div>
+                    <span>Mask</span>
+                </div>
+                <div class="row">
+                    <div class="dot"></div>
+                    <span>Control</span>
+                </div>
+            </div>
+            <div class="showcase-label">05. Ghost Interface</div>
+        </div>
+
+        <!-- 6. Neon Line -->
+        <div class="showcase-wrapper">
+            <div class="node-neon">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <div class="header">Prompt Builder</div>
+                <div class="body">
+                    <div class="input-box" style="margin-bottom: 8px;">
+                        <span>Positive</span>
+                        <span>...</span>
+                    </div>
+                    <div class="input-box">
+                        <span>Negative</span>
+                        <span>...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">06. Neon Line</div>
+        </div>
+
+        <!-- 7. Stacked Glass -->
+        <div class="showcase-wrapper">
+            <div class="node-stack">
+                <div class="node-stack-bg"></div>
+                <div class="node-stack-card">
+                    <div class="port port-in"></div>
+                    <div class="port port-out"></div>
+                    <h3>Sampler</h3>
+                    <p>Euler a / 20 steps</p>
+                    <div class="btn">Configure</div>
+                </div>
+            </div>
+            <div class="showcase-label">07. Stacked Glass</div>
+        </div>
+
+        <!-- 8. Grid Glass -->
+        <div class="showcase-wrapper">
+            <div class="node-grid">
+                <div class="node-grid-inner">
+                    <div class="port port-in"></div>
+                    <div class="port port-out"></div>
+                    <h3>XY_PLOT</h3>
+                    <div class="data">
+                        X: CFG Scale<br>
+                        Y: Seed
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">08. Grid Glass</div>
+        </div>
+
+        <!-- 9. Spotlight -->
+        <div class="showcase-wrapper">
+            <div class="node-spotlight">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <h3>Post Processing</h3>
+                <div class="toggle">
+                    <span>Face Restore</span>
+                    <div class="toggle-switch on"></div>
+                </div>
+                <div class="toggle">
+                    <span>Color Correct</span>
+                    <div class="toggle-switch"></div>
+                </div>
+            </div>
+            <div class="showcase-label">09. Spotlight</div>
+        </div>
+
+        <!-- 10. Halo -->
+        <div class="showcase-wrapper">
+            <div class="node-halo">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <div class="circle-icon">⚡</div>
+                <h3>LoRA Load</h3>
+                <div style="font-size: 11px; color: #888; margin-top: 5px;">Low Rank Adaptation</div>
+            </div>
+            <div class="showcase-label">10. Halo Glow</div>
+        </div>
+
+    </div>
+
+</body>
+</html>

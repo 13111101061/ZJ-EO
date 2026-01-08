@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Nodes // Style Variants</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;500;800&family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&family=Syne:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* --- GLOBAL ENVIRONMENT --- */
+        :root {
+            --bg-deep: #080808;
+            --text-main: #eee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 60px;
+            background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+        }
+
+        h1 {
+            text-align: center; font-family: 'Syne', sans-serif; font-size: 3rem; margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        p.subtitle {
+            text-align: center; font-family: 'Space Grotesk', sans-serif; color: #666; margin-bottom: 60px; letter-spacing: 2px;
+        }
+
+        /* --- GRID LAYOUT --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* --- SHARED PORT STYLES --- */
+        .port {
+            position: absolute; width: 10px; height: 10px; border-radius: 50%;
+            transition: 0.2s; cursor: pointer; z-index: 10;
+        }
+        .port:hover { transform: scale(1.5); }
+
+
+        /* =========================================
+           STYLE 1: THE "ISO-GRID" (Swiss International)
+           特点：严格的网格，极细线条，Helvetica风格，冷峻
+           ========================================= */
+        .card-iso {
+            position: relative;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            height: 220px;
+            display: flex; flex-direction: column;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: 0.3s;
+        }
+        .card-iso:hover { border-color: #fff; }
+        
+        .iso-header {
+            border-bottom: 1px solid #333; padding: 12px 16px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .iso-id { font-size: 10px; color: #555; letter-spacing: 1px; }
+        
+        .iso-body {
+            flex: 1; display: grid; grid-template-columns: 1fr 1fr;
+        }
+        .iso-cell {
+            border-right: 1px solid #333; border-bottom: 1px solid #333;
+            padding: 16px; display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .iso-cell:last-child { border-right: none; }
+        .iso-label { font-size: 10px; color: #666; text-transform: uppercase; margin-bottom: 4px; }
+        .iso-value { font-size: 18px; font-weight: 300; }
+        
+        .iso-footer {
+            padding: 12px 16px; background: #fff; color: #000;
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            display: flex; justify-content: space-between;
+        }
+        .card-iso .port { background: #fff; border: 2px solid #000; }
+
+
+        /* =========================================
+           STYLE 2: THE "CYBER-DECK" (Tactical HUD)
+           特点：切角，警告条纹，单色绿显，数据密集
+           ========================================= */
+        .card-deck {
+            position: relative;
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid #00ff41;
+            height: 220px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #00ff41;
+            clip-path: polygon(
+                0 0, 100% 0, 
+                100% calc(100% - 20px), calc(100% - 20px) 100%, 
+                0 100%
+            );
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+        }
+        .card-deck::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: repeating-linear-gradient(90deg, #00ff41 0, #00ff41 4px, transparent 4px, transparent 8px);
+        }
+        
+        .deck-content { padding: 20px; display: flex; flex-direction: column; height: 100%; }
+        .deck-title { font-size: 14px; text-transform: uppercase; border-bottom: 1px dashed #00ff41; padding-bottom: 8px; margin-bottom: 12px; }
+        
+        .deck-screen {
+            background: rgba(0, 255, 65, 0.05);
+            flex: 1; padding: 8px; font-size: 10px; line-height: 1.4;
+            border-left: 2px solid #00ff41;
+            overflow: hidden;
+        }
+        .blink { animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        .card-deck .port { background: #000; border: 1px solid #00ff41; }
+
+
+        /* =========================================
+           STYLE 3: THE "NEU-MORPH" (Soft Industrial)
+           特点：软浮雕，模拟物理旋钮，暖灰色，指示灯
+           ========================================= */
+        .card-neu {
+            position: relative;
+            background: #e0e5ec;
+            border-radius: 20px;
+            height: 220px;
+            color: #4a5568;
+            box-shadow: 
+                9px 9px 16px rgb(163,177,198,0.6), 
+                -9px -9px 16px rgba(255,255,255, 0.5);
+            padding: 24px;
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        
+        .neu-header { display: flex; justify-content: space-between; align-items: center; }
+        .neu-led { width: 8px; height: 8px; border-radius: 50%; background: #ff4757; box-shadow: 0 0 5px #ff4757; }
+        
+        .neu-knob-row { display: flex; gap: 20px; justify-content: center; }
+        .neu-knob {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: #e0e5ec;
+            box-shadow:  5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .neu-knob::after { content: ''; width: 4px; height: 4px; background: #4a5568; border-radius: 50%; position: absolute; top: 8px; }
+        
+        .neu-display {
+            background: #cbd2d9;
+            box-shadow: inset 2px 2px 5px #a3b1c6, inset -2px -2px 5px #ffffff;
+            border-radius: 8px; padding: 10px; text-align: center; font-family: monospace;
+        }
+        
+        .card-neu .port { background: #a3b1c6; border: 2px solid #e0e5ec; }
+
+
+        /* =========================================
+           STYLE 4: THE "FROST-BITE" (Ice Glass)
+           特点：极度模糊，白色边框，全息渐变字，极简
+           ========================================= */
+        .card-frost {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            height: 220px;
+            padding: 30px;
+            overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        /* 内部光晕 */
+        .card-frost::before {
+            content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(66, 135, 245, 0.4), transparent 70%);
+            filter: blur(20px); pointer-events: none;
+        }
+        
+        .frost-title { font-family: 'Inter'; font-weight: 600; font-size: 20px; letter-spacing: -0.5px; z-index: 1; }
+        .frost-tag { 
+            align-self: flex-start; padding: 4px 12px; border-radius: 20px; 
+            background: rgba(255,255,255,0.1); font-size: 11px; backdrop-filter: blur(5px);
+        }
+        
+        .frost-viz { height: 40px; display: flex; align-items: flex-end; gap: 4px; }
+        .f-bar { flex: 1; background: #fff; opacity: 0.2; border-radius: 2px; }
+        .f-bar:nth-child(odd) { height: 60%; }
+        .f-bar:nth-child(even) { height: 30%; }
+        
+        .card-frost .port { background: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+
+        /* =========================================
+           STYLE 5: THE "RETRO-PRINT" (Brutalist Paper)
+           特点：黑白高对比，衬线体，仿佛打印出来的，粗边框
+           ========================================= */
+        .card-print {
+            position: relative;
+            background: #f0f0f0;
+            border: 3px solid #000;
+            height: 220px;
+            color: #000;
+            box-shadow: 8px 8px 0px #000;
+            padding: 0;
+            display: flex; flex-direction: column;
+            transition: 0.2s;
+        }
+        .card-print:hover { transform: translate(-4px, -4px); box-shadow: 12px 12px 0px #000; }
+        
+        .print-head {
+            background: #000; color: #fff; padding: 10px 20px;
+            font-family: 'Cinzel', serif; font-weight: 700;
+            display: flex; justify-content: space-between;
+        }
+        .print-body { padding: 20px; flex: 1; font-family: 'Space Grotesk'; }
+        .print-line { border-bottom: 2px solid #000; margin-bottom: 8px; }
+        
+        .print-btn {
+            margin: 20px; padding: 10px; border: 2px solid #000; text-align: center;
+            font-weight: 700; text-transform: uppercase; cursor: pointer;
+        }
+        .print-btn:hover { background: #000; color: #fff; }
+        
+        .card-print .port { width: 14px; height: 14px; background: #fff; border: 3px solid #000; border-radius: 0; }
+
+
+        /* =========================================
+           STYLE 6: THE "LIQUID-METAL" (Abstract)
+           特点：不规则流动形状，金属质感，扭曲
+           ========================================= */
+        .card-liquid {
+            position: relative;
+            background: linear-gradient(135deg, #2b2b2b, #000);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            height: 220px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: inset 10px 10px 20px rgba(255,255,255,0.05), 10px 10px 20px rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            animation: morph 8s ease-in-out infinite;
+        }
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+        
+        .liquid-content { text-align: center; z-index: 2; mix-blend-mode: exclusion; }
+        .liquid-icon { font-size: 40px; color: #fff; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
+        
+        /* 内部流体纹理 */
+        .card-liquid::before {
+            content: ''; position: absolute; inset: -50%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+
+        /* =========================================
+           STYLE 7: THE "DOT-MATRIX" (Retro LED)
+           特点：点阵背景，橙色LED风格，工程感
+           ========================================= */
+        .card-dot {
+            position: relative;
+            background: #1a1510;
+            border: 1px solid #ff6600;
+            height: 220px;
+            /* 点阵背景 */
+            background-image: radial-gradient(#ff6600 1px, transparent 1px);
+            background-size: 6px 6px;
+            padding: 4px; /* Double border effect */
+        }
+        
+        .dot-inner {
+            background: rgba(0,0,0,0.9);
+            height: 100%; border: 1px solid #ff6600;
+            padding: 16px;
+            color: #ff6600;
+            font-family: 'JetBrains Mono';
+        }
+        
+        .dot-title { 
+            text-transform: uppercase; font-size: 12px; letter-spacing: 2px; 
+            border-bottom: 2px dotted #ff6600; padding-bottom: 8px; margin-bottom: 12px;
+        }
+        
+        .dot-stat { display: flex; justify-content: space-between; margin-top: 8px; }
+        .dot-val { font-weight: 800; text-shadow: 0 0 5px #ff6600; }
+        
+        .card-dot .port { background: #000; border: 2px solid #ff6600; border-radius: 0; }
+
+
+        /* =========================================
+           STYLE 8: THE "COLLAGE" (Mixed Media)
+           特点：像剪贴画，撕纸效果，图片与文字的粗暴拼接
+           ========================================= */
+        .card-collage {
+            position: relative;
+            background: #fff;
+            height: 220px;
+            overflow: hidden;
+            transform: rotate(-1deg);
+            transition: 0.3s;
+            border: 1px solid #ccc;
+        }
+        .card-collage:hover { transform: rotate(0deg) scale(1.02); z-index: 10; }
+        
+        .collage-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 60%;
+            background: url('https://source.unsplash.com/random/300x200?texture') center/cover;
+            filter: grayscale(100%) contrast(120%);
+        }
+        .collage-tape {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(5deg);
+            background: rgba(255, 230, 0, 0.8);
+            padding: 4px 12px;
+            font-family: 'Permanent Marker', cursive; font-weight: 700; color: #000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .collage-text {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
+            padding: 16px; background: #fff;
+            font-family: 'Times New Roman', serif; color: #000;
+            font-style: italic;
+        }
+        
+        .card-collage .port { background: red; border-radius: 50%; width: 12px; height: 12px; }
+
+    </style>
+</head>
+<body>
+
+    <h1>AVANT-GARDE NODES</h1>
+    <p class="subtitle">8 DISTINCT VISUAL PARADIGMS FOR FUNCTIONAL UI</p>
+
+    <div class="showcase-grid">
+
+        <!-- 1. ISO-GRID -->
+        <div class="card-iso">
+            <div class="port" style="top:50%; left:-5px;"></div>
+            <div class="port" style="top:50%; right:-5px;"></div>
+            <div class="iso-header">
+                <span>DATABASE</span>
+                <span class="iso-id">DB-01</span>
+            </div>
+            <div class="iso-body">
+                <div class="iso-cell">
+                    <span class="iso-label">Query</span>
+                    <span class="iso-value">SQL</span>
+                </div>
+                <div class="iso-cell">
+                    <span class="iso-label">Latency</span>
+                    <span class="iso-value">12ms</span>
+                </div>
+                <div class="iso-cell" style="grid-column: span 2; border-bottom: none;">
+                    <span class="iso-label">Status</span>
+                    <span class="iso-value" style="color:#00ff00">● ACTIVE</span>
+                </div>
+            </div>
+            <div class="iso-footer">
+                <span>Configure</span>
+                <i class="ri-settings-3-line"></i>
+            </div>
+        </div>
+
+        <!-- 2. CYBER-DECK -->
+        <div class="card-deck">
+            <div class="port" style="top:30%; left:-5px;"></div>
+            <div class="deck-content">
+                <div class="deck-title">SECURITY_PROTOCOL</div>
+                <div class="deck-screen">
+                    > SCANNING PORTS...<br>
+                    > ETH0: <span class="blink">CONNECTED</span><br>
+                    > PACKETS: 4092<br>
+                    > ENCRYPTION: AES-256
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. NEU-MORPH -->
+        <div class="card-neu">
+            <div class="port" style="top:50%; left:-8px;"></div>
+            <div class="port" style="top:50%; right:-8px;"></div>
+            <div class="neu-header">
+                <span style="font-weight:700; font-size:12px; letter-spacing:1px;">AUDIO GAIN</span>
+                <div class="neu-led"></div>
+            </div>
+            <div class="neu-knob-row">
+                <div class="neu-knob"><i class="ri-volume-up-line"></i></div>
+            </div>
+            <div class="neu-display">+ 6.0 dB</div>
+        </div>
+
+        <!-- 4. FROST-BITE -->
+        <div class="card-frost">
+            <div class="port" style="top:20%; left:-5px;"></div>
+            <div class="frost-title">Image<br>Diffusion</div>
+            <div class="frost-viz">
+                <div class="f-bar"></div><div class="f-bar"></div><div class="f-bar"></div>
+                <div class="f-bar"></div><div class="f-bar"></div><div class="f-bar"></div>
+            </div>
+            <div class="frost-tag">V 2.1 BETA</div>
+        </div>
+
+        <!-- 5. RETRO-PRINT -->
+        <div class="card-print">
+            <div class="port" style="top:50%; left:-7px;"></div>
+            <div class="print-head">
+                <span>DOC_01</span>
+                <span>★</span>
+            </div>
+            <div class="print-body">
+                <div class="print-line">Text Parser</div>
+                <p style="font-size:12px; line-height:1.4;">Extracts raw text from PDF documents using OCR technology.</p>
+            </div>
+            <div class="print-btn">Execute</div>
+        </div>
+
+        <!-- 6. LIQUID-METAL -->
+        <div class="card-liquid">
+            <div class="liquid-content">
+                <i class="ri-drop-line liquid-icon"></i>
+                <div style="font-family:'Syne'; font-weight:700; font-size:18px; margin-top:10px;">FLUID</div>
+                <div style="font-size:10px; opacity:0.7;">MIXER NODE</div>
+            </div>
+        </div>
+
+        <!-- 7. DOT-MATRIX -->
+        <div class="card-dot">
+            <div class="port" style="top:50%; left:-6px;"></div>
+            <div class="port" style="top:50%; right:-6px;"></div>
+            <div class="dot-inner">
+                <div class="dot-title">SENSOR_ARRAY</div>
+                <div class="dot-stat">
+                    <span>TEMP</span> <span class="dot-val">45°C</span>
+                </div>
+                <div class="dot-stat">
+                    <span>LOAD</span> <span class="dot-val">88%</span>
+                </div>
+                <div class="dot-stat">
+                    <span>FAN</span> <span class="dot-val">2K RPM</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. COLLAGE -->
+        <div class="card-collage">
+            <div class="collage-img"></div>
+            <div class="collage-tape">MEMORY</div>
+            <div class="collage-text">
+                "The persistence of data in a volatile world."
+                <div style="margin-top:5px; font-weight:bold; font-size:10px;">CACHE: 512MB</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

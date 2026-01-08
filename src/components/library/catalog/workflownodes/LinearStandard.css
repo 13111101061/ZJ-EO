@@ -1,0 +1,81 @@
+.wf-node-linear-std {
+  width: 280px;
+  background: rgba(20, 20, 23, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0;
+  position: relative;
+  transition: 0.3s;
+}
+
+.wf-node-linear-std:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.4);
+}
+
+.wf-node-linear-std .wf-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wf-node-linear-std .wf-status {
+  width: 6px;
+  height: 6px;
+  background: #5e6ad2;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #5e6ad2;
+}
+
+.wf-node-linear-std .wf-body {
+  padding: 16px;
+}
+
+.wf-node-linear-std .wf-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.wf-node-linear-std .wf-tag {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wf-port {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  position: absolute;
+  top: 24px;
+  transition: 0.3s;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.wf-port:hover {
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.wf-port-in {
+  left: -4px;
+}
+
+.wf-port-out {
+  right: -4px;
+}

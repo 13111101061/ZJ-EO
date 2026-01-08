@@ -1,0 +1,49 @@
+.toy-card-profile {
+  border: 3px solid #1a1a1a;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 4px 4px 0 #1a1a1a;
+  transition: 0.2s;
+  max-width: 280px;
+}
+
+.toy-card-profile:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+.toy-cp-bg {
+  height: 60px;
+  background: #ff9a9e;
+  border-bottom: 2px solid #1a1a1a;
+}
+
+.toy-cp-avatar {
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border: 3px solid #1a1a1a;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 20px;
+}
+
+.toy-cp-body {
+  padding: 40px 20px 20px 20px;
+}
+
+.toy-cp-name {
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.toy-cp-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: #666;
+}

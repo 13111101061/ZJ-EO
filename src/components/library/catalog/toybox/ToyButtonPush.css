@@ -1,0 +1,22 @@
+.toy-btn-push {
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #c4b5fd;
+  border: 3px solid #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 #1a1a1a;
+  cursor: pointer;
+  transition: 0.1s;
+  font-family: 'Outfit', sans-serif;
+}
+
+.toy-btn-push:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #1a1a1a;
+}
+
+.toy-btn-push.secondary {
+  background: #ffffff;
+}

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Toybox Component Library</title>
+    <!-- 字体：Dela Gothic (标题), Outfit (正文), Space Mono (代码/标签) -->
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Outfit:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <style>
+        /* --- 0. 玩具箱物理法则 --- */
+        :root {
+            --bg-canvas: #fff9f2;
+            --c-black: #1a1a1a;
+            --c-white: #ffffff;
+            --c-yellow: #ffde59;
+            --c-purple: #c4b5fd;
+            --c-green: #86efac;
+            --c-pink: #ff9a9e;
+            --c-blue: #93c5fd;
+            --c-orange: #fbbf24;
+            --border-thick: 3px solid var(--c-black);
+            --border-thin: 2px solid var(--c-black);
+            --shadow-hard: 4px 4px 0px var(--c-black);
+            --shadow-deep: 8px 8px 0px var(--c-black);
+            --radius-l: 20px;
+            --radius-m: 12px;
+            --radius-pill: 100px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--c-black);
+            font-family: 'Outfit', sans-serif;
+            padding: 60px;
+            /* 点阵背景 */
+            background-image: radial-gradient(#ddd 2px, transparent 2px);
+            background-size: 20px 20px;
+        }
+
+        /* 页面标题 */
+        .lib-header {
+            text-align: center; margin-bottom: 80px;
+        }
+        .lib-title {
+            font-family: 'Dela Gothic One'; font-size: 48px; letter-spacing: -2px;
+            text-shadow: 4px 4px 0 #fff, 6px 6px 0 #000; margin-bottom: 10px;
+        }
+        .lib-subtitle {
+            font-family: 'Space Mono'; background: var(--c-yellow); padding: 5px 15px; border: var(--border-thin);
+            display: inline-block; transform: rotate(-2deg); font-weight: 700;
+        }
+
+        /* 栅格布局 */
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; max-width: 1400px; margin: 0 auto;
+        }
+
+        /* 组件展示卡 */
+        .comp-group {
+            background: #fff; border: var(--border-thick); border-radius: var(--radius-l);
+            padding: 30px; position: relative; box-shadow: var(--shadow-hard);
+        }
+        .comp-group-title {
+            position: absolute; top: -15px; left: 20px; background: var(--c-black); color: #fff;
+            padding: 5px 15px; font-family: 'Space Mono'; font-weight: 700; font-size: 12px; text-transform: uppercase;
+            transform: rotate(-1deg);
+        }
+
+        /* 内部展示流 */
+        .comp-showcase {
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .row { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+
+
+        /* =================================================================
+           1. BUTTONS (按钮：可按压的糖果)
+           ================================================================= */
+        /* Style A: 3D Hard Push */
+        .btn-push {
+            padding: 12px 24px; font-weight: 800; font-size: 14px; text-transform: uppercase;
+            background: var(--c-purple); border: var(--border-thick); border-radius: 10px;
+            box-shadow: 4px 4px 0 var(--c-black); cursor: pointer; transition: 0.1s;
+        }
+        .btn-push:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--c-black); }
+        .btn-push.secondary { background: var(--c-white); }
+
+        /* Style B: Pill Icon */
+        .btn-pill {
+            padding: 10px 20px; background: var(--c-black); color: #fff; border-radius: var(--radius-pill);
+            font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s;
+            border: none;
+        }
+        .btn-pill:hover { transform: scale(1.05); background: var(--c-yellow); color: var(--c-black); }
+        
+        /* Style C: Retro Pixel */
+        .btn-pixel {
+            padding: 10px 20px; background: var(--c-pink); 
+            border-top: 4px solid #fff; border-left: 4px solid #fff;
+            border-right: 4px solid #000; border-bottom: 4px solid #000;
+            font-family: 'Space Mono'; font-weight: 700; cursor: pointer;
+        }
+        .btn-pixel:active { border: 4px solid #000; }
+
+
+        /* =================================================================
+           2. INPUTS & SEARCH (输入：巨大的积木)
+           ================================================================= */
+        /* Style A: Chunky Search */
+        .input-chunky {
+            width: 100%; padding: 15px; border: var(--border-thick); border-radius: 12px;
+            font-family: 'Outfit'; font-weight: 700; font-size: 14px;
+            box-shadow: var(--shadow-hard); transition: 0.2s;
+        }
+        .input-chunky:focus { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--c-black); outline: none; }
+
+        /* Style B: Pill Search with Button */
+        .search-pill {
+            position: relative; width: 100%;
+        }
+        .search-pill input {
+            width: 100%; padding: 12px 50px 12px 20px; border: var(--border-thin); border-radius: 50px;
+            background: #fff; font-size: 14px;
+        }
+        .search-pill button {
+            position: absolute; right: 5px; top: 5px; width: 34px; height: 34px;
+            background: var(--c-green); border: var(--border-thin); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .search-pill button:hover { background: var(--c-yellow); }
+
+
+        /* =================================================================
+           3. TOGGLES & CHECKS (开关：玩具控制器)
+           ================================================================= */
+        /* Style A: Toggle */
+        .toggle-toy {
+            width: 60px; height: 32px; background: #fff; border: var(--border-thick); border-radius: 30px;
+            position: relative; cursor: pointer; transition: 0.2s;
+        }
+        .toggle-toy::after {
+            content:''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px;
+            background: var(--c-black); border-radius: 50%; transition: 0.2s;
+        }
+        .toggle-toy.active { background: var(--c-green); }
+        .toggle-toy.active::after { left: 31px; background: #fff; border: 2px solid var(--c-black); }
+
+        /* Style B: Checkbox */
+        .check-box-toy {
+            width: 24px; height: 24px; border: var(--border-thick); border-radius: 6px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; background: #fff; transition: 0.2s;
+        }
+        .check-box-toy.checked { background: var(--c-purple); box-shadow: 2px 2px 0 var(--c-black); }
+        .check-box-toy i { opacity: 0; font-size: 16px; }
+        .check-box-toy.checked i { opacity: 1; }
+
+
+        /* =================================================================
+           4. CARDS (卡片：信息集装箱)
+           ================================================================= */
+        /* Style A: Profile Card */
+        .card-profile {
+            border: var(--border-thick); border-radius: var(--radius-m); background: #fff; overflow: hidden;
+            position: relative; box-shadow: var(--shadow-hard); transition: 0.2s;
+        }
+        .card-profile:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--c-black); }
+        .cp-bg { height: 60px; background: var(--c-pink); border-bottom: var(--border-thin); }
+        .cp-avatar {
+            width: 60px; height: 60px; background: #fff; border: var(--border-thick); border-radius: 50%;
+            position: absolute; top: 30px; left: 20px; overflow: hidden;
+        }
+        .cp-body { padding: 40px 20px 20px 20px; }
+        .cp-name { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
+        .cp-role { font-family: 'Space Mono'; font-size: 10px; color: #666; }
+
+        /* Style B: Course/Tool Card */
+        .card-tool {
+            border: var(--border-thick); border-radius: var(--radius-l); background: var(--c-yellow);
+            padding: 20px; display: flex; flex-direction: column; gap: 15px;
+        }
+        .ct-icon {
+            width: 50px; height: 50px; background: #fff; border: var(--border-thin); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
+        }
+        .ct-meta { display: flex; gap: 5px; }
+        .tag-mini { font-size: 10px; font-weight: 700; border: 1px solid #000; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.5); }
+
+
+        /* =================================================================
+           5. BADGES & TAGS (标签：便利贴)
+           ================================================================= */
+        .tag-sticker {
+            padding: 4px 12px; border: var(--border-thin); border-radius: 50px; font-weight: 700; font-size: 12px;
+            background: #fff; display: inline-block; transform: rotate(-2deg);
+        }
+        .tag-sticker.hot { background: var(--c-orange); color: #000; }
+        .tag-sticker.new { background: var(--c-green); transform: rotate(2deg); }
+        .tag-sticker.beta { background: var(--c-purple); border-style: dashed; }
+
+
+        /* =================================================================
+           6. PROGRESS & STATS (进度：游戏血条)
+           ================================================================= */
+        .progress-wrap { width: 100%; }
+        .progress-label { display: flex; justify-content: space-between; font-weight: 700; font-size: 12px; margin-bottom: 5px; }
+        .progress-bar {
+            height: 16px; border: var(--border-thick); border-radius: 10px; background: #fff; overflow: hidden;
+        }
+        .progress-val {
+            height: 100%; background: repeating-linear-gradient(45deg, var(--c-blue), var(--c-blue) 10px, #60a5fa 10px, #60a5fa 20px);
+            border-right: var(--border-thick);
+        }
+
+
+        /* =================================================================
+           7. ALERTS & TOASTS (弹窗：对话气泡)
+           ================================================================= */
+        .alert-box {
+            background: #fff; border: var(--border-thick); padding: 15px; border-radius: 0 12px 12px 12px;
+            position: relative; box-shadow: var(--shadow-hard); max-width: 250px;
+        }
+        .alert-box::before {
+            content: ''; position: absolute; top: -14px; left: -3px;
+            width: 0; height: 0; 
+            border-left: 15px solid transparent; border-right: 0px solid transparent; border-bottom: 15px solid #000;
+        }
+        .alert-box::after { /* White cover for border trick */
+            content: ''; position: absolute; top: -8px; left: 0px;
+            width: 0; height: 0; 
+            border-left: 10px solid transparent; border-right: 0px solid transparent; border-bottom: 10px solid #fff;
+        }
+        .alert-title { font-weight: 800; font-size: 14px; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+
+
+        /* =================================================================
+           8. NAVIGATION TABS (导航：文件夹标签)
+           ================================================================= */
+        .tab-folder { display: flex; gap: 5px; border-bottom: var(--border-thick); }
+        .tab-btn {
+            padding: 8px 20px; background: #ddd; border: var(--border-thick); border-bottom: none;
+            border-radius: 10px 10px 0 0; cursor: pointer; font-weight: 700; font-size: 12px; position: relative; top: 3px;
+        }
+        .tab-btn.active { background: var(--c-yellow); top: 3px; padding-bottom: 12px; z-index: 2; }
+
+    </style>
+</head>
+<body>
+
+    <div class="lib-header">
+        <div class="lib-title">THE TOYBOX</div>
+        <div class="lib-subtitle">UI KIT V.1.0 // BOLD & FUN</div>
+    </div>
+
+    <div class="grid-container">
+        
+        <!-- 1. 按钮组 -->
+        <div class="comp-group">
+            <div class="comp-group-title">01. Buttons</div>
+            <div class="comp-showcase">
+                <div class="row">
+                    <button class="btn-push">Primary</button>
+                    <button class="btn-push secondary">Secondary</button>
+                </div>
+                <div class="row">
+                    <button class="btn-pill"><i class="ri-play-fill"></i> Watch Demo</button>
+                    <button class="btn-pill" style="background:var(--c-purple); color:#000;"><i class="ri-upload-cloud-line"></i> Upload</button>
+                </div>
+                <div class="row">
+                    <button class="btn-pixel">RETRO_BTN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 输入框 & 搜索 -->
+        <div class="comp-group">
+            <div class="comp-group-title">02. Inputs</div>
+            <div class="comp-showcase">
+                <input type="text" class="input-chunky" placeholder="Type something bold...">
+                
+                <div class="search-pill">
+                    <input type="text" placeholder="Search components...">
+                    <button><i class="ri-search-line"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 开关与选框 -->
+        <div class="comp-group">
+            <div class="comp-group-title">03. Toggles</div>
+            <div class="comp-showcase">
+                <div class="row">
+                    <div class="toggle-toy active"></div>
+                    <div class="toggle-toy"></div>
+                </div>
+                <div class="row">
+                    <div class="check-box-toy checked"><i class="ri-check-line"></i></div>
+                    <div class="check-box-toy"></div>
+                    <div class="check-box-toy" style="border-radius:50%;"><i class="ri-close-line"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 标签与徽章 -->
+        <div class="comp-group">
+            <div class="comp-group-title">04. Stickers</div>
+            <div class="comp-showcase">
+                <div class="row">
+                    <span class="tag-sticker hot">HOT 🔥</span>
+                    <span class="tag-sticker new">NEW ✨</span>
+                    <span class="tag-sticker beta">BETA 🚧</span>
+                    <span class="tag-sticker">v2.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 卡片样式 -->
+        <div class="comp-group">
+            <div class="comp-group-title">05. Cards</div>
+            <div class="comp-showcase">
+                <!-- Profile -->
+                <div class="card-profile">
+                    <div class="cp-bg"></div>
+                    <div class="cp-avatar">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="width:100%;">
+                    </div>
+                    <div class="cp-body">
+                        <div class="cp-name">Alex.Design</div>
+                        <div class="cp-role">UI Creator</div>
+                    </div>
+                </div>
+                <!-- Tool -->
+                <div class="card-tool">
+                    <div class="row" style="justify-content:space-between;">
+                        <div class="ct-icon"><i class="ri-magic-line"></i></div>
+                        <div class="ct-meta"><span class="tag-mini">AI</span></div>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:800; font-size:18px;">Magic Eraser</h4>
+                        <p style="font-size:12px; margin-top:5px;">Remove objects instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. 进度与反馈 -->
+        <div class="comp-group">
+            <div class="comp-group-title">06. Feedback</div>
+            <div class="comp-showcase">
+                <!-- Progress -->
+                <div class="progress-wrap">
+                    <div class="progress-label"><span>Loading...</span><span>75%</span></div>
+                    <div class="progress-bar"><div class="progress-val" style="width:75%;"></div></div>
+                </div>
+                
+                <!-- Alert -->
+                <div class="alert-box">
+                    <div class="alert-title"><i class="ri-error-warning-fill" style="color:var(--c-orange);"></i> Heads Up!</div>
+                    <p style="font-size:12px; line-height:1.4;">Your account has been upgraded to Pro level.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. 导航标签 -->
+        <div class="comp-group">
+            <div class="comp-group-title">07. Navigation</div>
+            <div class="comp-showcase" style="background:#fff; padding-top:20px;">
+                <div class="tab-folder">
+                    <div class="tab-btn active">Design</div>
+                    <div class="tab-btn">Code</div>
+                    <div class="tab-btn">Settings</div>
+                </div>
+                <div style="border:var(--border-thick); padding:20px; background:#fff; position:relative; z-index:1; border-radius:0 10px 10px 10px;">
+                    Content Area...
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

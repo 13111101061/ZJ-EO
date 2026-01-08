@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沉浸式艺术展工作流节点 | Immersive Art Exhibition Nodes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500;700&family=Cormorant+Garamond:ital,wght@0,400;1,600&family=Cinzel:wght@400;700&display=swap');
+
+        :root {
+            --bg-void: #050505;
+            --text-primary: #e0e0e0;
+            --accent-gold: #D4AF37;
+            --accent-neon: #00f3ff;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 1) 0%, rgba(5, 5, 5, 1) 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 60px;
+            perspective: 2000px;
+            align-content: start;
+        }
+
+        /* 基础节点容器 */
+        .node-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .node-wrapper:hover {
+            transform: translateZ(20px) rotateX(2deg) rotateY(-2deg);
+            z-index: 10;
+        }
+
+        /* --- 1. The Brutalist Monolith (巨石·野兽派) --- */
+        .node-brutalist {
+            background: #1a1a1a;
+            border: 4px solid #333;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 15px 15px 0px rgba(40, 40, 40, 0.5);
+            min-height: 300px;
+        }
+        
+        .node-brutalist::before {
+            content: "SYSTEM";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 80px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.03);
+            transform: rotate(90deg);
+            pointer-events: none;
+        }
+
+        .node-brutalist .header {
+            background: #fff;
+            color: #000;
+            padding: 15px 20px;
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .node-brutalist .content {
+            padding: 20px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            color: #888;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .node-brutalist .data-block {
+            border: 1px solid #333;
+            padding: 10px;
+        }
+        
+        .node-brutalist .data-block label {
+            display: block;
+            font-size: 10px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        /* --- 2. The Liquid Chrome (液态金属) --- */
+        .node-chrome {
+            background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%);
+            border-radius: 20px;
+            padding: 25px;
+            color: #111;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 20px rgba(255,255,255,0.8),
+                0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .node-chrome::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='displacementFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.05' numOctaves='2' result='turbulence'/%3E%3CfeDisplacementMap in2='turbulence' in='SourceGraphic' scale='20' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Ccircle cx='100' cy='100' r='100' fill='%23ffffff' filter='url(%23displacementFilter)' opacity='0.3'/%3E%3C/svg%3E");
+            background-size: cover;
+            mix-blend-mode: overlay;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .node-chrome .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 28px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(to right, #111, #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .node-chrome .input-field {
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- 3. The Bauhaus Construct (包豪斯构成) --- */
+        .node-bauhaus {
+            background: #f0f0f0;
+            min-height: 320px;
+            position: relative;
+            border: none;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .node-bauhaus .shape-circle {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background: #D93025; /* Bauhaus Red */
+            border-radius: 50%;
+            mix-blend-mode: multiply;
+        }
+
+        .node-bauhaus .shape-rect {
+            position: absolute;
+            bottom: 20px;
+            left: -10px;
+            width: 40px;
+            height: 120px;
+            background: #1A73E8; /* Bauhaus Blue */
+            mix-blend-mode: multiply;
+        }
+
+        .node-bauhaus .header {
+            padding: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #111;
+            z-index: 2;
+        }
+
+        .node-bauhaus .body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .node-bauhaus button {
+            background: #F9AB00; /* Bauhaus Yellow */
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #111;
+            align-self: flex-start;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .node-bauhaus button:hover { transform: scale(1.05); }
+
+        /* --- 4. The Cyber-Botany (赛博植物学) --- */
+        .node-botany {
+            background: #0a1a10;
+            border: 1px solid #1a3a25;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 255, 100, 0.05);
+            overflow: hidden;
+        }
+
+        .node-botany::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 255, 128, 0.03) 10px,
+                rgba(0, 255, 128, 0.03) 11px
+            );
+            pointer-events: none;
+        }
+
+        .node-botany .title {
+            color: #00ff80;
+            font-family: 'Space Grotesk';
+            font-weight: 300;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #1a3a25;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .node-botany .title::before {
+            content: '🌿';
+            margin-right: 10px;
+            filter: hue-rotate(90deg) grayscale(0.5);
+        }
+
+        .node-botany .port {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            color: #8fa;
+            font-size: 12px;
+        }
+
+        .node-botany .port-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff80;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 5px #00ff80;
+        }
+
+        /* --- 5. The Kintsugi Gold (金缮修复) --- */
+        .node-kintsugi {
+            background: #111;
+            padding: 30px;
+            position: relative;
+            color: #fff;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+        }
+
+        .node-kintsugi::after {
+            content: '';
+            position: absolute;
+            top: 40%;
+            left: -10%;
+            width: 120%;
+            height: 2px;
+            background: var(--accent-gold);
+            transform: rotate(-15deg);
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .node-kintsugi .title {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .node-kintsugi .content {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* --- 6. The Vaporwave Glitch (蒸汽波故障) --- */
+        .node-vapor {
+            background: #2b0f36;
+            border: 2px solid #ff00ff;
+            padding: 2px; /* For double border effect */
+            box-shadow: 5px 5px 0px #00ffff;
+        }
+
+        .node-vapor-inner {
+            background: #1a0520;
+            height: 100%;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node-vapor .scanline {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .node-vapor .title {
+            font-family: 'Syncopate', sans-serif;
+            color: #00ffff;
+            text-shadow: 2px 0 #ff00ff;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .node-vapor .stat {
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 36px;
+            font-weight: bold;
+            font-family: 'Space Grotesk';
+        }
+
+        /* --- 7. The Frosted Acrylic (极厚磨砂) --- */
+        .node-acrylic {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            color: #fff;
+        }
+
+        .node-acrylic .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(255, 154, 158, 0.3);
+        }
+
+        .node-acrylic h3 {
+            margin: 0 0 10px 0;
+            font-weight: 500;
+        }
+
+        .node-acrylic p {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* --- 8. The Void Portal (虚空传送门) --- */
+        .node-void {
+            background: #000;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 1px #333, 0 0 60px rgba(255,255,255,0.05);
+        }
+
+        .node-void::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, #fff, transparent 30%);
+            animation: rotate 4s linear infinite;
+            mask-image: radial-gradient(closest-side, transparent 96%, black 100%);
+        }
+
+        .node-void-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .node-void .label {
+            font-family: 'Space Grotesk';
+            letter-spacing: 4px;
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .node-void .value {
+            font-size: 40px;
+            font-weight: 300;
+            color: #fff;
+        }
+
+        /* --- 9. The Editorial Minimal (极简社论) --- */
+        .node-editorial {
+            background: #e6e6e6;
+            color: #000;
+            padding: 40px 30px;
+            border-left: 8px solid #000;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .node-editorial h2 {
+            font-size: 32px;
+            line-height: 1;
+            margin: 0 0 20px 0;
+            font-weight: 400;
+            letter-spacing: -1px;
+        }
+
+        .node-editorial .meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* --- 10. The Neon Noir (黑色霓虹) --- */
+        .node-noir {
+            background: linear-gradient(180deg, #111 0%, #050505 100%);
+            border: 1px solid #222;
+            padding: 25px;
+            position: relative;
+        }
+
+        .node-noir::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: #ff0055;
+            box-shadow: 0 -2px 10px #ff0055, 0 0 20px #ff0055;
+        }
+
+        .node-noir .title {
+            font-family: 'Syncopate';
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .node-noir .controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .node-noir .knob {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            position: relative;
+        }
+        
+        .node-noir .knob::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 2px; height: 10px;
+            background: #ff0055;
+            transform: translate(-50%, -100%);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Connection Lines (Simulated) */
+        svg.connections {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. The Brutalist Monolith -->
+    <div class="node-wrapper">
+        <div class="node-brutalist">
+            <div class="header">
+                <span>Core.Process</span>
+                <span>[01]</span>
+            </div>
+            <div class="content">
+                <div class="data-block">
+                    <label>STATUS</label>
+                    <span style="color: #0f0">ACTIVE</span>
+                </div>
+                <div class="data-block">
+                    <label>MEMORY</label>
+                    <span>4096MB</span>
+                </div>
+                <div class="data-block" style="grid-column: span 2">
+                    <label>HASH</label>
+                    <span>0x8F44...A2B1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. The Liquid Chrome -->
+    <div class="node-wrapper">
+        <div class="node-chrome">
+            <div class="title">Fluid Dynamics</div>
+            <p style="font-size: 14px; opacity: 0.8; margin-bottom: 20px;">Simulating viscosity...</p>
+            <div class="input-field">Parameter A: 0.85</div>
+            <div class="input-field">Parameter B: 1.20</div>
+        </div>
+    </div>
+
+    <!-- 3. The Bauhaus Construct -->
+    <div class="node-wrapper">
+        <div class="node-bauhaus">
+            <div class="shape-circle"></div>
+            <div class="shape-rect"></div>
+            <div class="header">Form Follows<br>Function</div>
+            <div class="body">
+                <div style="font-size: 12px; line-height: 1.5; color: #555;">
+                    The ultimate aim of all artistic activity is building!
+                </div>
+                <button>CONSTRUCT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. The Cyber-Botany -->
+    <div class="node-wrapper">
+        <div class="node-botany">
+            <div class="title">BIO_SYNTHESIS</div>
+            <div class="port"><div class="port-dot"></div>Growth Rate</div>
+            <div class="port"><div class="port-dot"></div>Photosynthesis</div>
+            <div class="port"><div class="port-dot"></div>Root Structure</div>
+            <div style="margin-top: 20px; height: 4px; background: #1a3a25; border-radius: 2px;">
+                <div style="width: 70%; height: 100%; background: #00ff80; box-shadow: 0 0 10px #00ff80;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. The Kintsugi Gold -->
+    <div class="node-wrapper">
+        <div class="node-kintsugi">
+            <div class="title">Restoration</div>
+            <div class="content">
+                "The wound is the place where the light enters you."<br><br>
+                Acceptance of imperfection.
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. The Vaporwave Glitch -->
+    <div class="node-wrapper">
+        <div class="node-vapor">
+            <div class="node-vapor-inner">
+                <div class="scanline"></div>
+                <div class="title">System_Err</div>
+                <div class="stat">404</div>
+                <div style="font-family: 'Space Grotesk'; font-size: 12px; color: #ff00ff; margin-top: 10px;">
+                    > REALITY NOT FOUND<br>
+                    > RETRYING...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. The Frosted Acrylic -->
+    <div class="node-wrapper">
+        <div class="node-acrylic">
+            <div class="icon"></div>
+            <h3>Glass Morph</h3>
+            <p>High quality gaussian blur with saturation boost creates a physical sense of depth.</p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2);"></div>
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. The Void Portal -->
+    <div class="node-wrapper" style="display: flex; justify-content: center;">
+        <div class="node-void">
+            <div class="node-void-content">
+                <div class="label">SINGULARITY</div>
+                <div class="value">∞</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. The Editorial Minimal -->
+    <div class="node-wrapper">
+        <div class="node-editorial">
+            <h2>The<br>New<br>Standard</h2>
+            <div style="height: 40px;"></div>
+            <div class="meta">
+                <span>Vol. 01</span>
+                <span>2024</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. The Neon Noir -->
+    <div class="node-wrapper">
+        <div class="node-noir">
+            <div class="title">Night City Control</div>
+            <div class="controls">
+                <div class="knob" style="transform: rotate(45deg)"></div>
+                <div class="knob" style="transform: rotate(120deg)"></div>
+                <div class="knob" style="transform: rotate(270deg)"></div>
+            </div>
+            <div style="margin-top: 20px; font-family: monospace; color: #444; font-size: 10px;">
+                OUTPUT: STEREO<br>
+                GAIN: +12dB
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

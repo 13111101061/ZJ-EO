@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>艺术站风格工作流节点 (ArtStation Aesthetics)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Grotesk:wght@300;500&display=swap');
+
+        :root {
+            --bg-deep: #0a0a0a;
+            --bg-card: #141414;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+            --text-main: #e0e0e0;
+            --text-muted: #666;
+            --accent-gold: #c4a77d;
+            --accent-blue: #2980b9;
+            --shadow-ambient: 0 20px 40px rgba(0,0,0,0.6);
+            --shadow-sharp: 0 1px 0 rgba(255,255,255,0.05) inset;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 80px;
+            min-height: 100vh;
+            /* Subtle texture background */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 100px;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 80px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .showcase-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .showcase-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            color: #444;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Common Elements */
+        .port {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border: 1px solid #666;
+            border-radius: 50%;
+            position: absolute;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .port:hover { background: #fff; border-color: #fff; transform: scale(1.5); }
+
+        /* --- STYLE 1: The "Masterpiece" (Portfolio Card) --- */
+        /* Focus on the visual output, dark matte frame, gallery caption feel */
+        .node-masterpiece {
+            width: 300px;
+            background: #111;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-ambient);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .node-masterpiece:hover { transform: translateY(-5px); border-color: var(--border-highlight); }
+        
+        .node-masterpiece .preview-area {
+            height: 200px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            /* Placeholder Image */
+            background-image: url('https://images.unsplash.com/photo-1620641788421-7f1c338e617c?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .node-masterpiece .overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: #fff;
+        }
+        .node-masterpiece .meta {
+            padding: 15px 20px;
+            background: #161616;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .node-masterpiece h3 { margin: 0; font-size: 14px; font-weight: 500; font-family: 'Inter'; letter-spacing: 0.5px; }
+        .node-masterpiece .sub { font-size: 11px; color: #666; margin-top: 4px; }
+        .node-masterpiece .badge { 
+            font-size: 10px; border: 1px solid #333; padding: 2px 6px; color: #888; border-radius: 2px;
+        }
+        .node-masterpiece .port-in { left: -5px; top: 50%; }
+        .node-masterpiece .port-out { right: -5px; top: 50%; }
+
+
+        /* --- STYLE 2: The "Editorial" (Typography Focus) --- */
+        /* Clean, high-end magazine layout. Serif fonts, lots of negative space. */
+        .node-editorial {
+            width: 280px;
+            background: #1a1a1a;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-left: 2px solid var(--accent-gold);
+        }
+        .node-editorial h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0 0 20px 0;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .node-editorial .divider {
+            height: 1px; width: 40px; background: var(--accent-gold); margin-bottom: 20px;
+        }
+        .node-editorial .param-row {
+            display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 12px; color: #888; font-family: 'Inter';
+        }
+        .node-editorial .value { color: #ccc; }
+        .node-editorial .port { background: var(--accent-gold); border: none; top: 40px; }
+        .node-editorial .port-in { left: -4px; }
+        .node-editorial .port-out { right: -4px; }
+
+
+        /* --- STYLE 3: The "Obsidian Slate" (Tactile Dark) --- */
+        /* Looks like a physical piece of slate or matte metal. Very heavy, grounded. */
+        .node-slate {
+            width: 260px;
+            background: #1c1c1c;
+            border-radius: 4px;
+            box-shadow: 
+                0 30px 60px -12px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.1); /* Top highlight */
+            padding: 4px; /* Double border effect */
+            position: relative;
+        }
+        .node-slate-inner {
+            background: #181818;
+            border: 1px solid #000;
+            border-radius: 2px;
+            padding: 20px;
+        }
+        .node-slate .header {
+            text-transform: uppercase; font-size: 11px; letter-spacing: 2px; color: #555; margin-bottom: 15px; font-weight: 700;
+        }
+        .node-slate .content { font-size: 13px; color: #aaa; line-height: 1.6; }
+        .node-slate .control {
+            margin-top: 15px; height: 4px; background: #111; border-radius: 2px; position: relative;
+        }
+        .node-slate .control-fill {
+            width: 40%; height: 100%; background: #444; border-radius: 2px;
+        }
+        .node-slate .port { background: #222; border: 1px solid #000; box-shadow: 0 0 0 1px #333; width: 10px; height: 10px; }
+        .node-slate .port-in { left: -6px; top: 20px; }
+        .node-slate .port-out { right: -6px; top: 20px; }
+
+
+        /* --- STYLE 4: The "Cinematic" (Wide & Atmospheric) --- */
+        /* Letterbox ratio, subtle glow, immersive */
+        .node-cinematic {
+            width: 320px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+        .node-cinematic::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+        .node-cinematic .backdrop {
+            height: 120px;
+            background: url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            opacity: 0.4;
+            mix-blend-mode: luminosity;
+            mask-image: linear-gradient(to bottom, black, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+        }
+        .node-cinematic .content {
+            padding: 0 20px 20px 20px;
+            margin-top: -40px;
+            position: relative;
+        }
+        .node-cinematic h3 {
+            font-size: 16px; color: #fff; margin-bottom: 5px; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .node-cinematic .tags { display: flex; gap: 8px; margin-top: 10px; }
+        .node-cinematic .tag { font-size: 10px; color: #888; border: 1px solid #333; padding: 2px 8px; border-radius: 10px; }
+
+
+        /* --- STYLE 5: The "Technical" (Blueprint Dark) --- */
+        /* Clean lines, grid background, measurement markers. Precise. */
+        .node-tech {
+            width: 280px;
+            background: #111;
+            border: 1px solid #333;
+            position: relative;
+        }
+        .node-tech .grid-bg {
+            position: absolute; inset: 0; opacity: 0.1; pointer-events: none;
+            background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .node-tech .header {
+            background: #1a1a1a; padding: 10px 15px; border-bottom: 1px solid #333;
+            font-family: 'Space Grotesk'; font-size: 12px; color: #aaa; display: flex; justify-content: space-between;
+        }
+        .node-tech .body { padding: 20px; position: relative; z-index: 1; }
+        .node-tech .data-point {
+            display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px;
+            font-family: monospace; font-size: 11px; color: #666;
+        }
+        .node-tech .data-point span:last-child { color: var(--accent-blue); }
+        .node-tech .corner-mark {
+            position: absolute; width: 6px; height: 6px; border: 1px solid #555;
+        }
+        .node-tech .tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .node-tech .tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .node-tech .bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .node-tech .br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+
+        /* --- STYLE 6: The "Lens" (Smoked Glass) --- */
+        /* High-end optics feel. Deep blur, subtle reflections. */
+        .node-lens {
+            width: 260px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.02);
+        }
+        .node-lens::after {
+            content: ''; position: absolute; inset: 0; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.2) 100%);
+            pointer-events: none;
+        }
+        .node-lens .circle-preview {
+            width: 60px; height: 60px; border-radius: 50%; background: #222; margin: 0 auto 15px auto;
+            border: 1px solid #333; position: relative;
+        }
+        .node-lens .circle-preview::before {
+            content: ''; position: absolute; inset: 4px; border-radius: 50%; border: 1px solid #444;
+        }
+        .node-lens h3 { text-align: center; font-weight: 400; font-size: 14px; margin-bottom: 5px; color: #ddd; }
+        .node-lens p { text-align: center; font-size: 11px; color: #666; margin: 0; }
+        .node-lens .port { background: #000; border: 1px solid #444; }
+
+
+        /* --- STYLE 7: The "Studio" (Pro Workspace) --- */
+        /* Like Unreal Engine / DaVinci. Dense, functional, dark grey. */
+        .node-studio {
+            width: 280px;
+            background: #242424;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #ccc;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .node-studio .header {
+            background: #333; padding: 6px 10px; font-weight: 600; display: flex; align-items: center; gap: 6px;
+        }
+        .node-studio .color-tag { width: 8px; height: 8px; background: #e056fd; border-radius: 2px; }
+        .node-studio .body { padding: 4px; }
+        .node-studio .row {
+            padding: 6px 8px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .node-studio .row:hover { background: #2a2a2a; border-radius: 4px; }
+        .node-studio input {
+            background: #1a1a1a; border: 1px solid #111; color: #aaa; padding: 2px 6px; border-radius: 3px; width: 60px; text-align: right;
+        }
+        .node-studio .port {
+            width: 10px; height: 10px; border-radius: 50%; border: none; background: #555; top: 50%; margin-top: -5px;
+        }
+        .node-studio .port-in { left: -5px; }
+        .node-studio .port-out { right: -5px; }
+
+
+        /* --- STYLE 8: The "Canvas" (Image First) --- */
+        /* The node IS the image. Controls float on top. */
+        .node-canvas {
+            width: 240px; height: 240px;
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .node-canvas .controls {
+            position: absolute; bottom: 10px; left: 10px; right: 10px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .node-canvas .status { font-size: 10px; color: #fff; font-weight: 600; }
+        .node-canvas .btn { width: 24px; height: 24px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-size: 12px; cursor: pointer; }
+
+
+        /* --- STYLE 9: The "Monolith" (Vertical Power) --- */
+        /* Tall, imposing, like a server rack. */
+        .node-monolith {
+            width: 180px;
+            background: #0f0f0f;
+            border: 1px solid #222;
+            border-top: 4px solid #fff;
+            padding: 20px 10px;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+        .node-monolith .title {
+            writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+            font-family: 'Space Grotesk'; font-size: 14px; letter-spacing: 2px; color: #444; height: 100px;
+        }
+        .node-monolith .slot {
+            width: 100%; height: 30px; background: #161616; border: 1px solid #222; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #666;
+        }
+        .node-monolith .slot.active { border-color: #fff; color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+
+
+        /* --- STYLE 10: The "Archive" (Paper/File) --- */
+        /* Subtle texture, looks like a filed document in a dark room. */
+        .node-archive {
+            width: 260px;
+            background: #181818;
+            border-radius: 2px;
+            position: relative;
+            padding: 20px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        .node-archive::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 20px;
+            background: linear-gradient(225deg, #222 50%, transparent 50%);
+        }
+        .node-archive h3 { font-family: 'Inter'; font-weight: 600; font-size: 13px; color: #ccc; margin: 0 0 15px 0; }
+        .node-archive p { font-size: 11px; color: #666; line-height: 1.5; margin: 0; }
+        .node-archive .meta-row { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #333; display: flex; gap: 10px; }
+        .node-archive .tag { font-size: 9px; color: #555; border: 1px solid #333; padding: 2px 4px; }
+
+    </style>
+</head>
+<body>
+
+    <h1>ArtStation Aesthetic Workflow Nodes</h1>
+
+    <div class="gallery-grid">
+
+        <!-- 1. Masterpiece -->
+        <div class="showcase-wrapper">
+            <div class="node-masterpiece">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <div class="preview-area">
+                    <div class="overlay">
+                        <h3>Environment Gen</h3>
+                        <div class="sub">V-Ray Render Pass</div>
+                    </div>
+                </div>
+                <div class="meta">
+                    <span class="badge">4K</span>
+                    <span class="badge">HDR</span>
+                    <span style="font-size: 10px; color: #444;">ID: #8821</span>
+                </div>
+            </div>
+            <div class="showcase-label">01. The Portfolio</div>
+        </div>
+
+        <!-- 2. Editorial -->
+        <div class="showcase-wrapper">
+            <div class="node-editorial">
+                <div class="port port-in"></div>
+                <div class="port port-out"></div>
+                <h3>Text<br>Processor</h3>
+                <div class="divider"></div>
+                <div class="param-row">
+                    <span>Font Family</span>
+                    <span class="value">Bodoni</span>
+                </div>
+                <div class="param-row">
+                    <span>Line Height</span>
+                    <span class="value">1.6em</span>
+                </div>
+                <div class="param-row">
+                    <span>Kerning</span>
+                    <span class="value">-0.02</span>
+                </div>
+            </div>
+            <div class="showcase-label">02. Editorial</div>
+        </div>
+
+        <!-- 3. Obsidian Slate -->
+        <div class="showcase-wrapper">
+            <div class="node-slate">
+                <div class="node-slate-inner">
+                    <div class="port port-in"></div>
+                    <div class="port port-out"></div>
+                    <div class="header">Noise Generator</div>
+                    <div class="content">
+                        Perlin noise algorithm with fractal brownian motion.
+                    </div>
+                    <div class="control">
+                        <div class="control-fill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">03. Obsidian Slate</div>
+        </div>
+
+        <!-- 4. Cinematic -->
+        <div class="showcase-wrapper">
+            <div class="node-cinematic">
+                <div class="backdrop"></div>
+                <div class="content">
+                    <h3>Color Grade</h3>
+                    <div style="font-size: 11px; color: #aaa; line-height: 1.5;">Applying LUT: Kodak 2383<br>Exposure: +0.5 EV</div>
+                    <div class="tags">
+                        <span class="tag">REC.709</span>
+                        <span class="tag">LOG-C</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">04. Cinematic</div>
+        </div>
+
+        <!-- 5. Technical -->
+        <div class="showcase-wrapper">
+            <div class="node-tech">
+                <div class="grid-bg"></div>
+                <div class="corner-mark tl"></div><div class="corner-mark tr"></div>
+                <div class="corner-mark bl"></div><div class="corner-mark br"></div>
+                <div class="header">
+                    <span>GEO_MODIFIER</span>
+                    <span>v2.1</span>
+                </div>
+                <div class="body">
+                    <div class="data-point"><span>VERTICES</span> <span>1,042</span></div>
+                    <div class="data-point"><span>FACES</span> <span>2,088</span></div>
+                    <div class="data-point"><span>NORMALS</span> <span>SMOOTH</span></div>
+                </div>
+            </div>
+            <div class="showcase-label">05. Technical Blueprint</div>
+        </div>
+
+        <!-- 6. Lens -->
+        <div class="showcase-wrapper">
+            <div class="node-lens">
+                <div class="port" style="left: -4px; top: 50%;"></div>
+                <div class="port" style="right: -4px; top: 50%;"></div>
+                <div class="circle-preview"></div>
+                <h3>Optical Blur</h3>
+                <p>Bokeh Simulation</p>
+            </div>
+            <div class="showcase-label">06. Smoked Lens</div>
+        </div>
+
+        <!-- 7. Studio -->
+        <div class="showcase-wrapper">
+            <div class="node-studio">
+                <div class="header">
+                    <div class="color-tag"></div> Material Output
+                </div>
+                <div class="body">
+                    <div class="row">
+                        <div style="display:flex; align-items:center; gap:5px;"><div class="port" style="position:static; margin:0;"></div> Diffuse</div>
+                        <input type="text" value="0.8">
+                    </div>
+                    <div class="row">
+                        <div style="display:flex; align-items:center; gap:5px;"><div class="port" style="position:static; margin:0;"></div> Specular</div>
+                        <input type="text" value="0.5">
+                    </div>
+                    <div class="row">
+                        <div style="display:flex; align-items:center; gap:5px;"><div class="port" style="position:static; margin:0;"></div> Roughness</div>
+                        <input type="text" value="0.2">
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-label">07. Pro Studio</div>
+        </div>
+
+        <!-- 8. Canvas -->
+        <div class="showcase-wrapper">
+            <div class="node-canvas">
+                <div class="controls">
+                    <div class="status">RENDERED</div>
+                    <div class="btn">⬇</div>
+                </div>
+            </div>
+            <div class="showcase-label">08. Canvas Overlay</div>
+        </div>
+
+        <!-- 9. Monolith -->
+        <div class="showcase-wrapper">
+            <div class="node-monolith">
+                <div class="title">SERVER_STACK</div>
+                <div class="slot active">CACHE_L1</div>
+                <div class="slot">CACHE_L2</div>
+                <div class="slot">CACHE_L3</div>
+            </div>
+            <div class="showcase-label">09. The Monolith</div>
+        </div>
+
+        <!-- 10. Archive -->
+        <div class="showcase-wrapper">
+            <div class="node-archive">
+                <h3>Project Metadata</h3>
+                <p>Created: 2024-03-20<br>Author: ArtDirector</p>
+                <div class="meta-row">
+                    <span class="tag">READ ONLY</span>
+                    <span class="tag">LOCKED</span>
+                </div>
+            </div>
+            <div class="showcase-label">10. The Archive</div>
+        </div>
+
+    </div>
+
+</body>
+</html>

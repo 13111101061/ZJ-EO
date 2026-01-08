@@ -351,3 +351,17 @@ export const MinimalDividerDropdown: React.FC = () => {
 export { SmartDropdown } from './SmartDropdown';
 export { VisualMenu } from './VisualMenu';
 export { InteractiveGrid } from './InteractiveGrid';
+export { default as LiquidChromeDropdown } from './LiquidChromeDropdown';
+export { default as PrismGlassDropdown } from './PrismGlassDropdown';
+export { default as KineticTypeDropdown } from './KineticTypeDropdown';
+export { default as GlassStackDropdown } from './GlassStackDropdown';
+export { default as NeonTerminalDropdown } from './NeonTerminalDropdown';
+export { default as SwissLineDropdown } from './SwissLineDropdown';
+export { default as OrigamiDropdown } from './OrigamiDropdown';
+export { default as BlobDropdown } from './BlobDropdown';
+export { default as PixelDropdown } from './PixelDropdown';
+export { default as BrutalistMagDropdown } from './BrutalistMagDropdown';
+export { default as HologramDropdown } from './HologramDropdown';
+export { default as CardStackDropdown } from './CardStackDropdown';
+export { default as RadialCompassDropdown } from './RadialCompassDropdown';
+export { default as GlitchDropdown } from './GlitchDropdown';

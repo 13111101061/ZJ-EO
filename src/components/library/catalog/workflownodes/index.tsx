@@ -1,2 +1,11 @@
 export { LinearNode } from './LinearNode';
 export { ArtisticNode } from './ArtisticNode';
+export { default as LinearStandard } from './LinearStandard';
+export { default as LinearAmbient } from './LinearAmbient';
+export { default as LinearPrism } from './LinearPrism';
+export { default as LinearFrost } from './LinearFrost';
+export { default as LinearGhost } from './LinearGhost';
+export { default as LinearNeon } from './LinearNeon';
+export { default as LinearStack } from './LinearStack';
+export { default as LinearGrid } from './LinearGrid';
+export { default as LinearSpotlight } from './LinearSpotlight';

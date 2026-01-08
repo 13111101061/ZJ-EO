@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业级前卫工作流节点 | Professional Avant-Garde Nodes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-deep: #080808;
+            --surface-1: #121212;
+            --surface-2: #1e1e1e;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+            --text-main: #e0e0e0;
+            --text-dim: #888;
+            --accent-primary: #3b82f6;
+            --accent-success: #10b981;
+            --accent-warn: #f59e0b;
+            --port-size: 10px;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(30, 30, 40, 0.4) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(40, 30, 30, 0.2) 0%, transparent 25%),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 60px;
+            align-content: start;
+        }
+
+        /* 通用节点容器 - 强调连接点和层级 */
+        .node-base {
+            position: relative;
+            width: 100%;
+            min-height: 200px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        /* 模拟连接线背景 */
+        .wires-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 C 20 50, 20 20, 50 20 S 80 80, 100 80' stroke='white' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 1: The Deep Obsidian (深空黑曜石)
+           特点：极度沉稳，磨砂质感，内发光，强调物理厚度
+           ----------------------------------------------------------- */
+        .node-obsidian {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border: 1px solid #2a2a2a;
+            box-shadow: 
+                5px 5px 15px rgba(0,0,0,0.5),
+                -1px -1px 2px rgba(255,255,255,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .node-obsidian .header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #222;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .node-obsidian .title {
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .node-obsidian .body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .node-obsidian .param-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        /* 输入输出端口 */
+        .port {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+            border: 2px solid #555;
+            transition: all 0.2s;
+            position: absolute;
+        }
+        .port:hover { background: var(--accent-primary); border-color: #fff; box-shadow: 0 0 10px var(--accent-primary); }
+        .port.in { left: -26px; top: 50%; transform: translateY(-50%); }
+        .port.out { right: -26px; top: 50%; transform: translateY(-50%); }
+
+        .node-obsidian .control {
+            background: #050505;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: #aaa;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+            width: 120px;
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 2: The Quantum Glass (量子玻璃)
+           特点：高精细磨砂，清晰的层级，边缘高光，不仅是模糊
+           ----------------------------------------------------------- */
+        .node-quantum {
+            background: rgba(30, 30, 35, 0.6);
+            backdrop-filter: blur(20px) saturate(120%);
+            -webkit-backdrop-filter: blur(20px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .node-quantum::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        }
+
+        .node-quantum .header {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .node-quantum .status-dot {
+            width: 6px; height: 6px;
+            background: var(--accent-success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-success);
+        }
+
+        .node-quantum .content {
+            padding: 20px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .node-quantum .image-preview {
+            width: 100%;
+            height: 100px;
+            background: #111;
+            border-radius: 8px;
+            border: 1px dashed rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #666;
+            position: relative;
+        }
+
+        .node-quantum .port-tag {
+            position: absolute;
+            font-size: 9px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+        .node-quantum .port-tag.left { left: 5px; top: 50%; transform: translateY(-50%); }
+        .node-quantum .port-tag.right { right: 5px; top: 50%; transform: translateY(-50%); }
+
+        /* -----------------------------------------------------------
+           STYLE 3: The Technical Blueprint (精密蓝图)
+           特点：细线，网格背景，数据标注，工程感强
+           ----------------------------------------------------------- */
+        .node-blueprint {
+            background: #0b1120; /* Dark Blue tint */
+            border: 1px solid #1e3a8a;
+            box-shadow: 0 0 20px rgba(30, 58, 138, 0.1);
+            background-image: 
+                linear-gradient(rgba(30, 58, 138, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 138, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+
+        .node-blueprint .header {
+            background: #1e3a8a;
+            color: #bfdbfe;
+            padding: 8px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .node-blueprint .body {
+            padding: 15px;
+        }
+
+        .node-blueprint .connector-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 11px;
+            color: #60a5fa;
+        }
+
+        .node-blueprint .socket {
+            width: 8px; height: 8px;
+            background: #0f172a;
+            border: 1px solid #60a5fa;
+            position: relative;
+        }
+        
+        .node-blueprint .socket.filled { background: #60a5fa; }
+
+        /* -----------------------------------------------------------
+           STYLE 4: The Ceramic Pro (陶瓷Pro)
+           特点：极其细腻的漫反射，柔和的阴影，像高端电子产品
+           ----------------------------------------------------------- */
+        .node-ceramic {
+            background: #1c1c1e;
+            border-radius: 16px;
+            box-shadow: 
+                0 20px 40px -10px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.08);
+            padding: 4px; /* Frame */
+        }
+
+        .node-ceramic-inner {
+            background: #252528;
+            border-radius: 12px;
+            height: 100%;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .node-ceramic .title-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .node-ceramic .icon-box {
+            width: 32px; height: 32px;
+            background: linear-gradient(180deg, #444, #333);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 14px;
+        }
+
+        .node-ceramic .slider-container {
+            height: 4px;
+            background: #111;
+            border-radius: 2px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .node-ceramic .slider-fill {
+            width: 60%; height: 100%;
+            background: #fff;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 5: The Luminous Path (光路节点)
+           特点：端口之间有光线流动，强调数据流向
+           ----------------------------------------------------------- */
+        .node-luminous {
+            background: #000;
+            border: 1px solid #333;
+            border-left: 3px solid #f00; /* Error/High Priority Color */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node-luminous .glow-line {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #f00, transparent);
+            opacity: 0.5;
+        }
+
+        .node-luminous .header {
+            padding: 15px;
+            font-family: 'Inter';
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ddd;
+        }
+
+        .node-luminous .io-group {
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px 15px;
+            gap: 8px;
+        }
+
+        .node-luminous .io-item {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            color: #666;
+            position: relative;
+        }
+
+        .node-luminous .io-item.in::before {
+            content: '';
+            position: absolute; left: -21px;
+            width: 8px; height: 8px;
+            background: #222; border: 1px solid #666;
+            border-radius: 50%;
+        }
+
+        .node-luminous .io-item.out { justify-content: flex-end; }
+        .node-luminous .io-item.out::after {
+            content: '';
+            position: absolute; right: -21px;
+            width: 8px; height: 8px;
+            background: #222; border: 1px solid #666;
+            border-radius: 50%;
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 6: The Modular Stack (模块堆叠)
+           特点：像服务器机架一样的插槽设计
+           ----------------------------------------------------------- */
+        .node-stack {
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .node-stack .module {
+            background: #222;
+            border: 1px solid #333;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .node-stack .module:first-child { border-radius: 8px 8px 0 0; background: #2a2a2a; }
+        .node-stack .module:last-child { border-radius: 0 0 8px 8px; }
+
+        .node-stack .pin {
+            width: 6px; height: 12px; background: #555;
+            position: absolute;
+        }
+        .node-stack .pin.left { left: -3px; border-radius: 0 2px 2px 0; }
+        .node-stack .pin.right { right: -3px; border-radius: 2px 0 0 2px; }
+
+        /* -----------------------------------------------------------
+           STYLE 7: The Film Negative (底片风格)
+           特点：像胶片一样的边缘，高对比度
+           ----------------------------------------------------------- */
+        .node-film {
+            background: #000;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 5px;
+            box-shadow: 10px 10px 0 #111;
+        }
+        
+        .node-film-inner {
+            border: 1px solid #fff;
+            padding: 15px;
+            height: calc(100% - 32px);
+            position: relative;
+        }
+
+        .node-film .label {
+            background: #fff;
+            color: #000;
+            display: inline-block;
+            padding: 2px 6px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 8: The Aerogel (气凝胶)
+           特点：半透明烟雾感，非常轻盈
+           ----------------------------------------------------------- */
+        .node-aerogel {
+            background: rgba(100, 100, 100, 0.1);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .node-aerogel::after {
+            content: '';
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 10px; height: 10px;
+            background: #00ffaa;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00ffaa;
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 9: The Code Terminal (终端机)
+           特点：纯文本界面风格，复古且极客
+           ----------------------------------------------------------- */
+        .node-terminal {
+            background: #0c0c0c;
+            border: 1px solid #333;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0;
+        }
+
+        .node-terminal .bar {
+            background: #333;
+            padding: 5px 10px;
+            font-size: 10px;
+            color: #aaa;
+            display: flex;
+            gap: 10px;
+        }
+
+        .node-terminal .code-area {
+            padding: 15px;
+            font-size: 11px;
+            color: #00ff00;
+            line-height: 1.6;
+        }
+
+        /* -----------------------------------------------------------
+           STYLE 10: The Golden Ratio (黄金分割)
+           特点：优雅的分割线，衬线体，古典与科技结合
+           ----------------------------------------------------------- */
+        .node-golden {
+            background: #141414;
+            border: 1px solid #D4AF37;
+            position: relative;
+        }
+
+        .node-golden .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(#D4AF37 1px, transparent 1px);
+            background-size: 100% 61.8%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .node-golden .title {
+            font-family: 'Times New Roman', serif;
+            color: #D4AF37;
+            font-style: italic;
+            font-size: 22px;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. Deep Obsidian -->
+    <div class="node-base node-obsidian">
+        <div class="header">
+            <span class="title">Load Checkpoint</span>
+            <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></div>
+        </div>
+        <div class="body">
+            <div class="param-row">
+                <div class="port in" title="Input: Model Name"></div>
+                <span style="font-size: 12px; color: #888;">Model Name</span>
+                <input type="text" class="control" value="v1-5-pruned.ckpt">
+            </div>
+            <div class="param-row">
+                <div class="port in"></div>
+                <span style="font-size: 12px; color: #888;">VAE</span>
+                <select class="control"><option>Automatic</option></select>
+            </div>
+            <div class="param-row">
+                <span style="font-size: 12px; color: #888; margin-left: auto; margin-right: 10px;">MODEL</span>
+                <div class="port out" title="Output: Model"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Quantum Glass -->
+    <div class="node-base node-quantum">
+        <div class="header">
+            <div class="status-dot"></div>
+            <span style="font-weight: 500; font-size: 13px;">Image Preview</span>
+        </div>
+        <div class="content">
+            <div class="image-preview">
+                [ LATENT NOISE ]
+                <div class="port in" style="left: -25px; border-color: rgba(255,255,255,0.3); background: rgba(0,0,0,0.5);"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #aaa;">
+                <span>512x512</span>
+                <span>RGBA</span>
+            </div>
+            <button style="background: rgba(255,255,255,0.1); border: none; padding: 8px; color: #fff; border-radius: 4px; cursor: pointer;">Save Image</button>
+        </div>
+    </div>
+
+    <!-- 3. Technical Blueprint -->
+    <div class="node-base node-blueprint">
+        <div class="header">
+            <span>SAMPLER_CONFIG</span>
+            <span>ID: 0X92</span>
+        </div>
+        <div class="body">
+            <div class="connector-row">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="socket filled"></div>
+                    <span>SEED</span>
+                </div>
+                <span>-1</span>
+            </div>
+            <div class="connector-row">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="socket filled"></div>
+                    <span>STEPS</span>
+                </div>
+                <span>20</span>
+            </div>
+            <div class="connector-row">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="socket"></div>
+                    <span>CFG</span>
+                </div>
+                <span>7.0</span>
+            </div>
+            <div style="text-align: right; margin-top: 15px; color: #60a5fa;">
+                OUTPUT &gt;
+                <div class="socket filled" style="display: inline-block; vertical-align: middle; margin-left: 5px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Ceramic Pro -->
+    <div class="node-base node-ceramic">
+        <div class="node-ceramic-inner">
+            <div class="title-row">
+                <div class="icon-box">🎨</div>
+                <div style="font-weight: 600; font-size: 14px; color: #eee;">Color Grade</div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 5px;">
+                    <span>Exposure</span>
+                    <span>+0.5</span>
+                </div>
+                <div class="slider-container"><div class="slider-fill"></div></div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 5px;">
+                    <span>Contrast</span>
+                    <span>1.2</span>
+                </div>
+                <div class="slider-container"><div class="slider-fill" style="width: 40%"></div></div>
+            </div>
+            <!-- Hidden Ports -->
+            <div class="port in" style="left: -10px; background: #444; border-color: #222;"></div>
+            <div class="port out" style="right: -10px; background: #444; border-color: #222;"></div>
+        </div>
+    </div>
+
+    <!-- 5. Luminous Path -->
+    <div class="node-base node-luminous">
+        <div class="glow-line"></div>
+        <div class="header">ControlNet Apply</div>
+        <div class="io-group">
+            <div class="io-item in">Image</div>
+            <div class="io-item in">Control Model</div>
+            <div class="io-item out" style="margin-top: 10px;">Conditioning</div>
+        </div>
+    </div>
+
+    <!-- 6. Modular Stack -->
+    <div class="node-base node-stack">
+        <div class="module">
+            <span style="font-size: 12px; color: #ccc;">KSampler</span>
+            <div class="pin left"></div>
+            <div class="pin right"></div>
+        </div>
+        <div class="module">
+            <span style="font-size: 11px; color: #888;">seed: 492384</span>
+            <div class="pin left"></div>
+        </div>
+        <div class="module">
+            <span style="font-size: 11px; color: #888;">denoise: 1.0</span>
+            <div class="pin right"></div>
+        </div>
+        <div class="module">
+            <button style="width: 100%; background: #333; border: none; color: #fff; padding: 5px; border-radius: 4px;">Queue</button>
+        </div>
+    </div>
+
+    <!-- 7. Film Negative -->
+    <div class="node-base node-film">
+        <div class="node-film-inner">
+            <div class="label">LORA STACK</div>
+            <div style="font-family: monospace; font-size: 11px; color: #aaa; margin-top: 10px;">
+                > FilmGrain_v2<br>
+                > Strength: 0.8<br>
+                > Clip: 1.0
+            </div>
+            <div class="port in" style="border-radius: 0; background: #fff; width: 6px; height: 6px;"></div>
+            <div class="port out" style="border-radius: 0; background: #fff; width: 6px; height: 6px;"></div>
+        </div>
+    </div>
+
+    <!-- 8. Aerogel -->
+    <div class="node-base node-aerogel">
+        <div style="font-size: 18px; font-weight: 300; color: #fff; margin-bottom: 5px;">Latent Upscale</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.5);">Method: Nearest-Exact</div>
+        <div class="port in" style="background: rgba(255,255,255,0.2); border: none;"></div>
+        <div class="port out" style="background: #00ffaa; border: none; box-shadow: 0 0 10px #00ffaa;"></div>
+    </div>
+
+    <!-- 9. Code Terminal -->
+    <div class="node-base node-terminal">
+        <div class="bar">
+            <span>root@node:~</span>
+            <span style="margin-left: auto;">bash</span>
+        </div>
+        <div class="code-area">
+            $ execute_script<br>
+            > loading python env...<br>
+            > processing tensor [1, 4, 64, 64]<br>
+            <span style="animation: blink 1s infinite;">_</span>
+        </div>
+        <div class="port in" style="border-radius: 0; background: #00ff00; width: 4px; height: 10px; border: none;"></div>
+        <div class="port out" style="border-radius: 0; background: #00ff00; width: 4px; height: 10px; border: none;"></div>
+    </div>
+
+    <!-- 10. Golden Ratio -->
+    <div class="node-base node-golden">
+        <div class="grid-overlay"></div>
+        <div class="title">Aspect Ratio</div>
+        <div style="padding: 0 20px 20px;">
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <div style="border: 1px solid #D4AF37; padding: 5px 10px; font-size: 12px; color: #D4AF37;">16:9</div>
+                <div style="border: 1px solid #444; padding: 5px 10px; font-size: 12px; color: #666;">4:3</div>
+                <div style="border: 1px solid #444; padding: 5px 10px; font-size: 12px; color: #666;">1:1</div>
+            </div>
+        </div>
+        <div class="port in" style="background: #D4AF37; border-color: #000;"></div>
+        <div class="port out" style="background: #D4AF37; border-color: #000;"></div>
+    </div>
+
+</body>
+</html>
