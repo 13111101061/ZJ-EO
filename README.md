@@ -63,7 +63,3 @@ pnpm run preview
 如遇到依赖安装问题，可以尝试：
 - 清除缓存: `pnpm store prune`
 - 删除 node_modules 后重新安装: `rm -rf node_modules && pnpm install`
-
-## 许可证
-
-MIT
