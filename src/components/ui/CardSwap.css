@@ -1,0 +1,59 @@
+.card-swap-container {
+  position: absolute;
+  bottom: 15%;
+  right: 10%;
+  transform: translate(0, 0);
+  transform-origin: bottom right;
+
+  perspective: 900px;
+  overflow: visible;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 24px;
+  color: #fff;
+
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  color: #ccff00; /* Neon Lime brand color */
+}
+
+.card p {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #888;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .card-swap-container {
+    transform: scale(0.75) translate(25%, 25%);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-swap-container {
+    transform: scale(0.55) translate(25%, 25%);
+  }
+}

@@ -1,28 +1,3 @@
-import CardSwap, { Card } from './CardSwap'
-
-<div style={{ height: '600px', position: 'relative' }}>
-  <CardSwap
-    cardDistance={60}
-    verticalDistance={70}
-    delay={5000}
-    pauseOnHover={false}
-  >
-    <Card>
-      <h3>Card 1</h3>
-      <p>Your content here</p>
-    </Card>
-    <Card>
-      <h3>Card 2</h3>
-      <p>Your content here</p>
-    </Card>
-    <Card>
-      <h3>Card 3</h3>
-      <p>Your content here</p>
-    </Card>
-  </CardSwap>
-</div>
-
-
 import React, {
   Children,
   cloneElement,
@@ -212,7 +187,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
       };
     }
     return () => clearInterval(intervalRef.current);
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, config, refs]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement<CardProps>(child)
@@ -236,41 +211,3 @@ const CardSwap: React.FC<CardSwapProps> = ({
 };
 
 export default CardSwap;
-
-
-.card-swap-container {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(5%, 20%);
-  transform-origin: bottom right;
-
-  perspective: 900px;
-  overflow: visible;
-}
-
-.card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 12px;
-  border: 1px solid #fff;
-  background: #000;
-
-  transform-style: preserve-3d;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-@media (max-width: 768px) {
-  .card-swap-container {
-    transform: scale(0.75) translate(25%, 25%);
-  }
-}
-
-@media (max-width: 480px) {
-  .card-swap-container {
-    transform: scale(0.55) translate(25%, 25%);
-  }
-}
