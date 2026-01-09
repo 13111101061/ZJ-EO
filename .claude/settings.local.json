@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run build)"
-    ]
+      "SlashCommand(/commit --style=simple)",
+      "SlashCommand(/commit:*)",
+      "Edit",
+      "Bash(ls:*)"
+    ],
+    "deny": [],
+    "ask": []
   }
 }
