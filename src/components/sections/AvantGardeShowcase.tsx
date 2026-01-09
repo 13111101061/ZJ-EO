@@ -29,7 +29,7 @@ const AvantGardeShowcase: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   return (
-    <section ref={containerRef} className="relative py-32 bg-black overflow-hidden">
+    <section ref={containerRef} className="relative py-32 overflow-hidden">
       {/* Decorative Grid Lines */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute left-10 top-0 bottom-0 w-px bg-white/20" />

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const KineticGallery: React.FC = () => {
   return (
-    <section className="relative py-32 bg-black overflow-hidden border-y border-white/10">
+    <section className="relative py-32 overflow-hidden border-y border-white/10">
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20 pointer-events-none" />
       
       <div className="mb-20 overflow-hidden">

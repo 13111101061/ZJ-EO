@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import MagneticButton from '../ui/MagneticButton';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -112,10 +113,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="nav-actions">
-            <button className="nav-btn-magnetic" type="button">
-              <span className="btn-content">CONNECT_ID</span>
-              <div className="btn-scanline" />
-            </button>
+            <MagneticButton>CONNECT_ID</MagneticButton>
           </div>
         </div>
       </nav>

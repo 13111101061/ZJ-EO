@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './FusionHome.css';
 import AvantGardeShowcase from '../../components/sections/AvantGardeShowcase';
 import KineticGallery from '../../components/sections/KineticGallery';
+import GhostCursor from '../../components/GhostCursor';
 
 const FusionHome: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,12 +18,13 @@ const FusionHome: React.FC = () => {
 
   return (
     <div className="fusion-container" ref={containerRef}>
+      <GhostCursor zIndex={0} />
       {/* BACKGROUND LAYERS */}
       <div className="pop-halftone absolute inset-0 z-0 opacity-20 pointer-events-none" />
 
       {/* HERO SECTION: The "Collision" */}
       <motion.section 
-        className="hero-section relative flex flex-col items-center justify-center min-h-screen overflow-hidden bg-[#050505]"
+        className="hero-section relative flex flex-col items-center justify-center min-h-screen overflow-hidden"
         style={{ scale: heroScale, opacity: heroOpacity }}
       >
         {/* 1. NOISE OVERLAY */}

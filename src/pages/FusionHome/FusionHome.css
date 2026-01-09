@@ -17,7 +17,7 @@
 }
 
 .fusion-container {
-  background-color: transparent; /* Changed to transparent for FusionLayout */
+  background-color: var(--f-void-black);
   color: var(--f-paper-white);
   min-height: 100vh;
   overflow-x: hidden;

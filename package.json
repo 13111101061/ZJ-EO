@@ -16,8 +16,12 @@
   },
   "dependencies": {
     "@motionone/utils": "^10.18.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.9.2",
+    "gsap": "^3.14.2",
+    "lucide-react": "^0.562.0",
+    "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.3.0",
@@ -25,6 +29,8 @@
     "remixicon": "^4.7.0",
     "sonner": "^2.0.2",
     "tailwind-merge": "^3.0.2",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.167.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {

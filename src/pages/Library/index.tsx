@@ -2,9 +2,10 @@ import React from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Library.css';
-import Sidebar from '../../components/library/layout/Sidebar';
+import DesignSidebar from '../../components/library/layout/DesignSidebar';
 import CategoryHeader from '../../components/library/ui/CategoryHeader';
 import ComponentCard from '../../components/library/ui/ComponentCard';
+import Plasma from '../../components/ui/Plasma';
 import { libraryRegistry } from '../../data/libraryRegistry';
 
 const LibraryPage: React.FC = () => {
@@ -36,9 +37,15 @@ const LibraryPage: React.FC = () => {
             </div>
 
             <div className="archive-layout">
-                <Sidebar />
+                <DesignSidebar />
 
                 <main className="content-stream">
+                    <Plasma 
+                        color="#ccff00" 
+                        speed={0.4} 
+                        scale={1.5} 
+                        opacity={0.4} 
+                    />
                     <header className="library-header">
                         <h1 className="library-title" data-text={pageTitle}>{pageTitle}</h1>
                         <p className="library-description">{pageDescription}</p>

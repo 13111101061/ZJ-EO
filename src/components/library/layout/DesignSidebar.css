@@ -1,0 +1,166 @@
+.design-sidebar {
+  width: 100%;
+  height: 100%;
+  position: sticky;
+  top: 40px;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'JetBrains Mono', monospace;
+  background: #050505;
+  overflow-y: auto;
+  overflow-x: hidden;
+  perspective: 1000px;
+}
+
+.ds-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.ds-scanner-line {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--f-neon-lime, #ccff00), transparent);
+  box-shadow: 0 0 15px var(--f-neon-lime, #ccff00);
+  z-index: 10;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.ds-header {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.ds-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ds-blink {
+  width: 6px;
+  height: 6px;
+  background-color: var(--f-neon-lime, #ccff00);
+  border-radius: 50%;
+  animation: ds-blink-anim 2s infinite;
+}
+
+@keyframes ds-blink-anim {
+  0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--f-neon-lime, #ccff00); }
+  50% { opacity: 0.2; box-shadow: none; }
+}
+
+.ds-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.ds-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.3s;
+  /* Disable default hover to let GSAP handle it */
+}
+
+/* Background Highlight for Active/Hover */
+.ds-item-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(204, 255, 0, 0.05), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: -1;
+  border-left: 2px solid var(--f-neon-lime, #ccff00);
+}
+
+.ds-item.active .ds-item-bg,
+.ds-item:hover .ds-item-bg {
+  transform: scaleX(1);
+}
+
+.ds-item:hover {
+  color: #fff;
+}
+
+.ds-label {
+  position: relative;
+  z-index: 2;
+  transition: text-shadow 0.3s;
+  will-change: transform;
+}
+
+.ds-item:hover .ds-label {
+  text-shadow: 0 0 8px rgba(204, 255, 0, 0.5);
+}
+
+.ds-item.active .ds-label {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+  font-weight: 700;
+  transform: translateX(10px); /* Static offset for active state */
+}
+
+.ds-count {
+  font-size: 10px;
+  padding: 2px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: #555;
+  transition: all 0.3s;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.ds-item.active .ds-count,
+.ds-item:hover .ds-count {
+  border-color: var(--f-neon-lime, #ccff00);
+  color: var(--f-neon-lime, #ccff00);
+  box-shadow: 0 0 10px rgba(204, 255, 0, 0.1);
+}
+
+/* Scrollbar */
+.design-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.design-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.design-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
