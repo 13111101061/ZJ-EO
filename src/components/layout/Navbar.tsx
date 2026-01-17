@@ -22,6 +22,7 @@ const Navbar: React.FC = () => {
     () => [
       { path: '/enterprise', label: 'MONOLITH' },
       { path: '/library', label: 'ARCHIVES' },
+      { path: '/blog', label: 'SIGNAL' },
     ],
     []
   );

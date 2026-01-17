@@ -2,6 +2,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import FusionHome from "@/pages/FusionHome";
 // import Home from "@/pages/Home"; // Archived Tech Home
 import LibraryPage from "@/pages/Library";
+import BlogPage from "@/pages/Blog";
+import BlogPost from "@/pages/Blog/BlogPost";
 import HolographicInterface23 from "./components/sections/HolographicInterface23";
 import ContentSections24 from "./components/sections/ContentSections24";
 import Monolith25 from "./components/sections/Monolith25";
@@ -32,7 +34,8 @@ export default function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageWrapper><FusionHome /></PageWrapper>} />
           <Route path="/library" element={<PageWrapper><LibraryPage /></PageWrapper>} />
-          <Route path="/other" element={<div className="text-center text-xl">Other Page - Coming Soon</div>} />
+          <Route path="/blog" element={<PageWrapper><BlogPage /></PageWrapper>} />
+          <Route path="/blog/:id" element={<PageWrapper><BlogPost /></PageWrapper>} />
           <Route path="/interface" element={<PageWrapper><HolographicInterface23 /></PageWrapper>} />
           <Route path="/blueprint" element={<PageWrapper><ContentSections24 /></PageWrapper>} />
           <Route path="/enterprise" element={<PageWrapper><Monolith25 /></PageWrapper>} />
