@@ -337,7 +337,8 @@ pnpm run component:help   # 组件帮助
 
 ---
 本项目由本项目由阿里云ESA提供加速、计算和保护”
-![Uploading image.png…]()
+<img width="7534" height="844" alt="image" src="https://github.com/user-attachments/assets/fb564bc2-9c0d-40e7-99fc-8f54157c0cdf" />
+
 
 
 ## 许可证
