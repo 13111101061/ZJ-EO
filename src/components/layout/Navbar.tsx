@@ -50,20 +50,14 @@ const Navbar: React.FC = () => {
           <ul className="monolith-nav-links">
             <li className="monolith-nav-item">
               <Link to="/library" className="monolith-nav-trigger">
-                <span>AI_VISION</span>
+                <span>ARCHIVES</span>
               </Link>
             </li>
 
             <li className="monolith-nav-item">
-              <Link to="/library" className="monolith-nav-trigger">
-                <span>AI_VOICE</span>
-                <span className="monolith-badge">REC</span>
-              </Link>
-            </li>
-
-            <li className="monolith-nav-item">
-              <Link to="/library" className="monolith-nav-trigger">
-                <span>AI_WRITER</span>
+              <Link to="/blog" className="monolith-nav-trigger">
+                <span>SIGNAL</span>
+                <span className="monolith-badge">LIVE</span>
               </Link>
             </li>
 

@@ -1,0 +1,747 @@
+/**
+ * Edge Computing Demo Module Styles
+ * 边缘计算演示模块样式
+ */
+
+.edge-module-section {
+    margin-top: 60px;
+    padding: 0 20px 40px;
+}
+
+/* ========== 主容器 ========== */
+.edge-demo-module {
+    background: linear-gradient(145deg, rgba(10, 10, 12, 0.95), rgba(5, 5, 8, 0.98));
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ========== 头部 ========== */
+.edge-demo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+    background: linear-gradient(90deg, rgba(0, 255, 136, 0.03), transparent);
+}
+
+.edge-demo-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.edge-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5));
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5)); }
+    50% { filter: drop-shadow(0 0 16px rgba(0, 255, 136, 0.8)); }
+}
+
+.edge-demo-title h2 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #00ff88;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.edge-demo-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #333;
+    box-shadow: 0 0 6px rgba(0, 255, 136, 0.3);
+    transition: all 0.3s ease;
+}
+
+.status-indicator.active {
+    background: #00ff88;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.8);
+    animation: status-pulse 1s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+.status-text {
+    font-size: 11px;
+    color: #666;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+/* ========== 标签页导航 ========== */
+.edge-demo-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.tab-btn.active {
+    color: #00ff88;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff88, transparent);
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.tab-icon {
+    font-size: 16px;
+}
+
+.tab-label {
+    letter-spacing: 1px;
+}
+
+/* ========== 内容区域 ========== */
+.edge-demo-content {
+    min-height: 400px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.tab-content {
+    padding: 24px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #444;
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* ========== 函数控制 ========== */
+.function-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.function-select {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 8px;
+    color: #ccc;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.function-select:hover,
+.function-select:focus {
+    border-color: rgba(0, 255, 136, 0.4);
+    outline: none;
+}
+
+.execute-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 8px;
+    color: #00ff88;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.execute-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+    transform: translateY(-1px);
+}
+
+.execute-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ========== 结果展示 ========== */
+.results-section h4,
+.storage-keys h4,
+.cache-info h4,
+.cache-tests h4 {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.result-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    border-color: rgba(0, 255, 136, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.05);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.result-function {
+    font-size: 12px;
+    color: #00ff88;
+    font-family: 'Courier New', monospace;
+}
+
+.result-cache {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result-cache.hit {
+    background: rgba(0, 255, 136, 0.15);
+    color: #00ff88;
+}
+
+.result-cache.miss {
+    background: rgba(255, 100, 100, 0.15);
+    color: #ff6464;
+}
+
+.result-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.result-meta span {
+    font-size: 11px;
+    color: #666;
+    font-family: 'Courier New', monospace;
+}
+
+.result-data {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+.result-data pre {
+    font-size: 11px;
+    color: #888;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* ========== 存储控制 ========== */
+.storage-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.storage-input {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 8px;
+    color: #ccc;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.storage-input:focus {
+    border-color: rgba(0, 255, 136, 0.4);
+    outline: none;
+}
+
+.store-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, rgba(0, 204, 255, 0.1), rgba(0, 204, 255, 0.05));
+    border: 1px solid rgba(0, 204, 255, 0.3);
+    border-radius: 8px;
+    color: #00ccff;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.store-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 204, 255, 0.2), rgba(0, 204, 255, 0.1));
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.2);
+}
+
+/* ========== 存储统计 ========== */
+.storage-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 20px;
+    color: #00ccff;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+/* ========== 存储键列表 ========== */
+.keys-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.key-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 10px 12px;
+}
+
+.key-name {
+    font-size: 11px;
+    color: #888;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    flex: 1;
+}
+
+.key-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.key-btn {
+    padding: 6px 12px;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.key-btn.get {
+    border-color: rgba(0, 255, 136, 0.3);
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+}
+
+.key-btn.get:hover {
+    background: rgba(0, 255, 136, 0.2);
+}
+
+.key-btn.delete {
+    border-color: rgba(255, 100, 100, 0.3);
+    background: rgba(255, 100, 100, 0.1);
+    color: #ff6464;
+}
+
+.key-btn.delete:hover {
+    background: rgba(255, 100, 100, 0.2);
+}
+
+/* ========== 缓存控制 ========== */
+.cache-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.cache-test-btn {
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 8px;
+    color: #888;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cache-test-btn:hover {
+    border-color: rgba(0, 255, 136, 0.4);
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.05);
+}
+
+/* ========== 缓存信息 ========== */
+.cache-info {
+    margin-bottom: 24px;
+}
+
+.cache-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.cache-stat {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.cache-stat-label {
+    display: block;
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.cache-stat-value {
+    display: block;
+    font-size: 16px;
+    color: #00ff88;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+/* ========== 缓存测试结果 ========== */
+.cache-tests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cache-test-result {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.test-name {
+    font-size: 11px;
+    color: #ccc;
+    font-weight: 500;
+}
+
+.test-strategy {
+    font-size: 10px;
+    color: #666;
+    font-family: 'Courier New', monospace;
+}
+
+.test-result {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.test-result.hit {
+    background: rgba(0, 255, 136, 0.15);
+    color: #00ff88;
+}
+
+.test-result.miss {
+    background: rgba(255, 100, 100, 0.15);
+    color: #ff6464;
+}
+
+.test-time {
+    font-size: 11px;
+    color: #888;
+    font-family: 'Courier New', monospace;
+    text-align: right;
+}
+
+/* ========== 统计页面 ========== */
+.overall-stats {
+    margin-bottom: 24px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.stat-box {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), transparent);
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    border-color: rgba(0, 255, 136, 0.2);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+    transform: translateY(-2px);
+}
+
+.stat-box-title {
+    display: block;
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.stat-box-value {
+    display: block;
+    font-size: 28px;
+    color: #00ff88;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 4px;
+}
+
+.stat-box-sub {
+    display: block;
+    font-size: 11px;
+    color: #555;
+    font-family: 'Courier New', monospace;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.clear-all-btn {
+    padding: 14px 28px;
+    background: rgba(255, 100, 100, 0.1);
+    border: 1px solid rgba(255, 100, 100, 0.3);
+    border-radius: 8px;
+    color: #ff6464;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-all-btn:hover {
+    background: rgba(255, 100, 100, 0.2);
+    box-shadow: 0 0 20px rgba(255, 100, 100, 0.2);
+}
+
+/* ========== 日志区域 ========== */
+.edge-demo-logs {
+    border-top: 1px solid rgba(0, 255, 136, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.edge-demo-logs h4 {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 16px 24px 12px;
+}
+
+.logs-list {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0 24px 16px;
+}
+
+.log-entry {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    color: #444;
+    min-width: 80px;
+}
+
+.log-message {
+    color: #666;
+}
+
+.log-entry.log-info .log-message {
+    color: #00ccff;
+}
+
+.log-entry.log-success .log-message {
+    color: #00ff88;
+}
+
+.log-entry.log-error .log-message {
+    color: #ff6464;
+}
+
+/* ========== 滚动条样式 ========== */
+.keys-list::-webkit-scrollbar,
+.logs-list::-webkit-scrollbar,
+.result-data::-webkit-scrollbar {
+    width: 6px;
+}
+
+.keys-list::-webkit-scrollbar-track,
+.logs-list::-webkit-scrollbar-track,
+.result-data::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.keys-list::-webkit-scrollbar-thumb,
+.logs-list::-webkit-scrollbar-thumb,
+.result-data::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.2);
+    border-radius: 3px;
+}
+
+.keys-list::-webkit-scrollbar-thumb:hover,
+.logs-list::-webkit-scrollbar-thumb:hover,
+.result-data::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 136, 0.3);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+    .edge-module-section {
+        padding: 0 10px 20px;
+    }
+
+    .edge-demo-tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        flex: 1;
+        min-width: calc(50% - 4px);
+        justify-content: center;
+    }
+
+    .storage-stats,
+    .cache-stats-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cache-test-result {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .function-controls,
+    .storage-controls {
+        flex-direction: column;
+    }
+}
