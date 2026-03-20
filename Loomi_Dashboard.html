@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loomi Dashboard Replica</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Libraries -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/styled-components/dist/styled-components.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Inter', 'Noto Sans SC', sans-serif; 
+            background: #FFFFFF; 
+            color: #333; 
+            overflow: hidden; 
+        }
+        * { box-sizing: border-box; }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const styled = window.styled;
+        const { motion } = window.Motion;
+
+        // --- 🎨 Design Tokens ---
+        const theme = {
+            colors: {
+                bg: '#FFFFFF',
+                sidebarBg: '#FAFAFA', // Very subtle gray for sidebar
+                textPrimary: '#1F1F1F',
+                textSecondary: '#666666',
+                textTertiary: '#999999',
+                accentOrange: '#FF6B00', // The orange accent
+                border: '#F0F0F0',
+                hover: '#F5F5F5',
+                activeBg: '#EAEAEA',
+                cardBg: '#FFFFFF',
+                inputBg: '#FFFFFF',
+            }
+        };
+
+        // --- Icons ---
+        const Icon = ({ name, size = 18, className, style }) => {
+            return <i data-lucide={name} className={className} style={{ width: size, height: size, ...style }}></i>;
+        };
+
+        // --- Styled Components ---
+
+        const Layout = styled.div`
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            background: ${theme.colors.bg};
+        `;
+
+        // === SIDEBAR ===
+        const Sidebar = styled.div`
+            width: 260px;
+            background: #FFFFFF;
+            border-right: 1px solid transparent; /* Screenshot looks clean, maybe no border or very subtle */
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            flex-shrink: 0;
+        `;
+
+        const Logo = styled.div`
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 24px;
+            padding-left: 8px;
+            color: #000;
+        `;
+
+        const SearchInput = styled.div`
+            background: #F5F5F5;
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            color: ${theme.colors.textTertiary};
+            font-size: 14px;
+            
+            i { opacity: 0.5; }
+        `;
+
+        const NavItem = styled.div`
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: ${props => props.$active ? '#000' : theme.colors.textSecondary};
+            background: ${props => props.$active ? '#F3F3F3' : 'transparent'};
+            font-weight: ${props => props.$active ? '500' : '400'};
+            font-size: 14px;
+            margin-bottom: 4px;
+            transition: all 0.2s;
+
+            &:hover {
+                background: ${props => props.$active ? '#F3F3F3' : theme.colors.hover};
+                color: #000;
+            }
+        `;
+
+        const SidebarBottom = styled.div`
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        `;
+
+        const InviteCard = styled.div`
+            background: #F9F9F9;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 12px;
+            
+            .title { font-weight: 600; margin-bottom: 4px; color: #333; }
+            .subtitle { color: #888; margin-bottom: 12px; }
+            .avatars { display: flex; gap: -8px; }
+            .btn { 
+                background: #fff; border: 1px solid #eee; 
+                border-radius: 6px; padding: 4px 8px; 
+                margin-top: 8px; cursor: pointer; display: inline-block;
+            }
+        `;
+
+        const UserProfile = styled.div`
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover { background: #F5F5F5; }
+        `;
+
+        const Avatar = styled.div`
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: #4A90E2;
+            color: #fff;
+            display: flex; align-items: center; justifyContent: center;
+            font-size: 12px;
+        `;
+
+        // === MAIN CONTENT ===
+        const MainContent = styled.div`
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `;
+
+        const OrangeBanner = styled.div`
+            background: #FFF8F2;
+            color: ${theme.colors.accentOrange};
+            font-size: 12px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        `;
+
+        const HeroTitle = styled.h1`
+            font-size: 32px;
+            font-weight: 600;
+            color: #111;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        `;
+
+        const HeroSubtitle = styled.p`
+            font-size: 16px;
+            color: #666;
+            margin: 0 0 40px 0;
+        `;
+
+        // The Floating Input Box
+        const MainInputBox = styled.div`
+            width: 100%;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid #F0F0F0;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+            position: relative;
+        `;
+
+        const InputField = styled.div`
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+            
+            textarea {
+                flex: 1;
+                border: none;
+                resize: none;
+                outline: none;
+                font-family: inherit;
+                font-size: 16px;
+                color: #333;
+                min-height: 40px;
+                &::placeholder { color: #999; }
+            }
+        `;
+
+        const InputActions = styled.div`
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #F9F9F9;
+        `;
+
+        const ModelSelector = styled.div`
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #F7F7F8;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            font-weight: 500;
+            
+            i { opacity: 0.6; }
+        `;
+
+        const SendButton = styled.div`
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: #E0E0E0;
+            display: flex; align-items: center; justifyContent: center;
+            color: #fff;
+            cursor: pointer;
+        `;
+
+        // Quick Actions (Chips)
+        const ChipsRow = styled.div`
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+        `;
+
+        const Chip = styled.div`
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #F0F0F0;
+            border-radius: 100px;
+            font-size: 13px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+
+            &:hover { border-color: #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+            span.badge {
+                background: #FFF0E6;
+                color: ${theme.colors.accentOrange};
+                font-size: 10px;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-weight: 600;
+            }
+        `;
+
+        // Templates Grid
+        const TemplatesGrid = styled.div`
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 48px;
+        `;
+
+        const TemplateCard = styled.div`
+            background: #fff;
+            border: 1px solid #F0F0F0;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            }
+        `;
+
+        const BrandIcon = styled.div`
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: ${props => props.bg || '#eee'};
+            color: #fff;
+            display: flex; align-items: center; justifyContent: center;
+            flex-shrink: 0;
+            font-size: 14px;
+            font-weight: bold;
+        `;
+
+        // Projects Section
+        const SectionHeader = styled.div`
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            
+            h3 { margin: 0; font-size: 18px; font-weight: 600; }
+            span { font-size: 13px; color: #999; cursor: pointer; }
+        `;
+
+        const ProjectsGrid = styled.div`
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        `;
+
+        const ProjectCard = styled.div`
+            background: #fff;
+            border: 1px solid #F0F0F0;
+            border-radius: 16px;
+            padding: 20px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            
+            &:hover { border-color: #ddd; }
+
+            .date { font-size: 12px; color: #999; margin-bottom: 4px; }
+            .title { font-size: 14px; font-weight: 600; color: #333; line-height: 1.4; }
+            .desc { font-size: 12px; color: #666; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        `;
+
+        const NewProjectCard = styled(ProjectCard)`
+            border: 1px dashed #DDD;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            background: #FDFDFD;
+            
+            &:hover { border-color: #999; color: #666; }
+        `;
+
+        // --- Data ---
+        const TEMPLATES = [
+            { id: 1, title: "小红书爆款文案", desc: "AI高效生成，这不比...", icon: "book-heart", color: "#FF2442" },
+            { id: 2, title: "小红书营销红书", desc: "建构你的思维逻辑...", icon: "message-circle", color: "#07C160" },
+            { id: 3, title: "小红书直播话术", desc: "Jason\n+1032w+", icon: "radio", color: "#FF2442" },
+            { id: 4, title: "TikTok带货视频", desc: "不露脸也能...\n成单率飙升", icon: "music-2", color: "#000000" },
+            { id: 5, title: "Twitter/X 英文推文", desc: "会员 60% 精选句\n发布即高热", icon: "x", color: "#000000" },
+        ];
+
+        const PROJECTS = [
+            { id: 1, date: "Jan 09, 2026", title: "0-1岁宝宝睡眠问题新手父母导读", desc: "育儿专家写一篇公众号文章，主题是写给新手父母的0-1岁..." },
+            { id: 2, date: "Jan 09, 2026", title: "新对话", desc: "No description available" },
+            { id: 3, date: "Jan 09, 2026", title: "独居适用VLOG 治愈生活美学", desc: "你好呀" },
+        ];
+
+        // --- App Component ---
+        const App = () => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            });
+
+            return (
+                <Layout>
+                    {/* Sidebar */}
+                    <Sidebar>
+                        <Logo>Loomi</Logo>
+                        <SearchInput>
+                            <Icon name="search" size={16} />
+                            <input 
+                                type="text" 
+                                placeholder="Search..." 
+                                style={{border:'none', background:'transparent', outline:'none', width:'100%', color:'#666'}}
+                            />
+                        </SearchInput>
+
+                        <div style={{ marginBottom: 32 }}>
+                            <NavItem>
+                                <Icon name="plus-square" size={18} />
+                                <span>新建项目</span>
+                            </NavItem>
+                            <NavItem $active>
+                                <Icon name="compass" size={18} />
+                                <span>首页</span>
+                            </NavItem>
+                            <NavItem>
+                                <Icon name="folder" size={18} />
+                                <span>我的项目</span>
+                            </NavItem>
+                            <NavItem>
+                                <Icon name="box" size={18} />
+                                <span>知识空间</span>
+                            </NavItem>
+                        </div>
+
+                        <SidebarBottom>
+                            <InviteCard>
+                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                                    <div className="title" style={{color:'#FF6B00'}}>供需撮合</div>
+                                    <Icon name="chevron-right" size={12} color="#999"/>
+                                </div>
+                                <div className="subtitle" style={{fontSize:11}}>分享 Loomi 在朋友圈得 10 万积分! 机不可失!</div>
+                                <div className="avatars" style={{marginBottom:8}}>
+                                    <div style={{width:20, height:20, borderRadius:'50%', background:'#eee', border:'2px solid #fff'}}></div>
+                                    <div style={{width:20, height:20, borderRadius:'50%', background:'#ddd', border:'2px solid #fff', marginLeft:-6}}></div>
+                                    <div style={{width:20, height:20, borderRadius:'50%', background:'#ccc', border:'2px solid #fff', marginLeft:-6}}></div>
+                                </div>
+                            </InviteCard>
+                            
+                            <UserProfile>
+                                <div style={{position:'relative'}}>
+                                    <Avatar style={{background:'#f0f0f0', color:'#333'}}>
+                                        <Icon name="user" size={16} />
+                                    </Avatar>
+                                </div>
+                                <div style={{flex:1}}>
+                                    <div style={{fontSize:13, fontWeight:500}}>邀请好友</div>
+                                    <div style={{fontSize:11, color:'#999'}}>分享好物, 得 BETA 备用 1000 积分</div>
+                                </div>
+                            </UserProfile>
+
+                            <div style={{paddingTop:8, display:'flex', alignItems:'center', gap:10}}>
+                                <div style={{position:'relative'}}>
+                                    <Avatar style={{background:'#2F80ED'}}>L</Avatar>
+                                    <div style={{position:'absolute', top:-2, right:-2, width:14, height:14, background:'red', color:'#fff', borderRadius:'50%', fontSize:9, display:'flex', alignItems:'center', justifyContent:'center', border:'2px solid #fff'}}>1</div>
+                                </div>
+                                <div style={{flex:1, display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                                    <div style={{fontSize:14, fontWeight:600}}>+4,100</div>
+                                    <div style={{fontSize:10, background:'#1F1F1F', color:'#fff', padding:'2px 8px', borderRadius:10}}>Free 升级</div>
+                                </div>
+                            </div>
+                        </SidebarBottom>
+                    </Sidebar>
+
+                    {/* Main Content */}
+                    <MainContent>
+                        <OrangeBanner>
+                            <Icon name="zap" size={12} fill="currentColor" />
+                            <span>供需撮合</span>
+                            <span style={{fontWeight:400, color:'#333', marginLeft:4}}>分享 Loomi 在朋友圈得 10 万积分! 机不可失!</span>
+                            <Icon name="chevron-right" size={14} style={{marginLeft:'auto', opacity:0.5}} />
+                        </OrangeBanner>
+
+                        <HeroTitle>现在开始制造爆款</HeroTitle>
+                        <HeroSubtitle>社媒内容创作代理</HeroSubtitle>
+
+                        <MainInputBox>
+                            <InputField>
+                                <Icon name="sparkles" size={20} style={{color:'#FFD700', marginTop:4}} />
+                                <textarea placeholder="让 Loomi 为你做什么"></textarea>
+                                <Icon name="lightbulb" size={20} style={{color:'#FFD700', opacity:0.6}} />
+                            </InputField>
+                            <InputActions>
+                                <div style={{display:'flex', gap:10}}>
+                                    <ModelSelector>
+                                        <Icon name="message-square" size={14} />
+                                        <span>Chat</span>
+                                        <Icon name="chevron-down" size={12} />
+                                    </ModelSelector>
+                                    <ModelSelector style={{color:'#007AFF', background:'#F0F7FF'}}>
+                                        <Icon name="brain-circuit" size={14} />
+                                        <span>DeepSeek V3.2 Reasoner</span>
+                                        <Icon name="globe" size={12} />
+                                    </ModelSelector>
+                                </div>
+                                <SendButton>
+                                    <Icon name="arrow-up" size={18} />
+                                </SendButton>
+                            </InputActions>
+                        </MainInputBox>
+
+                        <ChipsRow>
+                            <Chip>
+                                <Icon name="pen-tool" size={14} />
+                                <span>社媒内容创作</span>
+                                <span className="badge">推荐</span>
+                            </Chip>
+                            <Chip>
+                                <Icon name="video" size={14} />
+                                <span>视频脚本</span>
+                                <span className="badge">推荐</span>
+                            </Chip>
+                            <Chip>
+                                <Icon name="file-text" size={14} />
+                                <span>文意通润</span>
+                            </Chip>
+                            <Chip>
+                                <Icon name="monitor" size={14} />
+                                <span>电脑配图</span>
+                            </Chip>
+                            <Chip>
+                                <Icon name="layout" size={14} />
+                                <span>创意模板</span>
+                            </Chip>
+                        </ChipsRow>
+
+                        <TemplatesGrid>
+                            {TEMPLATES.map(t => (
+                                <TemplateCard key={t.id}>
+                                    <BrandIcon bg={t.color}>
+                                        <Icon name={t.icon} size={18} />
+                                    </BrandIcon>
+                                    <div>
+                                        <div style={{fontSize:13, fontWeight:600, marginBottom:4}}>{t.title}</div>
+                                        <div style={{fontSize:11, color:'#888', whiteSpace:'pre-line', lineHeight:1.3}}>{t.desc}</div>
+                                    </div>
+                                </TemplateCard>
+                            ))}
+                        </TemplatesGrid>
+
+                        <SectionHeader>
+                            <h3>我的项目</h3>
+                            <span>查看全部 ></span>
+                        </SectionHeader>
+
+                        <ProjectsGrid>
+                            <NewProjectCard>
+                                <Icon name="plus" size={32} style={{opacity:0.3}} />
+                                <div style={{fontSize:13, marginTop:8}}>新项目</div>
+                            </NewProjectCard>
+                            {PROJECTS.map(p => (
+                                <ProjectCard key={p.id}>
+                                    <div>
+                                        <div className="date">{p.date}</div>
+                                        <div className="title">{p.title}</div>
+                                        <div className="desc">{p.desc}</div>
+                                    </div>
+                                    <div style={{fontSize:11, color:'#999'}}>2026 Jan. 09</div>
+                                </ProjectCard>
+                            ))}
+                        </ProjectsGrid>
+
+                        <div style={{marginTop:'auto', paddingTop:40, color:'#999', fontSize:12, fontWeight:500}}>
+                            由 Loomi 配合创作
+                        </div>
+
+                    </MainContent>
+                </Layout>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

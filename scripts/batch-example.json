@@ -1,0 +1,17 @@
+{
+  "description": "批量创建组件示例配置",
+  "components": [
+    {
+      "category": "navbars",
+      "title": "Neon Pulse Navbar",
+      "description": "带霓虹脉冲效果的导航栏",
+      "name": "NeonPulseNavbar"
+    },
+    {
+      "category": "dropdowns",
+      "title": "Mega Menu Dropdown",
+      "description": "大型下拉菜单组件",
+      "name": "MegaMenuDropdown"
+    }
+  ]
+}
