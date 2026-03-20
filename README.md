@@ -58,55 +58,7 @@ pnpm run build
 
 ---
 
-## 项目结构
 
-```
-├── src/
-│   ├── pages/                    # 页面组件
-│   │   ├── Home.tsx              # 首页
-│   │   ├── Blog/                 # 博客模块
-│   │   │   ├── index.tsx         # 博客列表页
-│   │   │   ├── BlogPost.tsx      # 博客详情页
-│   │   │   ├── blogData.ts       # 博客数据源
-│   │   │   ├── EdgeDemoModule.tsx # 边缘计算演示
-│   │   │   └── edge/             # 边缘计算层
-│   │   │       ├── types.ts      # 类型定义
-│   │   │       ├── EdgeStorage.ts # IndexedDB 封装
-│   │   │       ├── EdgeCache.ts  # 多级缓存
-│   │   │       └── EdgeFunction.ts # 边缘函数
-│   │   ├── Library/              # 组件库浏览页
-│   │   └── FusionHome/           # Fusion 首页
-│   ├── components/
-│   │   ├── layout/               # 布局组件
-│   │   ├── sections/             # 页面区块
-│   │   ├── library/              # 组件库
-│   │   │   ├── catalog/          # 组件分类
-│   │   │   │   ├── navbars/      # 31 个导航栏组件
-│   │   │   │   ├── sidebars/     # 16 个侧边栏组件
-│   │   │   │   ├── dropdowns/    # 34 个下拉菜单组件
-│   │   │   │   ├── cards/        # 卡片组件
-│   │   │   │   ├── hero/         # 英雄区组件
-│   │   │   │   ├── backgrounds/  # 背景组件
-│   │   │   │   ├── footers/      # 页脚组件
-│   │   │   │   ├── faq/          # FAQ 组件
-│   │   │   │   ├── testimonials/ # 证言组件
-│   │   │   │   ├── wrappers/     # 包装容器组件
-│   │   │   │   ├── workflownodes/ # 工作流节点
-│   │   │   │   ├── toybox/       # 玩具风格组件
-│   │   │   │   └── oracle/       # Oracle UI 组件
-│   │   │   └── ui/               # UI 辅助组件
-│   │   └── ui/                   # 基础 UI 组件
-│   ├── data/
-│   │   └── libraryRegistry.tsx   # 组件注册表
-│   ├── App.tsx                   # 路由配置
-│   └── main.tsx                  # 入口文件
-├── public/                       # 静态资源
-├── package.json                  # 依赖配置
-├── vite.config.ts                # Vite 配置
-└── tsconfig.json                 # TypeScript 配置
-```
-
----
 
 ## 组件库说明
 
@@ -384,6 +336,10 @@ pnpm run component:help   # 组件帮助
 - Safari 14+
 
 ---
+本项目由本项目由阿里云ESA提供加速、计算和保护”
+<img width="7534" height="844" alt="image" src="https://github.com/user-attachments/assets/fb564bc2-9c0d-40e7-99fc-8f54157c0cdf" />
+
+
 
 ## 许可证
 
